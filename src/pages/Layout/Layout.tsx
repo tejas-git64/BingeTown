@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import { createContext, useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
@@ -12,6 +12,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { motion } from "framer-motion";
 
 export const NameContext = createContext<LayoutTypes | null>(null);
+export const SVGContext = createContext<number>(0);
 export default function Layout() {
 	const [name, setName] = useState("");
 	const [searchPage, setSearchPage] = useState(false);
@@ -19,6 +20,20 @@ export default function Layout() {
 	const [sideNav, setSideNav] = useState(false);
 	const [saved, setSaved] = useState<SavedTypes | null>(null);
 	const [watchList, setWatchList] = useState<WatchListType | null>(null);
+	const path = useLocation().pathname;
+	const [svg, setSvg] = useState<number>(0);
+
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	}, [path]);
+
+	useEffect(() => {
+		const number = Math.floor(Math.random() * 2000) + 1;
+		setSvg(number);
+	}, []);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,21 +64,25 @@ export default function Layout() {
 	return (
 		<>
 			<motion.div className='flex h-auto w-full flex-col items-center justify-end overflow-x-hidden bg-black'>
-				<NameContext.Provider
-					value={{
-						name: [name, setName],
-						searchPage: [searchPage, setSearchPage],
-						profilePage: [profilePage, setProfilePage],
-						sideNav: [sideNav, setSideNav],
-						saved: [saved, setSaved],
-						watchlist: [watchList, setWatchList],
-					}}>
-					<Nav />
-					<SearchPage />
-					<Sidenav />
-					<Profile />
-					<Outlet />
-				</NameContext.Provider>
+				<div className='max-h-auto min-h-[100vh] w-full bg-neutral-900'>
+					<NameContext.Provider
+						value={{
+							name: [name, setName],
+							searchPage: [searchPage, setSearchPage],
+							profilePage: [profilePage, setProfilePage],
+							sideNav: [sideNav, setSideNav],
+							saved: [saved, setSaved],
+							watchlist: [watchList, setWatchList],
+						}}>
+						<Nav />
+						<SearchPage />
+						<SVGContext.Provider value={svg}>
+							<Sidenav />
+							<Profile />
+						</SVGContext.Provider>
+						<Outlet />
+					</NameContext.Provider>
+				</div>
 				<Footer />
 			</motion.div>
 		</>

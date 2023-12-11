@@ -7,6 +7,7 @@ import search from "../../assets/svgs/icons8-search.svg";
 import menu from "../../assets/images/icons8-menu-50.png";
 import { MultiSearch } from "./Search";
 import { motion } from "framer-motion";
+import logo from "../../assets/images/icons8-video-48.png";
 
 export default function Nav() {
 	const path = useLocation().pathname;
@@ -27,19 +28,16 @@ export default function Nav() {
 	const navvar = {
 		initial: {
 			opacity: 0,
-			translateY: -20,
 		},
 		animate: {
 			opacity: 1,
-			translateY: 0,
 		},
 		exit: {
 			opacity: 0,
-			translateY: -20,
 		},
 		transition: {
 			type: "spring",
-			duration: 3,
+			duration: 0.3,
 			ease: "easeIn",
 		},
 	};
@@ -79,35 +77,36 @@ export default function Nav() {
 			animate='animate'
 			exit='exit'
 			transition={{
-				delay: 0.5,
-				duration: 1,
+				delay: 0,
+				duration: 0.2,
 			}}
 			className={`${
 				path === "/login" || path === "/signup" ? "hidden" : "absolute"
-			} left-0 top-0 z-10 flex h-20 w-full items-center justify-between bg-gradient-to-b from-black to-transparent px-6 transition-all delay-[3] ease-out md:px-20`}>
+			} left-0 top-0 z-10 flex h-20 w-full items-center justify-between bg-gradient-to-b from-black to-transparent pl-4 pr-6 transition-all delay-[3] ease-out md:px-20`}>
 			<Link
 				to='/'
-				className='-mt-2 mr-10 text-2xl font-bold text-white md:mt-0'>
-				BingeTown
+				className='mr-10 flex items-center text-2xl font-bold text-teal-400 md:mt-0 lg:-ml-1'>
+				<img src={logo} alt='icon' className='h-10 w-10 md:h-12 md:w-14' />
+				<p className='text-xl text-teal-400'>BingeTown</p>
 			</Link>
 			<div className='flex w-full items-center justify-end'>
 				<button
 					onClick={() => NavContext?.searchPage[1](true)}
-					className='-mt-0.5 mr-4 border-none bg-transparent p-0 outline-none md:mr-5 md:mt-1 lg:hidden'>
-					<img src={search} alt='search' className='h-8 w-8' />
+					className='mr-4 border-none bg-transparent p-0 outline-none md:mr-5 md:mt-0.5 lg:hidden'>
+					<img src={search} alt='search' className='h-5 w-5 sm:h-7 sm:w-7' />
 				</button>
-				<div className='-ml-28 hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex'>
+				<div className='hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex'>
 					<div
 						className={`${
 							path !== "/" ? "block" : "hidden"
-						} relative mr-10 mt-1 h-auto w-full`}>
+						} relative -ml-28 mr-16 mt-1 h-auto w-full`}>
 						<input
 							type='search'
 							name='movie-search'
 							value={query}
 							onChange={(e) => setQuery(e.target.value)}
 							placeholder='Search for your favorite movies, tv shows and more'
-							className='my-1 h-10 w-full rounded-full border-none bg-neutral-800 px-4 text-sm font-bold text-white outline-none placeholder:font-medium placeholder:text-neutral-500 lg:-ml-0'
+							className='hidden h-10 w-full rounded-full border-none bg-neutral-800 px-4 text-sm font-bold text-white outline-none placeholder:font-medium placeholder:text-neutral-500 lg:-ml-0 xl:block'
 						/>
 						<ul className='absolute flex h-auto w-full flex-col items-end justify-start'>
 							{searchResults?.map((result) => (
@@ -167,14 +166,14 @@ export default function Nav() {
 					to='/signup'
 					className={`${
 						loggedIn ? "hidden" : "block"
-					} delay-3 -mt-1 mr-0 whitespace-nowrap rounded-full bg-teal-500 p-6 py-2 text-sm font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mr-6 md:mt-1`}>
+					} delay-3 mr-0 whitespace-nowrap rounded-full bg-teal-500 p-6 py-2 text-sm font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mr-6 md:mt-1`}>
 					Sign up
 				</Link>
 				<Link
 					to='/login'
 					className={`${
 						loggedIn ? "hidden" : "hidden md:block"
-					} delay-3 -mt-1 whitespace-nowrap rounded-full border-[1px] border-teal-400 p-6 py-2 text-sm font-bold text-teal-400 transition-all ease-out hover:mx-2 hover:scale-110 hover:border-none hover:bg-fuchsia-500 hover:text-black md:mt-1.5`}>
+					} delay-3 whitespace-nowrap rounded-full border-[1px] border-teal-400 p-6 py-2 text-sm font-bold text-teal-400 transition-all ease-out hover:mx-2 hover:scale-110 hover:border-none hover:bg-fuchsia-500 hover:text-black md:mt-1.5`}>
 					Login
 				</Link>
 				<button
@@ -185,8 +184,8 @@ export default function Nav() {
 					}}
 					className={`${
 						auth.currentUser ? "block" : "hidden"
-					} -mt-0.5 h-7 w-7 bg-transparent p-0 md:mt-1`}>
-					<img src={menu} alt='' />
+					} h-5 w-5 bg-transparent p-0 sm:h-6 sm:w-6`}>
+					<img src={menu} alt='hamburger-menu' />
 				</button>
 			</div>
 		</motion.nav>

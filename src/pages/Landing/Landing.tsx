@@ -4,9 +4,43 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../config/Firebase";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import bg480 from "../../assets/images/landing/landing-default-480px.webp";
+import bg768 from "../../assets/images/landing/landing-default-768px.webp";
+import bg1024 from "../../assets/images/landing/landing-default-1024px.webp";
+import bg1280 from "../../assets/images/landing/landing-default-1280px.webp";
+import bg1536 from "../../assets/images/landing/landing-default-1536px.webp";
+import bg2160 from "../../assets/images/landing/landing-default-2160px.webp";
 
 export default function Landing() {
 	const navigate = useNavigate();
+	const [bgImg, setBgImg] = useState<string>("");
+
+	function handleResize() {
+		switch (true) {
+			case innerWidth <= 480:
+				setBgImg(bg480);
+				break;
+			case innerWidth <= 768:
+				setBgImg(bg768);
+				break;
+			case innerWidth <= 1024:
+				setBgImg(bg1024);
+				break;
+			case innerWidth <= 1280:
+				setBgImg(bg1280);
+				break;
+			case innerWidth <= 1536:
+				setBgImg(bg1536);
+				break;
+			case innerWidth <= 2160:
+				setBgImg(bg2160);
+				break;
+			default:
+				setBgImg(bg2160);
+				break;
+		}
+	}
 
 	const pagevar = {
 		initial: {
@@ -64,6 +98,12 @@ export default function Landing() {
 		});
 	}
 
+	useEffect(() => {
+		handleResize();
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	});
+
 	return (
 		<>
 			<motion.div
@@ -78,13 +118,13 @@ export default function Landing() {
 				className='h-auto w-full font-jakartaSans'>
 				<motion.div
 					style={{
-						backgroundImage:
-							"linear-gradient(180deg, #000, #0005) , url(https://wallpaperaccess.com/full/5004467.jpg)",
+						backgroundImage: `linear-gradient(180deg, #000, #0005) , url("${bgImg}")`,
 						backgroundPosition: "center",
 						backgroundRepeat: "no-repeat",
 						backgroundAttachment: "fixed",
+						backgroundSize: "cover",
 					}}
-					className='flex h-[700px] w-full flex-col items-center justify-center bg-cover px-10 pt-10 ease-in-out md:h-[800px]'>
+					className='flex h-[700px] w-full flex-col items-center justify-center bg-cover px-10 pt-10 ease-in-out md:h-[650px] lg:h-[872px] 2xl:h-[1080px]'>
 					<motion.h2
 						variants={h2var}
 						transition={{
@@ -102,6 +142,7 @@ export default function Landing() {
 						Watch Anywhere. Anytime. On any device
 					</motion.p>
 					<button
+						type='button'
 						onClick={AllowAccess}
 						className='rounded-full border-none bg-teal-400 px-8 py-3 text-sm font-extrabold text-gray-900 transition-all delay-[1] ease-in hover:scale-110 hover:text-black hover:shadow-2xl hover:shadow-teal-500 md:px-10 md:py-3 md:text-lg'>
 						Watch Now
@@ -141,6 +182,9 @@ export default function Landing() {
 							transition={{
 								duration: 1,
 							}}
+							width=''
+							height=''
+							loading='lazy'
 							src={movie}
 							alt='watching'
 							className='mb-4 h-auto w-80 border-[5px] border-black shadow-2xl shadow-black md:mb-0 md:w-[350px] xl:w-[450px]'
@@ -161,6 +205,9 @@ export default function Landing() {
 							transition={{
 								duration: 1,
 							}}
+							width=''
+							height=''
+							loading='lazy'
 							src={review}
 							alt='watching'
 							className='-mt-16 h-52 w-72 md:-mt-0 md:h-auto md:w-[300px] xl:w-[350px]'
@@ -221,6 +268,9 @@ export default function Landing() {
 							transition={{
 								duration: 1,
 							}}
+							width=''
+							height=''
+							loading='lazy'
 							src='https://upload.wikimedia.org/wikipedia/en/1/1c/Transformers-_Rise_of_the_Beasts.jpg'
 							alt='watching'
 							className='mx-auto -mr-10 h-48 w-[130px] shadow-2xl shadow-black brightness-75 md:-mt-0 md:h-56 md:w-40 xl:h-64 xl:w-44'
@@ -237,6 +287,9 @@ export default function Landing() {
 							transition={{
 								duration: 1,
 							}}
+							width=''
+							height=''
+							loading='lazy'
 							src='https://upload.wikimedia.org/wikipedia/en/b/b4/Spider-Man-_Across_the_Spider-Verse_poster.jpg'
 							alt='watching'
 							className='xl:h-68 z-[2] mx-auto h-56 w-[150px] shadow-2xl shadow-black md:-mt-0 md:h-64 md:w-44 xl:h-72 xl:w-48'
@@ -255,6 +308,9 @@ export default function Landing() {
 							transition={{
 								duration: 1,
 							}}
+							width=''
+							height=''
+							loading='lazy'
 							src='https://upload.wikimedia.org/wikipedia/en/f/f2/Fast_X_poster.jpg'
 							alt='watching'
 							className='mx-auto -ml-10 h-48 w-[130px] shadow-2xl shadow-black brightness-75 md:-mt-0 md:h-56 md:w-40 xl:h-64 xl:w-44'

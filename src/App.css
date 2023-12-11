@@ -18,6 +18,11 @@
 	border-radius: 50%;
 }
 
+::-webkit-scrollbar-track {
+	width: 0;
+	height: 0;
+}
+
 #latest::-webkit-scrollbar,
 #videos::-webkit-scrollbar,
 #genres::-webkit-scrollbar,
@@ -80,10 +85,14 @@
 	}
 }
 
-.card {
-	padding: 2em;
+#section-loading::-webkit-scrollbar,
+#genre::-webkit-scrollbar {
+	width: auto;
+	height: 3px;
+	background-color: transparent;
 }
 
-.read-the-docs {
-	color: #888;
+#section-loading::-webkit-scrollbar-thumb,
+#genre::-webkit-scrollbar-thumb {
+	background: #888;
 }

@@ -26,31 +26,27 @@ const Saved = lazy(() => import("./pages/Saved/Saved"));
 const WatchList = lazy(() => import("./pages/WatchList/WatchList"));
 
 export default function App() {
-
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path='/' element={<Layout />}>
-				<Route path='/login' element={<Login />} />
-				<Route path='/signup' element={<SignUp />} />
+				<Route path='login' element={<Login />} />
+				<Route path='signup' element={<SignUp />} />
 				<Route index element={<Landing />} />
 				<Route path='*' element={<NotFound />} />
-				<Route path='/movies' element={<AuthGuard component={<Movies />} />} />
-				<Route path='/saved' element={<AuthGuard component={<Saved />} />} />
+				<Route path='movies' element={<AuthGuard component={<Movies />} />} />
+				<Route path='saved' element={<AuthGuard component={<Saved />} />} />
 				<Route
-					path='/watchlist'
+					path='watchlist'
 					element={<AuthGuard component={<WatchList />} />}
 				/>
+				<Route path='tvshows' element={<AuthGuard component={<TVShows />} />} />
+				<Route path='home' element={<AuthGuard component={<Home />} />} />
 				<Route
-					path='/tvshows'
-					element={<AuthGuard component={<TVShows />} />}
-				/>
-				<Route path='/home' element={<AuthGuard component={<Home />} />} />
-				<Route
-					path='/movies/:titleId'
+					path='movies/:titleId'
 					element={<AuthGuard component={<MovieTitleDetails />} />}
 				/>
 				<Route
-					path='/tvshows/:titleId'
+					path='tvshows/:titleId'
 					element={<AuthGuard component={<TVShowTitleDetails />} />}
 				/>
 			</Route>

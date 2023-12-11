@@ -20,7 +20,7 @@ export default function TVTitle({
 	const uid = auth.currentUser ? auth.currentUser?.uid : "";
 	const savedDocRef = doc(db, "saved", uid);
 	const watchDocRef = doc(db, "watchlist", uid);
-
+	const year = new Date(first_air_date).getFullYear();
 	function getRatingColor(rating: number) {
 		switch (true) {
 			case rating === 0:
@@ -100,32 +100,36 @@ export default function TVTitle({
 		<>
 			<div
 				onClick={showTVShow}
-				className='mx-auto mr-6 flex h-80 w-40 flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-10 md:h-auto md:w-44'>
+				className='relative mx-auto mr-6 flex h-72 w-36 flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-10 md:h-[300px] md:w-[154px]'>
 				<img
-					src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='movie-poster'
-					className='mb-2 h-56 w-40 cursor-pointer rounded-lg transition-all delay-[1] ease-in hover:scale-90 md:h-64 md:w-44'
+					className='mb-2 h-[231px] w-[154px] cursor-pointer text-ellipsis rounded-lg transition-all delay-100 ease-in hover:scale-90 md:h-[231px] md:w-[154px]'
 				/>
 				<h3
-					className='whitespace-pre-line
-					 text-left font-bold text-teal-500'>
+					className='line-clamp-1 whitespace-nowrap
+					 text-left text-sm font-semibold text-teal-500 sm:whitespace-pre-line sm:text-sm'>
 					{name}
 				</h3>
 				<div className='flex w-full items-center justify-between'>
 					<div className='flex flex-col items-start justify-center'>
-						<div className='mb-1 flex text-sm font-bold'>
-							<h4 className='mr-2 text-white'>Rating:</h4>
-							<h4 className={`${color} mt-[1px]`}>
-								{vote_average === 0 ? "NA" : `${vote_average}✨`}
+						<div className='my-1 flex text-sm font-bold'>
+							<h4 className='mr-2 text-xs font-normal text-white'>Rating:</h4>
+							<h4 className={`${color} mt-[1px] text-xs`}>
+								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)} ✨`}
 							</h4>
 						</div>
-						<h3 className='whitespace-nowrap text-xs font-semibold text-gray-700'>
-							{first_air_date}
+						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-600'>
+							{year}
 						</h3>
 					</div>
 					<button
 						onClick={revealMenu}
-						className='h-auto border-none bg-transparent p-0 outline-none'>
+						style={{
+							border: "none",
+							outline: "none",
+						}}
+						className='-mr-2 h-auto bg-transparent p-0 '>
 						<img src={menu} alt='title-menu' className='h-7 w-7' />
 					</button>
 				</div>
@@ -136,18 +140,16 @@ export default function TVTitle({
 					}}
 					className={`${
 						showMenu ? "absolute" : "hidden"
-					} bottom-0 flex w-full flex-col rounded-md bg-black py-3`}>
+					} bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}>
 					<button
 						onClick={(e) => addToWatchList(e, id)}
-						className='mx-auto mb-1 flex w-full justify-between rounded-none border-none bg-transparent py-1.5 outline-none hover:bg-neutral-700'>
-						<h4 className='text-xs font-semibold text-white'>
-							Add to watchlist
-						</h4>
-						<img src={watchlist} alt='add' className='h-5 w-5' />
+						className='mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700'>
+						<h4 className='text-xs text-white'>Add to watchlist</h4>
+						<img src={watchlist} alt='add' className='h-5 w-5 pr-0.5' />
 					</button>
 					<button
 						onClick={(e) => addToSavedList(e, id)}
-						className='mx-auto flex w-full justify-between rounded-none border-none bg-transparent py-1.5 outline-none hover:bg-neutral-700'>
+						className='mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700'>
 						<h4 className='text-xs font-semibold text-white'>Save</h4>
 						<img src={save} alt='save' className='h-5 w-5' />
 					</button>

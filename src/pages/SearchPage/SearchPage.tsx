@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useDeferredValue, useEffect, useState } from "react";
 import { NameContext } from "../Layout/Layout";
 import backarrow from "../../assets/images/icons8-arrow-50.png";
 import { MultiSearch } from "../../components/Nav/Search";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function Search() {
 	const searchContext = useContext(NameContext);
 	const [searchquery, setSearchQuery] = useState("");
+	const searchval = useDeferredValue(searchquery);
 	const navigate = useNavigate();
 	const [searchResults, setSearchResults] = useState<MultiSearch | null>(null);
 
@@ -39,19 +40,19 @@ export default function Search() {
 
 	useEffect(() => {
 		getSearchResults();
-	}, [searchquery]);
+	}, [searchval]);
 
 	return (
 		<>
 			<div
 				className={`${
 					searchContext?.searchPage[0] ? "fixed lg:hidden" : "hidden"
-				} left-0 top-0 z-20 h-full w-full bg-neutral-800`}>
+				} left-0 top-0 z-20 h-full w-full bg-neutral-900`}>
 				<div className='flex h-auto items-center justify-between border-b-[1px] border-neutral-900 p-3 px-4'>
 					<input
 						type='search'
 						name='search-bar'
-						value={searchquery}
+						value={searchval}
 						onChange={(e) => setSearchQuery(e.target.value)}
 						placeholder='Search for movies or TV shows'
 						className='mr-5 h-10 w-full rounded-md border-none bg-neutral-600 px-3 text-sm font-semibold text-white outline-none'
@@ -59,7 +60,11 @@ export default function Search() {
 					<button
 						onClick={() => searchContext?.searchPage[1](false)}
 						className='mr-2 h-8 w-8 border-none bg-transparent p-0 outline-none'>
-						<img src={backarrow} alt='back' className='h-full w-full' />
+						<img
+							src={backarrow}
+							alt='back'
+							className='h-[90%] w-[90%] sm:h-full sm:w-full'
+						/>
 					</button>
 				</div>
 				<div className='p-2 px-0'>

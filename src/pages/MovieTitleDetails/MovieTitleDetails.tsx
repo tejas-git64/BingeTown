@@ -5,7 +5,7 @@ const Review = lazy(() => import("../../components/Review/Review"));
 const Recommendation = lazy(
 	() => import("../../components/Recommendation/Recommendation")
 );
-import { Movies, SimilarMovies } from "../Home/HomeTypes";
+import { MoviesType, SimilarMovies } from "../Home/HomeTypes";
 const SimilarTitle = lazy(
 	() => import("../../components/SimilarTitle/SimilarTitle")
 );
@@ -19,7 +19,7 @@ export default function MovieTitleDetails() {
 	const [movieReviews, setMovieReviews] = useState<ReviewsTotal | null>(null);
 	const [showComments, setShowComments] = useState(false);
 	const [movieRecommendations, setMovieRecommendations] = useState<
-		Movies["movies"] | null
+		MoviesType["movies"] | null
 	>(null);
 	const [similarMovies, setSimilarMovies] = useState<SimilarMovies | null>(
 		null
@@ -99,60 +99,33 @@ export default function MovieTitleDetails() {
 		titleInfo?.videos?.results && setVidID(titleInfo.videos.results[0]?.key);
 	}, [titleInfo?.videos.results]);
 
-	function fetchFact() {
-		return new Promise<void>((resolve) => {
-			setTimeout(resolve, 2000);
-		});
-	}
-
 	const pagevar = {
 		initial: {
 			opacity: 0,
-			translateY: -20,
 		},
 		animate: {
 			opacity: 1,
-			translateY: 0,
 		},
 		exit: {
 			opacity: 0,
-			translateY: -20,
 		},
 		transition: {
 			type: "spring",
-			duration: 3,
+			duration: 0.2,
 			ease: "easeIn",
 		},
 	};
 
-	const animationY = {
+	const animation = {
 		initial: {
-			y: "-10rem",
 			opacity: 0,
 		},
 		animate: {
-			y: 0,
 			opacity: 1,
 			transition: {
 				staggerChildren: 0.15,
 				ease: "easeInOut",
-				duration: 1,
-			},
-		},
-	};
-
-	const animationX = {
-		initial: {
-			x: "-10rem",
-			opacity: 0,
-		},
-		animate: {
-			x: 0,
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.15,
-				ease: "easeInOut",
-				duration: 1,
+				duration: 0.2,
 			},
 		},
 	};
@@ -160,7 +133,7 @@ export default function MovieTitleDetails() {
 	const DetailsComponent = () => {
 		return (
 			<motion.div
-				variants={animationY}
+				variants={animation}
 				initial='initial'
 				animate='animate'
 				className='mx-auto mt-20 flex h-auto w-[calc(100%-10%)] flex-col overflow-x-hidden pt-2 md:h-auto md:pb-4 xl:w-full xl:flex-row'>
@@ -168,7 +141,7 @@ export default function MovieTitleDetails() {
 					<p className='mb-4 text-lg text-teal-500'>Recommendations</p>
 					<ul className='h-full overflow-y-scroll pr-3'>
 						{movieRecommendations?.map((recom) => (
-							<motion.div key={recom.id} variants={animationY}>
+							<motion.div key={recom.id} variants={animation}>
 								<Recommendation
 									backdrop_path={recom.backdrop_path}
 									name={""}
@@ -192,12 +165,12 @@ export default function MovieTitleDetails() {
 						))}
 					</ul>
 				</div>
-				<div className='mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1200px]'>
-					<p className='mx-auto w-full text-left text-lg text-teal-400 md:text-xl xl:w-full'>
+				<div className='mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1100px]'>
+					<p className='mx-auto mb-4 w-full text-left text-lg text-teal-400 md:text-xl xl:w-full'>
 						{titleInfo?.title}
 					</p>
 					<iframe
-						className='mx-auto h-60 w-full rounded-xl sm:h-80 md:h-96 lg:h-[550px] lg:w-full xl:w-[900px] 2xl:w-[1200px]'
+						className='mx-auto h-60 w-full rounded-xl sm:h-80 md:h-96 lg:h-[550px] lg:w-full xl:w-[900px] 2xl:w-[1100px]'
 						src={`https://www.youtube.com/embed/${vidID}` || ""}
 						title='YouTube video player'
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
@@ -206,16 +179,16 @@ export default function MovieTitleDetails() {
 					<motion.div className='mx-auto h-auto w-full'>
 						<motion.div
 							id='videos'
-							variants={animationX}
+							variants={animation}
 							initial='initial'
 							animate='animate'
 							className='mt-2 flex h-32 w-full items-center justify-start overflow-x-scroll md:h-40'>
 							{titleInfo?.videos?.results ? (
 								titleInfo.videos.results.map((video) => (
-									<motion.div key={video.id} variants={animationX}>
+									<motion.div key={video.id} variants={animation}>
 										<div className='relative mr-2 h-auto w-40 flex-shrink-0 md:w-52'>
 											<img
-												src={`http://img.youtube.com/vi/${video.key}/default.jpg`}
+												src={`https://img.youtube.com/vi/${video.key}/default.jpg`}
 												alt='YouTube video thumbnail'
 												className='h-28 w-full rounded-lg md:h-36'
 											/>
@@ -231,50 +204,53 @@ export default function MovieTitleDetails() {
 								<p>This title has no videos</p>
 							)}
 						</motion.div>
-						<ul
+						<div
 							id='genres'
-							className='mx-auto -mt-1 mb-1 flex w-full items-center py-2 xl:w-full'>
-							<p className='mr-2 pl-0 text-base text-gray-500 md:pr-4 md:text-base'>
+							className='mx-auto flex w-full items-center py-3 xl:w-full'>
+							<p className='mr-2 pb-[3px] pl-0 text-xs text-gray-500 md:text-base'>
 								Genres:{" "}
 							</p>
-							<ul id='genres' className='my-1 flex overflow-x-scroll'>
+							<ul id='genres' className='flex overflow-x-scroll'>
 								{titleInfo?.genres?.map((genre) => (
 									<div
 										key={genre.id}
-										className='mr-1 whitespace-nowrap p-2 pb-1.5 pl-0 text-sm font-extrabold text-gray-300 md:pr-6 md:text-base'>
+										className='mr-1 whitespace-nowrap pr-1 text-xs font-semibold text-gray-300 md:pr-2 md:text-base'>
 										{genre.name}
 									</div>
 								))}
 							</ul>
-						</ul>
+						</div>
 						<div className='mx-auto mb-3 w-full text-left text-teal-400 xl:w-full'>
 							<div className='-mt-2 mb-2 flex w-full items-center justify-center'>
-								<p className='mr-2 whitespace-nowrap text-sm md:text-base'>
+								<p className='mr-2 mt-0.5 whitespace-nowrap text-xs text-gray-500 md:text-base'>
 									Release date:
 								</p>
-								<h3 className='mt-0.5 w-full text-left text-xs font-bold text-gray-500 md:text-base'>
-									{titleInfo?.release_date}
+								<h3 className='mt-0.5 w-full text-left text-xs font-bold text-gray-300 md:text-base'>
+									{new Date(String(titleInfo?.release_date)).getFullYear()}
 								</h3>
 							</div>
-							<h3 className='mb-0.5 mt-3 text-sm font-bold md:text-base'>
+							<h3 className='mb-0.5 mt-1 text-xs font-bold md:text-base'>
 								Summary
 							</h3>
-							<h3 className='w-full border-b-[1px] border-gray-700 pb-2 text-justify text-sm text-gray-500 sm:text-sm md:text-base'>
+							<h3 className='w-full border-b-[1px] border-gray-700 pb-2 text-justify text-xs text-gray-500 sm:text-sm md:text-base'>
 								{titleInfo?.overview}
 							</h3>
 						</div>
 					</motion.div>
-					<h4 className='my-4 text-left font-bold text-teal-500'>
+					<h4 className='-mt-1 mb-4 text-left text-xs font-bold text-teal-400 md:text-sm'>
 						Cast members
 					</h4>
 					<motion.ul
 						id='cast'
-						variants={animationX}
+						variants={animation}
 						initial='initial'
 						animate='animate'
+						transition={{
+							duration: 0.2,
+						}}
 						className='mb-2 flex h-auto w-full overflow-x-scroll'>
 						{movieCast?.cast?.map((member) => (
-							<motion.div key={member.id} variants={animationX}>
+							<motion.div key={member.id} variants={animation}>
 								<CastMember
 									adult={false}
 									gender={0}
@@ -302,7 +278,7 @@ export default function MovieTitleDetails() {
 									border: "none",
 									outline: "none",
 								}}
-								onClick={() => setShowComments(!showComments)}
+								onClick={() => setShowComments((prev) => !prev)}
 								className='bg-transparent p-2 py-1 text-sm text-gray-400'>
 								{showComments ? "Hide Comments" : "Show Comments"}
 							</button>
@@ -329,13 +305,19 @@ export default function MovieTitleDetails() {
 						</ul>
 					</div>
 				</div>
-				<div className='h-84 mx-auto w-full pb-4 xl:mt-10 xl:h-[1000px] xl:w-[500px] xl:px-4'>
+				<div className='h-84 mx-auto w-full pb-4 xl:mt-10 xl:h-[1130px] xl:w-[500px] xl:px-4'>
 					<p className='mb-4 text-left text-sm text-teal-500 lg:text-lg xl:text-center'>
 						Similar Titles
 					</p>
 					<ul
 						id='similar'
-						className='grid h-auto grid-flow-col gap-6 overflow-x-scroll pb-4 xl:h-full xl:grid-flow-row xl:grid-cols-1 xl:gap-3 xl:gap-y-5 xl:overflow-hidden xl:overflow-y-scroll 2xl:grid-cols-2'>
+						className='flex h-auto overflow-x-scroll pb-4 lg:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll'
+						style={{
+							gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+							gridTemplateRows: "repeat(auto-fill, minmax(230px, 1fr))",
+							rowGap: "15px",
+							columnGap: "10px",
+						}}>
 						{similarMovies?.results.map((movie) => (
 							<SimilarTitle
 								key={movie.id}
@@ -366,7 +348,9 @@ export default function MovieTitleDetails() {
 
 	const DataComponent = () => {
 		if (!titleInfo || !movieReviews || !movieRecommendations || !movieCast) {
-			throw fetchFact();
+			throw new Promise<void>((resolve) => {
+				setTimeout(() => resolve(), 100);
+			});
 		} else {
 			return <DetailsComponent />;
 		}
@@ -380,8 +364,8 @@ export default function MovieTitleDetails() {
 				animate='animate'
 				exit='exit'
 				transition={{
-					delay: 0.5,
-					duration: 1,
+					delay: 0,
+					duration: 0.2,
 				}}
 				className='h-auto w-full bg-neutral-900'>
 				<Suspense fallback={<DetailsPageFallback />}>

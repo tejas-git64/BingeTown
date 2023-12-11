@@ -99,7 +99,7 @@ export default function Footer() {
 					/>
 				</a>
 			</div>
-			<h4 className='font-extrabold text-gray-600'>BingTown ©️2023</h4>
+			<h4 className='font-extrabold text-gray-600'>©️BingTown 2023</h4>
 			<h4 className='ml-2 mt-6 text-sm font-extrabold text-white'>
 				Made by{" "}
 				<a

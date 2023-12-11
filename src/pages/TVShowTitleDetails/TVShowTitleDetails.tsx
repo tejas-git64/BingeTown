@@ -197,7 +197,7 @@ export default function TVShowTitleDetails() {
 					</motion.ul>
 				</div>
 				<div className='mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1200px]'>
-					<p className='mx-auto mb-2 w-full text-left text-lg text-teal-400 md:text-xl xl:w-full'>
+					<p className='mx-auto mb-4 w-full text-left text-lg text-teal-400 md:text-xl xl:w-full'>
 						{titleInfo?.name}
 					</p>
 					<iframe

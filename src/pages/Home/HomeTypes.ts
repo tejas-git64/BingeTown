@@ -18,10 +18,12 @@ export type Movie = {
 	vote_count: number;
 };
 
-export type Movies = {
+export type MoviesType = {
 	movies: Movie[] | null;
 	heading: string;
 	genre: number;
+	id: string;
+	getMoviesorTVData: (type: string) => Promise<void>;
 };
 
 // for discovering, Airing today, OTA, Popular and Top Rated
@@ -48,6 +50,8 @@ export type TVDiscover = {
 export type TVList = {
 	shows: TVDiscover[] | null;
 	heading: string;
+	id: string;
+	getMoviesorTVData: (type: string) => Promise<void>;
 };
 
 export type TrendingTV = {

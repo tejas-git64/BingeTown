@@ -1,26 +1,34 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useState, useEffect, useCallback, Suspense, lazy } from "react";
+import {
+	useState,
+	useEffect,
+	useCallback,
+	Suspense,
+	lazy,
+	useMemo,
+} from "react";
 const TVTitle = lazy(() => import("../../components/TVTitle/TVTitle"));
 import { MovieListGenres, TVList } from "../Home/HomeTypes";
 import MovieShowFallback from "../Movies/MovieShowFalback";
 import { motion } from "framer-motion";
 
 export default function Movies() {
-	const [shows, setShows] = useState<TVList["shows"] | null>(null);
 	const [sortedShows, setSortedShows] = useState<TVList["shows"] | null>(null);
 	const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
 	const [selected, setSelected] = useState<number | string>("");
-	const controller = new AbortController();
 
-	const options = {
-		method: "GET",
-		headers: {
-			accept: "application/json",
-			Authorization: import.meta.env.VITE_TMDB_READ_ACCESS_KEY,
-		},
-	};
+	const options = useMemo(
+		() => ({
+			method: "GET",
+			headers: {
+				accept: "application/json",
+				Authorization: import.meta.env.VITE_TMDB_READ_ACCESS_KEY,
+			},
+		}),
+		[]
+	);
 
-	async function getMovieGenres() {
+	async function getShowGenres() {
 		const res = await fetch(
 			"https://api.themoviedb.org/3/genre/tv/list?language=en",
 			options
@@ -29,128 +37,33 @@ export default function Movies() {
 		setGenres(gen.genres);
 	}
 
-	async function getMoviesData() {
-		//Clearing the state initially
-		setShows([]);
-		//Page-1
-		const res1 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=1",
+	const getShowsData = useCallback(async () => {
+		const res = await fetch(
+			`https://api.themoviedb.org/3/discover/tv?language=en-US&with_genres=${selected}&page=1`,
 			options
 		);
-		const data1 = await res1.json();
-		//Page-2
-		const res2 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=2",
-			options
-		);
-		const data2 = await res2.json();
-		//Page-3
-		const res3 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=3",
-			options
-		);
-		const data3 = await res3.json();
-		//Page-4
-		const res4 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=4",
-			options
-		);
-		const data4 = await res4.json();
-		//Page-5
-		const res5 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=5",
-			options
-		);
-		const data5 = await res5.json();
-		//Page-6
-		const res6 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=6",
-			options
-		);
-		const data6 = await res6.json();
-		//Page-7
-		const res7 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=7",
-			options
-		);
-		const data7 = await res7.json();
-		//Page-8
-		const res8 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=8",
-			options
-		);
-		const data8 = await res8.json();
-		//Page-9
-		const res9 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=9",
-			options
-		);
-		const data9 = await res9.json();
-		//Page-10
-		const res10 = await fetch(
-			"https://api.themoviedb.org/3/tv/popular?language=en-US&page=10",
-			options
-		);
-		const data10 = await res10.json();
-		setShows([
-			...data1.results,
-			...data2.results,
-			...data3.results,
-			...data4.results,
-			...data5.results,
-			...data6.results,
-			...data7.results,
-			...data8.results,
-			...data9.results,
-			...data10.results,
-		]);
-		setSortedShows(shows);
-	}
-
-	function fetchPromise() {
-		return new Promise<void>((resolve) => {
-			setTimeout(resolve, 2000);
-		});
-	}
-
-	const sortShows = useCallback(
-		(sortOption: number | string) => {
-			const sortedShows =
-				sortOption === "all"
-					? shows
-					: shows?.filter((show) =>
-							show.genre_ids.includes(Number(sortOption))
-					  );
-			sortedShows && setSortedShows(sortedShows);
-		},
-		[shows]
-	);
+		const data = await res.json();
+		setSortedShows(data.results);
+	}, [selected, options]);
 
 	useEffect(() => {
-		getMovieGenres();
-		getMoviesData();
-		setSelected("all");
-		return () => {
-			controller.abort();
-		};
+		getShowGenres();
 	}, []);
 
 	useEffect(() => {
-		sortShows(selected);
-	}, [selected, sortShows]);
+		getShowsData();
+	}, [selected]);
 
 	const animation = {
 		initial: {
-			x: "-10rem",
 			opacity: 0,
 		},
 		animate: {
-			x: 0,
 			opacity: 1,
 			transition: {
 				staggerChildren: 0.05,
 				ease: "easeInOut",
-				duration: 1,
+				duration: 0.2,
 			},
 		},
 	};
@@ -169,7 +82,7 @@ export default function Movies() {
 						rowGap: "30px",
 						columnGap: "30px",
 					}}
-					className='mb-10 mt-4 h-auto w-full pl-4 sm:pl-0'>
+					className='mb-10 ml-2 mt-4 h-auto w-full sm:ml-0 sm:pl-0'>
 					{sortedShows?.map((show) => (
 						<motion.div key={show.id} variants={animation}>
 							<TVTitle
@@ -199,29 +112,28 @@ export default function Movies() {
 	};
 
 	const DataComponent = () => {
-		if (!shows || !sortedShows) {
-			throw fetchPromise();
-		} else {
+		if (sortedShows) {
 			return <TVComponent />;
+		} else {
+			throw new Promise<void>((resolve) => {
+				setTimeout(resolve, 2000);
+			});
 		}
 	};
 
 	const pagevar = {
 		initial: {
 			opacity: 0,
-			translateY: -20,
 		},
 		animate: {
 			opacity: 1,
-			translateY: 0,
 		},
 		exit: {
 			opacity: 0,
-			translateY: -20,
 		},
 		transition: {
 			type: "spring",
-			duration: 3,
+			duration: 0.2,
 			ease: "easeIn",
 		},
 	};
@@ -234,24 +146,17 @@ export default function Movies() {
 				animate='animate'
 				exit='exit'
 				transition={{
-					delay: 0.5,
-					duration: 1,
+					duration: 0.3,
 				}}
-				className='max-h-max min-h-[1000px] w-full bg-neutral-800 px-6 pb-8 pt-20 text-left md:px-20'>
-				<div className='flex w-full items-center justify-between px-4 sm:px-0'>
+				className='max-h-max min-h-[1000px] w-full bg-neutral-900 px-6 pb-8 pt-20 text-left md:px-20'>
+				<div className='my-3 flex w-full items-center justify-between px-2 sm:px-0'>
 					<h3 className='mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl'>
 						TV Shows
 					</h3>
 					<select
 						name='Sort by Genre'
 						onChange={(e) => setSelected(e.target.value)}
-						className='h-8 w-48 rounded-md bg-neutral-600 px-2 font-semibold text-white'>
-						<option
-							id='all'
-							value={"all"}
-							className='text-white hover:bg-black hover:text-teal-400'>
-							All
-						</option>
+						className='h-8 w-40 rounded-md border-none bg-neutral-600 pr-2 text-xs font-semibold text-teal-400 outline-none'>
 						{genres?.map((genre) => (
 							<option
 								key={genre.id}

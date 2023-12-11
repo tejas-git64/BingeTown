@@ -31,32 +31,6 @@ export default function WatchList() {
 		return () => unsubscribe();
 	}, [watchContext?.watchlist]);
 
-	function fetchPromise() {
-		return new Promise<void>((resolve) => {
-			setTimeout(resolve, 2000);
-		});
-	}
-
-	const pagevar = {
-		initial: {
-			opacity: 0,
-			translateY: -20,
-		},
-		animate: {
-			opacity: 1,
-			translateY: 0,
-		},
-		exit: {
-			opacity: 0,
-			translateY: -20,
-		},
-		transition: {
-			type: "spring",
-			duration: 3,
-			ease: "easeIn",
-		},
-	};
-
 	const animation = {
 		animate: {
 			x: 0,
@@ -64,7 +38,7 @@ export default function WatchList() {
 			transition: {
 				staggerChildren: 0.15,
 				ease: "easeInOut",
-				duration: 1,
+				duration: 0.2,
 			},
 		},
 	};
@@ -76,18 +50,14 @@ export default function WatchList() {
 					variants={animation}
 					animate='animate'
 					exit='exit'
-					transition={{
-						delay: 0.5,
-						duration: 1,
-					}}
 					style={{
 						display: "grid",
 						gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
 						gridTemplateRows: "repeat(auto-fill, minmax(200px, 1fr))",
-						rowGap: "30px",
-						columnGap: "30px",
+						rowGap: "15px",
+						columnGap: "15px",
 					}}
-					className='mb-16 mt-4 max-h-max min-h-[1000px] w-full gap-y-5 pl-4 sm:gap-y-8 sm:pl-0'>
+					className='max-h-auto mb-6 mt-4 min-h-[500px] w-full'>
 					{watchContext?.watchlist[0]?.watchlist.map(
 						(title: WatchListTitle) => (
 							<motion.div key={title.id} variants={animation}>
@@ -109,7 +79,9 @@ export default function WatchList() {
 
 	const DataComponent = () => {
 		if (!watchContext?.watchlist[0]?.watchlist) {
-			throw fetchPromise();
+			throw new Promise<void>((resolve) => {
+				setTimeout(resolve, 100);
+			});
 		} else {
 			return <WatchListComponent />;
 		}
@@ -118,16 +90,15 @@ export default function WatchList() {
 	return (
 		<>
 			<motion.div
-				variants={pagevar}
+				variants={animation}
 				initial='initial'
 				animate='animate'
 				exit='exit'
 				transition={{
-					delay: 0.5,
-					duration: 1,
+					duration: 0.2,
 				}}
-				className='h-auto w-full bg-neutral-900 px-6 pb-2 text-left md:px-20'>
-				<p className='mb-2 py-2 pt-24 text-xl font-bold text-teal-400 md:text-2xl'>
+				className='h-auto w-full bg-neutral-900 px-6 pb-2 text-left md:px-20 md:pl-[85px]'>
+				<p className='mb-2 pt-20 text-xl font-bold text-teal-400 md:text-2xl'>
 					WatchList
 				</p>
 				<Suspense fallback={<MovieShowFallback />}>

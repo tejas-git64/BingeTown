@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite --host",
-		"build": "tsc && vite build",
+		"build": "tsc && vite build --mode production",
 		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview"
 	},
@@ -13,6 +13,7 @@
 		"@dicebear/collection": "^6.0.4",
 		"@dicebear/core": "^6.0.4",
 		"@resvg/resvg-js": "^2.4.1",
+		"@tailwindcss/line-clamp": "^0.4.4",
 		"cors": "^2.8.5",
 		"exiftool-vendored": "^16.5.1",
 		"firebase": "^9.22.2",
@@ -20,7 +21,8 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.12.1",
-		"sharp": "^0.32.6"
+		"sharp": "^0.33.0",
+		"tailwindcss-animation-delay": "^1.0.7"
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.37",
@@ -32,7 +34,7 @@
 		"eslint": "^8.38.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.3.4",
-		"postcss": "^8.4.31",
+		"postcss": "^8.4.24",
 		"prettier": "^2.8.8",
 		"prettier-plugin-tailwindcss": "^0.3.0",
 		"tailwindcss": "^3.3.2",

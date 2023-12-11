@@ -33,7 +33,7 @@ export type Comment = {
 	url: string;
 };
 
-export type Review = {
+export type ReviewType = {
 	author: string;
 	name: string;
 	username: string;

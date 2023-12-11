@@ -1,10 +1,29 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import { defineConfig, splitVendorChunkPlugin } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react()],
+	plugins: [react(), splitVendorChunkPlugin()],
 	build: {
-		outDir: "../../builds/BingeTown",
+		outDir: "./dist",
+		minify: true,
+		rollupOptions: {
+			output: {
+				globals: {
+					react: "React",
+				},
+				manualChunks: (id: string) => {
+					if (id.includes("react")) {
+						return "react";
+					}
+					if (id.includes("react-router-dom") || id.includes("react-router")) {
+						return "react-router";
+					}
+					if (id.includes("framer-motion")) {
+						return "framer-motion";
+					}
+				},
+			},
+		},
 	},
 });
