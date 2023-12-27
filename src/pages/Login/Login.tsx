@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthError, Credentials } from "../Auth";
 import {
@@ -6,14 +6,17 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 } from "firebase/auth";
-import { auth, googleProvider } from "../../config/Firebase";
+import { auth, db, googleProvider } from "../../config/Firebase";
 import googlelogo from "../../assets/images/icons8-google-48.png";
 import { motion } from "framer-motion";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { NameContext } from "../Layout/Layout";
 
 export default function Login() {
 	const navigate = useNavigate();
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [error, setError] = useState<string | undefined>("");
+	const loginContext = useContext(NameContext);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [creds, setCreds] = useState<Credentials>({
 		email: "",
@@ -81,11 +84,47 @@ export default function Login() {
 		try {
 			await signInWithPopup(auth, googleProvider);
 			onAuthStateChanged(auth, (user) => {
-				if (user) {
-					navigate("/home");
-				} else {
-					navigate("/login");
-				}
+				(async () => {
+					//Creating documents from google login
+					if (user) {
+						const userRef = doc(db, "users", user.uid);
+						const userSnap = await getDoc(userRef);
+						const savedRef = doc(db, "saved", user.uid);
+						const savedSnap = await getDoc(savedRef);
+						const watchRef = doc(db, "watchlist", user.uid);
+						const watchSnap = await getDoc(watchRef);
+						setLoggedIn(true);
+						if (userSnap.exists() && savedSnap.exists() && watchSnap.exists()) {
+							setTimeout(() => {
+								navigate("/home");
+							}, 100);
+						} else {
+							try {
+								//Initialising Users document
+								await setDoc(doc(db, "users", user.uid), {
+									email: user.email,
+									fullname: user.displayName,
+									uid: user.uid,
+								});
+								//Initialising Saved document
+								await setDoc(doc(db, "saved", user.uid), {
+									savedtitles: [],
+									uid: user.uid,
+								});
+								//Initialising Watchlist document
+								await setDoc(doc(db, "watchlist", user.uid), {
+									uid: user.uid,
+									watchlist: [],
+								});
+								setTimeout(() => {
+									navigate("/home");
+								}, 100);
+							} catch (err) {
+								console.log(err);
+							}
+						}
+					}
+				})();
 			});
 		} catch (err) {
 			console.error(err);

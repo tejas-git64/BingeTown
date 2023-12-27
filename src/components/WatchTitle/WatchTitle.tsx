@@ -2,7 +2,9 @@ import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../config/Firebase";
 import trash from "../../assets/images/icons8-trash-24.png";
-import { SavedTitleType } from "../../pages/Layout/LayoutTypes";
+import { SavedTitleType, WatchListTitle } from "../../pages/Layout/LayoutTypes";
+import { useContext } from "react";
+import { NameContext } from "../../pages/Layout/Layout";
 
 export default function WatchTitle({
 	title,
@@ -13,6 +15,7 @@ export default function WatchTitle({
 	vote_average,
 }: SavedTitleType) {
 	const navigate = useNavigate();
+	const titleContext = useContext(NameContext);
 	const uid = auth.currentUser ? auth.currentUser?.uid : "";
 	const userRef = doc(db, "watchlist", uid);
 	const year = new Date(release_date).getFullYear();
@@ -23,7 +26,15 @@ export default function WatchTitle({
 
 	async function removeTitle(
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-		{ title, id, poster_path, release_date, type, vote_average }: SavedTitleType
+		{
+			title,
+			id,
+			poster_path,
+			release_date,
+			type,
+			vote_average,
+			watched,
+		}: WatchListTitle
 	) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -35,8 +46,10 @@ export default function WatchTitle({
 				title: title,
 				type: type,
 				vote_average: vote_average,
+				watched: watched,
 			}),
 		});
+		titleContext?.getWatchlistData();
 	}
 
 	return (
@@ -77,6 +90,7 @@ export default function WatchTitle({
 								release_date,
 								type,
 								vote_average,
+								watched: false,
 							})
 						}
 						className='h-auto border-none bg-transparent p-0 outline-none'>

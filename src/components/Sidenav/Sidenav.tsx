@@ -61,6 +61,9 @@ export default function Sidenav() {
 						alt='user-img'
 						className='h-20 w-20 rounded-full border-none bg-gray-200 text-[10px]'
 					/>
+					<p className='text-[15px] text-white'>
+						{auth.currentUser?.displayName || sideContext?.name[0]}
+					</p>
 				</div>
 				<div className='mx-auto mt-10 flex h-auto w-[calc(100%-20%)]  flex-col items-center justify-center rounded-3xl bg-black py-0'>
 					<div

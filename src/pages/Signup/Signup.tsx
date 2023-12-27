@@ -109,13 +109,47 @@ export default function SignUp() {
 		try {
 			await signInWithPopup(auth, googleProvider);
 			onAuthStateChanged(auth, (user) => {
-				if (user) {
-					try {
-						navigate("/home");
-					} catch (err) {
-						window.alert(`Error:${err}, Failed to login in`);
+				(async () => {
+					//Creating documents from google login
+					if (user) {
+						const userRef = doc(db, "users", user.uid);
+						const userSnap = await getDoc(userRef);
+						const savedRef = doc(db, "saved", user.uid);
+						const savedSnap = await getDoc(savedRef);
+						const watchRef = doc(db, "watchlist", user.uid);
+						const watchSnap = await getDoc(watchRef);
+						setSignedIn(true);
+						if (userSnap.exists() && savedSnap.exists() && watchSnap.exists()) {
+							setTimeout(() => {
+								navigate("/home");
+							}, 100);
+						} else {
+							try {
+								//Initialising Users document
+								await setDoc(doc(db, "users", user.uid), {
+									email: user.email,
+									fullname: user.displayName,
+									uid: user.uid,
+								});
+								//Initialising Saved document
+								await setDoc(doc(db, "saved", user.uid), {
+									savedtitles: [],
+									uid: user.uid,
+								});
+								//Initialising Watchlist document
+								await setDoc(doc(db, "watchlist", user.uid), {
+									uid: user.uid,
+									watchlist: [],
+								});
+								setTimeout(() => {
+									navigate("/home");
+								}, 1000);
+							} catch (err) {
+								console.log(err);
+							}
+						}
 					}
-				}
+				})();
 			});
 		} catch (err: any) {
 			const authError = getAuthStatus(err);

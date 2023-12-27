@@ -58,4 +58,6 @@ export type LayoutTypes = {
 		watchList: WatchListType | null,
 		setWatchList: React.Dispatch<React.SetStateAction<WatchListType | null>>
 	];
+	getSavedTitles: () => void;
+	getWatchlistData: () => void;
 };

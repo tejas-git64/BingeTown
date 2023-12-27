@@ -70,7 +70,7 @@ export default function TVTitle({
 			watchlist: arrayUnion({
 				id: showid,
 				type: "tv",
-				watched: true,
+				watched: false,
 				title: name,
 				poster_path: poster_path,
 				vote_average: vote_average,

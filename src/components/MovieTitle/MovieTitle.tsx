@@ -128,7 +128,7 @@ export default function MovieTitle({
 						<div className='my-1 flex text-sm font-bold'>
 							<h4 className='mr-2 text-xs font-normal text-white'>Rating:</h4>
 							<h4 className={`${color} mt-[1px] text-xs`}>
-								{vote_average === 0 ? "NA" : `${vote_average}✨`}
+								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}✨`}
 							</h4>
 						</div>
 						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-500'>

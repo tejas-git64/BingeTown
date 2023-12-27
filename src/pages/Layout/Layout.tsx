@@ -23,6 +23,43 @@ export default function Layout() {
 	const path = useLocation().pathname;
 	const [svg, setSvg] = useState<number>(0);
 
+	const getSavedTitles = () => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			if (user) {
+				const uid = user.uid;
+				const savedRef = doc(db, "saved", uid);
+
+				(async function getSavedData() {
+					//Saved data
+					const savedDoc = await getDoc(savedRef);
+					const savedData = savedDoc.data();
+					if (savedData) {
+						setSaved(savedData);
+					}
+				})();
+			}
+		});
+		return () => unsubscribe();
+	};
+
+	const getWatchlistData = () => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			if (user) {
+				const uid = user.uid;
+				const savedRef = doc(db, "watchlist", uid);
+				(async function getWatchData() {
+					//Saved data
+					const watchDoc = await getDoc(savedRef);
+					const watchData = watchDoc.data();
+					if (watchData) {
+						setWatchList(watchData);
+					}
+				})();
+			}
+		});
+		return () => unsubscribe();
+	};
+
 	useEffect(() => {
 		window.scrollTo({
 			top: 0,
@@ -41,14 +78,13 @@ export default function Layout() {
 				const uid = user.uid;
 				const savedRef = doc(db, "saved", uid);
 				const watchlistRef = doc(db, "watchlist", uid);
-
 				(async function getListData() {
 					//Saved data
 					const savedDoc = await getDoc(savedRef);
 					const savedData = savedDoc.data();
 					if (savedData) {
 						setSaved(savedData);
-					}
+					} 
 					//Watchlist data
 					const watchlistDoc = await getDoc(watchlistRef);
 					const watchlistData = watchlistDoc.data();
@@ -73,6 +109,8 @@ export default function Layout() {
 							sideNav: [sideNav, setSideNav],
 							saved: [saved, setSaved],
 							watchlist: [watchList, setWatchList],
+							getSavedTitles,
+							getWatchlistData,
 						}}>
 						<Nav />
 						<SearchPage />

@@ -2,9 +2,6 @@
 import { Suspense, lazy, useContext, useEffect } from "react";
 import { WatchListTitle } from "../Layout/LayoutTypes";
 import { NameContext } from "../Layout/Layout";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../config/Firebase";
-import { onAuthStateChanged } from "firebase/auth";
 const WatchTitle = lazy(() => import("../../components/WatchTitle/WatchTitle"));
 import MovieShowFallback from "../Movies/MovieShowFalback";
 import { motion } from "framer-motion";
@@ -13,23 +10,8 @@ export default function WatchList() {
 	const watchContext = useContext(NameContext);
 
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			if (user) {
-				const uid = user.uid;
-				const savedRef = doc(db, "watchlist", uid);
-
-				(async function getWatchData() {
-					//Saved data
-					const watchDoc = await getDoc(savedRef);
-					const watchData = watchDoc.data();
-					if (watchData) {
-						watchContext?.watchlist[1](watchData);
-					}
-				})();
-			}
-		});
-		return () => unsubscribe();
-	}, [watchContext?.watchlist]);
+		watchContext?.getWatchlistData();
+	}, []);
 
 	const animation = {
 		animate: {
@@ -59,8 +41,8 @@ export default function WatchList() {
 					}}
 					className='max-h-auto mb-6 mt-4 min-h-[500px] w-full'>
 					{watchContext?.watchlist[0]?.watchlist.map(
-						(title: WatchListTitle) => (
-							<motion.div key={title.id} variants={animation}>
+						(title: WatchListTitle,i:number) => (
+							<motion.div key={i} variants={animation}>
 								<WatchTitle
 									id={title.id}
 									type={title.type}

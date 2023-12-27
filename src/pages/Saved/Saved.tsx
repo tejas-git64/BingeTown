@@ -1,8 +1,5 @@
 import { Suspense, lazy, useContext, useEffect } from "react";
 import { NameContext } from "../Layout/Layout";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../config/Firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import { SavedTitleType } from "../Layout/LayoutTypes";
 const SavedTitle = lazy(() => import("../../components/SavedTitle/SavedTitle"));
 import MovieShowFallback from "../Movies/MovieShowFalback";
@@ -10,25 +7,6 @@ import { motion } from "framer-motion";
 
 export default function Saved() {
 	const savedContext = useContext(NameContext);
-
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			if (user) {
-				const uid = user.uid;
-				const savedRef = doc(db, "saved", uid);
-
-				(async function getSavedData() {
-					//Saved data
-					const savedDoc = await getDoc(savedRef);
-					const savedData = savedDoc.data();
-					if (savedData) {
-						savedContext?.saved[1](savedData);
-					}
-				})();
-			}
-		});
-		return () => unsubscribe();
-	}, [savedContext?.saved]);
 
 	const animation = {
 		animate: {
@@ -41,6 +19,10 @@ export default function Saved() {
 			},
 		},
 	};
+
+	useEffect(() => {
+		savedContext?.getSavedTitles();
+	}, []);
 
 	const SavedComponent = () => {
 		return (

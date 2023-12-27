@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../config/Firebase";
 import { SavedTitleType } from "../../pages/Layout/LayoutTypes";
 import notbookmarked from "../../assets/images/not-bookmarked.png";
+import { useContext } from "react";
+import { NameContext } from "../../pages/Layout/Layout";
 
 export default function SavedTitle({
 	title,
@@ -13,6 +15,7 @@ export default function SavedTitle({
 	vote_average,
 }: SavedTitleType) {
 	const navigate = useNavigate();
+	const savedContext = useContext(NameContext);
 	const uid = auth.currentUser ? auth.currentUser?.uid : "";
 	const userRef = doc(db, "saved", uid);
 	const year = new Date(release_date).getFullYear();
@@ -36,6 +39,7 @@ export default function SavedTitle({
 				vote_average: vote_average,
 			}),
 		});
+		savedContext?.getSavedTitles();
 	}
 
 	return (
