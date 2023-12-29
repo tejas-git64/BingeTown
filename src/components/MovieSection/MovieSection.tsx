@@ -29,8 +29,8 @@ const MovieSection = ({
 	const navigate = useNavigate();
 	const sectionRef = useRef(null);
 	const introptions = {
-		rootMargin: "0px",
-		threshold: 0.5,
+		rootMargin: "400px",
+		threshold: 0.85,
 	};
 
 	useEffect(() => {

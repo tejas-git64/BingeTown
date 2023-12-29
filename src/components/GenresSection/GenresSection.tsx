@@ -9,11 +9,9 @@ const Loading = React.lazy(() => import("../MovieSection/Loading"));
 const GenresSection = ({ movies, heading }: MoviesType) => {
 	const animation = {
 		initial: {
-			x: "-5rem",
 			opacity: 0,
 		},
 		animate: {
-			x: 0,
 			opacity: 1,
 			transition: {
 				staggerChildren: 0.15,

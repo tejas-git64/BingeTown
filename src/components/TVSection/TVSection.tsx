@@ -41,8 +41,8 @@ export default function TVSection({
 				});
 			},
 			{
-				rootMargin: "200px",
-				threshold: 0.1,
+				rootMargin: "400px",
+				threshold: 0.85,
 			}
 		);
 		if (tvsectionRef.current) {
