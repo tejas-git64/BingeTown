@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from "react";
 import { NameContext, SVGContext } from "../Layout/Layout";
 import close from "../../assets/images/not-bookmarked.png";

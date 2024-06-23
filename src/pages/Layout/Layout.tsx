@@ -84,7 +84,7 @@ export default function Layout() {
 					const savedData = savedDoc.data();
 					if (savedData) {
 						setSaved(savedData);
-					} 
+					}
 					//Watchlist data
 					const watchlistDoc = await getDoc(watchlistRef);
 					const watchlistData = watchlistDoc.data();

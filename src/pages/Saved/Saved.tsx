@@ -22,6 +22,7 @@ export default function Saved() {
 
 	useEffect(() => {
 		savedContext?.getSavedTitles();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const SavedComponent = () => {
@@ -63,7 +64,7 @@ export default function Saved() {
 	const DataComponent = () => {
 		if (!savedContext?.saved[0]?.savedtitles) {
 			throw new Promise<void>((resolve) => {
-				setTimeout(resolve, 100);
+				setTimeout(resolve, 0);
 			});
 		} else {
 			return <SavedComponent />;

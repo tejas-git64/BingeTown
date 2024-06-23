@@ -1,12 +1,24 @@
 import react from "@vitejs/plugin-react-swc";
-import { defineConfig, splitVendorChunkPlugin } from "vite";
+import { compression } from "vite-plugin-compression2";
+import preload from "vite-plugin-preload";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react(), splitVendorChunkPlugin()],
+	plugins: [
+		react(),
+		preload({
+			includeCss: true,
+			includeJs: true,
+			mode: "prefetch",
+		}),
+		compression({ algorithm: "brotliCompress", deleteOriginalAssets: false }),
+	],
 	build: {
 		outDir: "./dist",
 		minify: true,
+		cssCodeSplit: true,
+		modulePreload: true,
 		rollupOptions: {
 			output: {
 				globals: {

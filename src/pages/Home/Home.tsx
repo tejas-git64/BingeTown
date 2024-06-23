@@ -312,6 +312,7 @@ export default function Home() {
 		getBannerData();
 		getMoviesorTVData("movie/now_playing");
 		getGenres();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const HomeComponent = () => {
@@ -387,7 +388,7 @@ export default function Home() {
 			throw new Promise<void>((resolve) => {
 				setTimeout(() => {
 					resolve();
-				}, 100);
+				}, 0);
 			});
 		}
 	};

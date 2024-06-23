@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	useState,
@@ -116,7 +117,7 @@ export default function Movies() {
 			return <TVComponent />;
 		} else {
 			throw new Promise<void>((resolve) => {
-				setTimeout(resolve, 2000);
+				setTimeout(resolve, 0);
 			});
 		}
 	};

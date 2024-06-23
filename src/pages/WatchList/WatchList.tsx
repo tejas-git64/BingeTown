@@ -11,6 +11,7 @@ export default function WatchList() {
 
 	useEffect(() => {
 		watchContext?.getWatchlistData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const animation = {
@@ -41,7 +42,7 @@ export default function WatchList() {
 					}}
 					className='max-h-auto mb-6 mt-4 min-h-[500px] w-full'>
 					{watchContext?.watchlist[0]?.watchlist.map(
-						(title: WatchListTitle,i:number) => (
+						(title: WatchListTitle, i: number) => (
 							<motion.div key={i} variants={animation}>
 								<WatchTitle
 									id={title.id}
@@ -62,7 +63,7 @@ export default function WatchList() {
 	const DataComponent = () => {
 		if (!watchContext?.watchlist[0]?.watchlist) {
 			throw new Promise<void>((resolve) => {
-				setTimeout(resolve, 100);
+				setTimeout(resolve, 0);
 			});
 		} else {
 			return <WatchListComponent />;

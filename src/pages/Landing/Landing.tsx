@@ -45,7 +45,7 @@ export default function Landing() {
 	const pagevar = {
 		initial: {
 			opacity: 0,
-			translateY: -20,
+			translateY: -5,
 		},
 		animate: {
 			opacity: 1,
@@ -53,18 +53,18 @@ export default function Landing() {
 		},
 		exit: {
 			opacity: 0,
-			translateY: -20,
+			translateY: -5,
 		},
 		transition: {
 			type: "spring",
-			duration: 3,
+			duration: 0.5,
 			ease: "easeIn",
 		},
 	};
 
 	const h2var = {
 		initial: {
-			translateX: -20,
+			translateX: -10,
 			opacity: 0,
 		},
 		animate: {
@@ -72,14 +72,14 @@ export default function Landing() {
 			opacity: 1,
 		},
 		exit: {
-			translateY: 30,
+			translateY: 10,
 			opacity: 0,
 		},
 	};
 
 	const pvar = {
 		initial: {
-			translateY: 20,
+			translateY: 5,
 			opacity: 0,
 		},
 		animate: {
@@ -112,8 +112,7 @@ export default function Landing() {
 				animate='animate'
 				exit='exit'
 				transition={{
-					duration: 1,
-					delay: 0.5,
+					duration: 0.5,
 				}}
 				className='h-auto w-full font-jakartaSans'>
 				<motion.div
@@ -128,7 +127,7 @@ export default function Landing() {
 					<motion.h2
 						variants={h2var}
 						transition={{
-							duration: 1,
+							duration: 0.5,
 						}}
 						className='text-4xl font-extrabold leading-snug text-white md:text-5xl'>
 						Binge unlimited Movies,TV Shows and more
@@ -136,7 +135,7 @@ export default function Landing() {
 					<motion.p
 						variants={pvar}
 						transition={{
-							duration: 1,
+							duration: 0.5,
 						}}
 						className='my-12'>
 						Watch Anywhere. Anytime. On any device
@@ -153,7 +152,7 @@ export default function Landing() {
 						<motion.h2
 							variants={h2var}
 							transition={{
-								duration: 2,
+								duration: 0.5,
 							}}
 							className='mb-6 text-center text-2xl font-extrabold md:mb-0 md:text-left xl:text-4xl'>
 							Watch Anywhere, Anytime
@@ -161,7 +160,7 @@ export default function Landing() {
 						<motion.p
 							variants={pvar}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							className='px-4 text-justify text-sm md:px-0 md:text-left md:text-lg lg:text-2xl'>
 							Our website is optimized for viewing on all your devices. Whether
@@ -180,7 +179,7 @@ export default function Landing() {
 								scale: 1,
 							}}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							width=''
 							height=''
@@ -196,14 +195,14 @@ export default function Landing() {
 						<motion.img
 							initial={{
 								opacity: 0,
-								translateX: -20,
+								translateX: -5,
 							}}
 							whileInView={{
 								opacity: 1,
 								translateX: 0,
 							}}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							width=''
 							height=''
@@ -217,7 +216,7 @@ export default function Landing() {
 						<motion.h2
 							variants={h2var}
 							transition={{
-								duration: 2,
+								duration: 0.5,
 							}}
 							className='mb-4 text-center text-2xl font-extrabold md:mb-0 md:text-left xl:text-4xl'>
 							Critic Insights
@@ -225,7 +224,7 @@ export default function Landing() {
 						<motion.p
 							variants={pvar}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							className='px-4 text-center text-sm md:px-0 md:text-left md:text-lg lg:text-2xl'>
 							Read what critics and moviegoers are saying about the latest
@@ -238,7 +237,7 @@ export default function Landing() {
 						<motion.h2
 							variants={h2var}
 							transition={{
-								duration: 2,
+								duration: 0.5,
 							}}
 							className='mb-4 text-center text-2xl font-extrabold md:mb-0 md:text-left xl:text-4xl'>
 							Latest Releases
@@ -246,7 +245,7 @@ export default function Landing() {
 						<motion.p
 							variants={pvar}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							className='px-4 text-center text-sm md:px-0 md:text-left md:text-lg lg:text-2xl'>
 							Stay up-to-date with the latest news and gossip from Hollywood and
@@ -266,7 +265,7 @@ export default function Landing() {
 								rotate: "-15deg",
 							}}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							width=''
 							height=''
@@ -285,7 +284,7 @@ export default function Landing() {
 								scale: 1,
 							}}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							width=''
 							height=''
@@ -306,7 +305,7 @@ export default function Landing() {
 								rotate: "15deg",
 							}}
 							transition={{
-								duration: 1,
+								duration: 0.5,
 							}}
 							width=''
 							height=''

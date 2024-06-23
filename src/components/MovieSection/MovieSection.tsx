@@ -30,7 +30,7 @@ const MovieSection = ({
 	const sectionRef = useRef(null);
 	const introptions = {
 		rootMargin: "400px",
-		threshold: 0.85,
+		threshold: 0.2,
 	};
 
 	useEffect(() => {
@@ -50,6 +50,7 @@ const MovieSection = ({
 		return () => {
 			titleObserver.disconnect();
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [sectionRef.current]);
 
 	const MovieSectionComponent = () => {

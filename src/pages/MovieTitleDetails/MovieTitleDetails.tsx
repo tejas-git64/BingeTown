@@ -93,6 +93,7 @@ export default function MovieTitleDetails() {
 		return () => {
 			controller.abort();
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [titleId]);
 
 	useEffect(() => {
@@ -349,7 +350,7 @@ export default function MovieTitleDetails() {
 	const DataComponent = () => {
 		if (!titleInfo || !movieReviews || !movieRecommendations || !movieCast) {
 			throw new Promise<void>((resolve) => {
-				setTimeout(() => resolve(), 100);
+				setTimeout(() => resolve(), 0);
 			});
 		} else {
 			return <DetailsComponent />;

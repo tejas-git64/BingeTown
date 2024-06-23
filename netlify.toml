@@ -1,0 +1,4 @@
+[[headers]]
+    for = "/*.br"
+    [header.values]
+        Content-Encoding = "br"

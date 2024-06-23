@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	Suspense,
@@ -117,7 +118,7 @@ export default function Movies() {
 			return <MoviesComponent />;
 		} else {
 			throw new Promise<void>((resolve) => {
-				setTimeout(() => resolve(), 100);
+				setTimeout(() => resolve(), 0);
 			});
 		}
 	};

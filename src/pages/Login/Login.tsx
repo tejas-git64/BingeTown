@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthError, Credentials } from "../Auth";
 import {
@@ -10,13 +11,11 @@ import { auth, db, googleProvider } from "../../config/Firebase";
 import googlelogo from "../../assets/images/icons8-google-48.png";
 import { motion } from "framer-motion";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { NameContext } from "../Layout/Layout";
 
 export default function Login() {
 	const navigate = useNavigate();
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [error, setError] = useState<string | undefined>("");
-	const loginContext = useContext(NameContext);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [creds, setCreds] = useState<Credentials>({
 		email: "",
@@ -70,9 +69,10 @@ export default function Login() {
 					setLoggedIn(true);
 					setTimeout(() => {
 						navigate("/home");
-					}, 1000);
+					}, 50);
 				}
 			});
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			console.error(error);
 			const authError = getAuthStatus(error);
@@ -97,7 +97,7 @@ export default function Login() {
 						if (userSnap.exists() && savedSnap.exists() && watchSnap.exists()) {
 							setTimeout(() => {
 								navigate("/home");
-							}, 100);
+							}, 50);
 						} else {
 							try {
 								//Initialising Users document
@@ -138,7 +138,7 @@ export default function Login() {
 	const pagevar = {
 		initial: {
 			opacity: 0,
-			translateY: -20,
+			translateY: -5,
 		},
 		animate: {
 			opacity: 1,
@@ -146,11 +146,11 @@ export default function Login() {
 		},
 		exit: {
 			opacity: 0,
-			translateY: -20,
+			translateY: -5,
 		},
 		transition: {
 			type: "spring",
-			duration: 3,
+			duration: 0.5,
 			ease: "easeIn",
 		},
 	};
@@ -163,8 +163,7 @@ export default function Login() {
 				animate='animate'
 				exit='exit'
 				transition={{
-					duration: 1,
-					delay: 0.5,
+					duration: 0.5,
 				}}
 				className='relative grid h-[calc(100dvh-0dvh)] w-full place-items-center bg-neutral-800 p-4'>
 				<Link

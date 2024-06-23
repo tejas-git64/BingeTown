@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import {
 	Route,
 	RouterProvider,
@@ -6,12 +6,12 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import "./App.css";
+import AuthGuard from "./utils/AuthGuard";
+import { AnimatePresence, motion } from "framer-motion";
 const Layout = lazy(() => import("./pages/Layout/Layout"));
 const Login = lazy(() => import("./pages/Login/Login"));
 const SignUp = lazy(() => import("./pages/Signup/Signup"));
 const Landing = lazy(() => import("./pages/Landing/Landing"));
-import AuthGuard from "./utils/AuthGuard";
-import { AnimatePresence } from "framer-motion";
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 const Home = lazy(() => import("./pages/Home/Home"));
 const MovieTitleDetails = lazy(
@@ -54,8 +54,17 @@ export default function App() {
 	);
 
 	return (
-		<AnimatePresence>
-			<RouterProvider router={router} />
+		<AnimatePresence mode='wait'>
+			<Suspense fallback={<p className='text-white'>Loading...</p>}>
+				<motion.div
+					key={location.pathname}
+					initial={{ opacity: 0.5 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0.5 }}
+					transition={{ duration: 0.25 }}>
+					<RouterProvider router={router} />
+				</motion.div>
+			</Suspense>
 		</AnimatePresence>
 	);
 }

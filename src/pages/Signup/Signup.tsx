@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db, googleProvider } from "../../config/Firebase";
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -87,7 +88,7 @@ export default function SignUp() {
 									setSignedIn(true);
 									setTimeout(() => {
 										navigate("/home");
-									}, 2000);
+									}, 100);
 								} else {
 									window.alert("Unknown error occured, try again?");
 								}
@@ -143,7 +144,7 @@ export default function SignUp() {
 								});
 								setTimeout(() => {
 									navigate("/home");
-								}, 1000);
+								}, 100);
 							} catch (err) {
 								console.log(err);
 							}
@@ -164,7 +165,7 @@ export default function SignUp() {
 	const pagevar = {
 		initial: {
 			opacity: 0,
-			translateY: -20,
+			translateY: -5,
 		},
 		animate: {
 			opacity: 1,
@@ -172,11 +173,11 @@ export default function SignUp() {
 		},
 		exit: {
 			opacity: 0,
-			translateY: -20,
+			translateY: -5,
 		},
 		transition: {
 			type: "spring",
-			duration: 3,
+			duration: 0.5,
 			ease: "easeIn",
 		},
 	};
@@ -189,8 +190,7 @@ export default function SignUp() {
 				animate='animate'
 				exit='exit'
 				transition={{
-					duration: 1,
-					delay: 0.5,
+					duration: 0.5,
 				}}
 				className='grid h-[calc(100dvh-0dvh)] w-full place-items-center bg-neutral-800 p-4'>
 				<Link

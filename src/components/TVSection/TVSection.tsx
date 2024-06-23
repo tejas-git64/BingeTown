@@ -42,7 +42,7 @@ export default function TVSection({
 			},
 			{
 				rootMargin: "400px",
-				threshold: 0.85,
+				threshold: 0.2,
 			}
 		);
 		if (tvsectionRef.current) {

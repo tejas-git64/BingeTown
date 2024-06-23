@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
 import {
