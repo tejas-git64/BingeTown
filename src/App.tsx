@@ -56,7 +56,7 @@ export default function App() {
 
 	const RouteFallback = () => {
 		return (
-			<div className='flex h-full w-full flex-col items-center justify-center'>
+			<div className='flex h-full w-full flex-col items-center justify-center bg-black'>
 				<img
 					src={loadingGif}
 					alt='loading-gif'
