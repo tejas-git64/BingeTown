@@ -62,7 +62,7 @@ export default function App() {
 					alt='loading-gif'
 					className='w-10 invert md:w-14'
 				/>
-				<p className='text-white '>Loading...</p>
+				<p className='py-6 text-sm text-white'>Loading</p>
 			</div>
 		);
 	};
@@ -76,6 +76,7 @@ export default function App() {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0.5 }}
 					transition={{ duration: 0.25 }}>
+					<RouteFallback />
 					<RouterProvider router={router} />
 				</motion.div>
 			</Suspense>
