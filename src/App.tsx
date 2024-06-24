@@ -76,7 +76,6 @@ export default function App() {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0.5 }}
 					transition={{ duration: 0.25 }}>
-					<RouteFallback />
 					<RouterProvider router={router} />
 				</motion.div>
 			</Suspense>
