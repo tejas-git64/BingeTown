@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import AuthGuard from "./utils/AuthGuard";
+import loadingGif from "./assets/gifs/icons8-movie.gif";
 import { AnimatePresence, motion } from "framer-motion";
 const Layout = lazy(() => import("./pages/Layout/Layout"));
 const Login = lazy(() => import("./pages/Login/Login"));
@@ -53,9 +54,22 @@ export default function App() {
 		)
 	);
 
+	const RouteFallback = () => {
+		return (
+			<div className='flex h-full w-full flex-col items-center justify-center'>
+				<img
+					src={loadingGif}
+					alt='loading-gif'
+					className='w-10 invert md:w-14'
+				/>
+				<p className='text-white '>Loading...</p>
+			</div>
+		);
+	};
+
 	return (
 		<AnimatePresence mode='wait'>
-			<Suspense fallback={<p className='text-white'>Loading...</p>}>
+			<Suspense fallback={<RouteFallback />}>
 				<motion.div
 					key={location.pathname}
 					initial={{ opacity: 0.5 }}
