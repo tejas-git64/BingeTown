@@ -195,16 +195,16 @@ export default function SignUp() {
 				className='grid h-[calc(100dvh-0dvh)] w-full place-items-center bg-neutral-800 p-4'>
 				<Link
 					to='/'
-					className='absolute right-5 top-5 h-14 w-auto font-bold text-zinc-500 hover:text-teal-400'>
+					className='absolute right-5 top-5 h-14 w-auto font-bold text-zinc-400 hover:text-teal-400'>
 					⬅ Back to site
 				</Link>
-				<form className='mt-10 flex h-[700px] w-full flex-col items-start justify-center rounded-xl bg-zinc-900 p-4 px-6 shadow-xl md:w-[450px] md:px-10'>
+				<form className='mt-10 flex h-[630px] w-full flex-col items-start justify-center rounded-xl bg-zinc-900 p-4 px-6 shadow-xl md:w-[450px] md:px-10'>
 					<h2 className='mb-14 w-full whitespace-nowrap text-2xl font-extrabold text-teal-700'>
 						Create an account
 					</h2>
 					<label
 						htmlFor='fullname'
-						className='text-left font-bold text-gray-600'>
+						className='mb-0.5 text-left text-sm font-semibold text-gray-200'>
 						Full name
 					</label>
 					<input
@@ -212,10 +212,12 @@ export default function SignUp() {
 						name='fullname'
 						onChange={(e) => SignContext?.name[1](e.target.value)}
 						placeholder='Enter your full name'
-						className={`mb-6 h-12 w-full rounded-lg border-none bg-neutral-700 px-3 font-bold text-zinc-300 outline-none placeholder:text-gray-400`}
+						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
 						required
 					/>
-					<label htmlFor='email' className='text-left font-bold text-gray-600'>
+					<label
+						htmlFor='email'
+						className='mb-0.5 text-left text-sm font-semibold text-gray-200'>
 						Email
 					</label>
 					<input
@@ -223,12 +225,12 @@ export default function SignUp() {
 						name='email'
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder='Enter email address'
-						className={`mb-6 h-12 w-full rounded-lg border-none bg-neutral-700 px-3 font-bold text-zinc-300 outline-none placeholder:text-gray-400`}
+						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
 						required
 					/>
 					<label
 						htmlFor='password'
-						className='text-left font-bold text-gray-600'>
+						className='mb-0.5 text-left text-sm font-semibold text-gray-200'>
 						Password
 					</label>
 					<input
@@ -236,13 +238,13 @@ export default function SignUp() {
 						name='password'
 						onChange={(e) => setPass(e.target.value)}
 						placeholder='Enter your password'
-						className={`mb-4 h-12 w-full rounded-lg border-none bg-neutral-700 px-3 font-bold text-zinc-300 outline-none placeholder:text-gray-400`}
+						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
 						required
 					/>
 					{error && (
 						<h4
-							className={`mx-auto mt-1 w-full rounded-md text-center font-extrabold
-							 text-red-500 md:w-80`}>
+							className='mx-auto mt-1 w-full rounded-md text-center font-extrabold
+							 text-red-500 md:w-80'>
 							{error}
 						</h4>
 					)}
@@ -258,14 +260,14 @@ export default function SignUp() {
 						disabled={isDisabled}
 						className={`${
 							isDisabled
-								? "cursor-not-allowed bg-neutral-800 text-gray-500 brightness-50"
+								? "cursor-not-allowed bg-neutral-800 text-gray-400 brightness-50"
 								: "bg-black text-gray-200"
-						} mx-auto mt-4 h-14 w-full border-none font-bold tracking-wider outline-none md:w-80`}>
+						} mx-auto mt-4 h-12 w-full border-none text-sm font-semibold tracking-wider outline-none md:w-80`}>
 						Start Binging 🎉🍿
 					</button>
 					<Link
 						to='/login'
-						className='mx-auto my-4 w-full text-zinc-500 hover:text-teal-400 md:w-80'>
+						className='mx-auto my-4 w-full text-sm text-zinc-400 hover:text-teal-400 md:w-80'>
 						Have an account ? Login
 					</Link>
 					<div className='mx-auto mb-8 mt-4 h-[0.5px] w-full border-t-2 border-zinc-700 md:w-80'>
@@ -276,12 +278,12 @@ export default function SignUp() {
 					<button
 						onClick={signInWithGoogle}
 						type='button'
-						className='mx-auto mb-4 flex h-12 w-full items-center justify-center border-none bg-white font-bold outline-none md:w-80'>
+						className='mx-auto mb-4 flex h-10 w-full items-center  justify-center border-none bg-white font-bold outline-none md:w-80'>
 						{" "}
-						<p className='mr-4 text-base font-semibold text-gray-500'>
+						<p className='mr-6 text-base font-semibold text-black'>
 							Sign in with Google
 						</p>
-						<img src={googlelogo} alt='google' className='h-8 w-8' />
+						<img src={googlelogo} alt='google' className='h-6 w-6' />
 					</button>
 				</form>
 			</motion.div>
