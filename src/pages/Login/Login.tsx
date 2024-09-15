@@ -235,7 +235,7 @@ export default function Login() {
 					<button
 						onClick={signInWithGoogle}
 						type='button'
-						className='mx-auto flex h-10 w-full items-center justify-center border-none bg-white font-bold outline-none md:w-80'>
+						className='mx-auto mb-6 flex h-10 w-full items-center justify-center border-none bg-white font-bold outline-none md:w-80'>
 						{" "}
 						<p className='mr-4 text-sm font-semibold text-black'>
 							Sign in with Google
