@@ -123,13 +123,13 @@ export default function Landing() {
 						backgroundAttachment: "fixed",
 						backgroundSize: "cover",
 					}}
-					className='flex h-[700px] w-full flex-col items-center justify-center bg-cover px-10 pt-10 ease-in-out md:h-[650px] lg:h-[872px] 2xl:h-[1080px]'>
+					className='flex h-[700px] w-full flex-col items-center justify-center bg-cover px-10 pt-10 ease-in-out md:h-[650px] lg:h-[872px]'>
 					<motion.h2
 						variants={h2var}
 						transition={{
 							duration: 0.5,
 						}}
-						className='text-4xl font-extrabold leading-snug text-white md:text-5xl'>
+						className='text-3xl font-extrabold leading-snug text-white sm:text-4xl xl:text-5xl'>
 						Binge unlimited Movies,TV Shows and more
 					</motion.h2>
 					<motion.p
@@ -137,24 +137,24 @@ export default function Landing() {
 						transition={{
 							duration: 0.5,
 						}}
-						className='my-12'>
+						className='my-6 text-sm md:text-lg'>
 						Watch Anywhere. Anytime. On any device
 					</motion.p>
 					<button
 						type='button'
 						onClick={AllowAccess}
-						className='rounded-full border-none bg-teal-400 px-8 py-3 text-sm font-extrabold text-gray-900 transition-all delay-[1] ease-in hover:scale-110 hover:text-black hover:shadow-2xl hover:shadow-teal-500 md:px-10 md:py-3 md:text-lg'>
+						className='md:text-md rounded-full border-none bg-teal-400 px-6 py-3 text-sm font-extrabold text-gray-900 transition-all delay-[1] ease-in hover:scale-110 hover:text-black hover:shadow-2xl hover:shadow-teal-500 md:px-6 md:py-3'>
 						Watch Now
 					</button>
 				</motion.div>
-				<motion.div className='flex h-auto w-full flex-col-reverse items-center justify-center bg-gradient-to-t from-black via-neutral-900 to-neutral-700 py-12 md:h-[calc(100dvh-50dvh)] md:flex-row md:justify-around md:bg-gradient-to-r md:py-4'>
-					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 md:h-96 md:w-[calc(100%-60%)]'>
+				<motion.div className='flex h-auto w-full flex-col-reverse items-center justify-center bg-gradient-to-t from-black via-neutral-900 to-neutral-700 py-0 pt-10 md:h-80 md:flex-row md:justify-around md:bg-gradient-to-r md:pt-0'>
+					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 md:h-auto md:w-[calc(100%-60%)]'>
 						<motion.h2
 							variants={h2var}
 							transition={{
 								duration: 0.5,
 							}}
-							className='mb-6 text-center text-2xl font-extrabold md:mb-0 md:text-left xl:text-4xl'>
+							className='mb-6 text-center text-xl font-extrabold md:text-left xl:text-2xl'>
 							Watch Anywhere, Anytime
 						</motion.h2>
 						<motion.p
@@ -162,7 +162,7 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							className='px-4 text-justify text-sm md:px-0 md:text-left md:text-lg lg:text-2xl'>
+							className='px-4 text-center text-[12px] md:px-0 md:text-left md:text-[14px] lg:text-lg'>
 							Our website is optimized for viewing on all your devices. Whether
 							you're on your desktop, laptop, tablet, or smartphone, you can
 							enjoy the latest movies and trailers on-the-go
@@ -181,16 +181,16 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							width=''
-							height=''
+							width={400}
+							height={350}
 							loading='lazy'
 							src={movie}
 							alt='watching'
-							className='mb-4 h-auto w-80 border-[5px] border-black shadow-2xl shadow-black md:mb-0 md:w-[350px] xl:w-[450px]'
+							className='mb-4 h-auto w-80 border-[5px] border-black shadow-2xl shadow-black md:mb-0 md:w-[350px] xl:w-[400px]'
 						/>
 					</motion.div>
 				</motion.div>
-				<motion.div className='flex h-[calc(100dvh-60dvh)] w-full flex-col items-center justify-center bg-gradient-to-b from-black via-neutral-900 to-neutral-700 py-4 md:h-[calc(100dvh-60dvh)] md:flex-row md:justify-around md:bg-gradient-to-l'>
+				<motion.div className='flex h-[calc(100dvh-60dvh)] w-full flex-col items-center justify-center bg-gradient-to-b from-black via-neutral-900 to-neutral-700 md:h-[calc(100dvh-70dvh)] md:flex-row md:justify-around md:bg-gradient-to-l'>
 					<motion.div className='ml-0 h-24 w-72 md:ml-6 md:h-auto md:w-auto'>
 						<motion.img
 							initial={{
@@ -204,21 +204,21 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							width=''
-							height=''
+							width={350}
+							height={300}
 							loading='lazy'
 							src={review}
 							alt='watching'
-							className='-mt-16 h-52 w-72 md:-mt-0 md:h-auto md:w-[300px] xl:w-[350px]'
+							className='-mt-16 mr-20 h-52 w-72 md:-mt-0 md:h-auto md:w-[200px] xl:w-[300px]'
 						/>
 					</motion.div>
-					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 md:h-96 md:w-[calc(100%-60%)]'>
+					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 md:h-auto md:w-[calc(100%-60%)]'>
 						<motion.h2
 							variants={h2var}
 							transition={{
 								duration: 0.5,
 							}}
-							className='mb-4 text-center text-2xl font-extrabold md:mb-0 md:text-left xl:text-4xl'>
+							className='mb-6 text-center text-xl font-extrabold md:text-left xl:text-2xl'>
 							Critic Insights
 						</motion.h2>
 						<motion.p
@@ -226,20 +226,20 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							className='px-4 text-center text-sm md:px-0 md:text-left md:text-lg lg:text-2xl'>
+							className='md:text-md px-4 text-center text-[12px] md:px-0 md:text-left lg:text-lg'>
 							Read what critics and moviegoers are saying about the latest
 							releases along with
 						</motion.p>
 					</motion.div>
 				</motion.div>
-				<motion.div className='flex h-[calc(100dvh-50dvh)] w-full flex-col-reverse items-center justify-center bg-gradient-to-t from-black via-neutral-900 to-neutral-700 py-4 md:h-[calc(100dvh-55dvh)] md:flex-row md:justify-around md:bg-gradient-to-r'>
-					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 pb-14 md:h-96 md:w-[calc(100%-60%)]'>
+				<motion.div className='flex h-[calc(100dvh-50dvh)] w-full flex-col-reverse items-center justify-center bg-gradient-to-t from-black via-neutral-900 to-neutral-700 md:h-80 md:flex-row md:justify-around md:bg-gradient-to-r'>
+					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 pb-14 md:h-auto md:w-[calc(100%-60%)]'>
 						<motion.h2
 							variants={h2var}
 							transition={{
 								duration: 0.5,
 							}}
-							className='mb-4 text-center text-2xl font-extrabold md:mb-0 md:text-left xl:text-4xl'>
+							className='mb-4 text-center text-xl font-extrabold md:mb-6 md:text-left xl:text-2xl'>
 							Latest Releases
 						</motion.h2>
 						<motion.p
@@ -247,12 +247,12 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							className='px-4 text-center text-sm md:px-0 md:text-left md:text-lg lg:text-2xl'>
+							className='md:text-md px-4 text-center text-[12px] md:px-0 md:text-left lg:text-lg'>
 							Stay up-to-date with the latest news and gossip from Hollywood and
 							beyond.
 						</motion.p>
 					</motion.div>
-					<motion.div className='m-auto my-14 flex h-auto w-auto items-center justify-center md:m-0 md:ml-6 md:h-auto md:w-auto'>
+					<motion.div className='m-auto my-14 flex h-auto w-auto items-center justify-center md:m-0 md:h-auto md:w-auto'>
 						<motion.img
 							initial={{
 								opacity: 0,
@@ -267,12 +267,12 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							width=''
-							height=''
+							width={176}
+							height={256}
 							loading='lazy'
 							src='https://upload.wikimedia.org/wikipedia/en/1/1c/Transformers-_Rise_of_the_Beasts.jpg'
 							alt='watching'
-							className='mx-auto -mr-10 h-48 w-[130px] shadow-2xl shadow-black brightness-75 md:-mt-0 md:h-56 md:w-40 xl:h-64 xl:w-44'
+							className='md:w-34 mx-auto -mr-10 h-48 w-[130px] shadow-2xl shadow-black brightness-75 md:-mt-0 md:h-auto xl:h-auto xl:w-40'
 						/>
 						<motion.img
 							initial={{
@@ -286,12 +286,12 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							width=''
-							height=''
+							width={192}
+							height={288}
 							loading='lazy'
 							src='https://upload.wikimedia.org/wikipedia/en/b/b4/Spider-Man-_Across_the_Spider-Verse_poster.jpg'
 							alt='watching'
-							className='xl:h-68 z-[2] mx-auto h-56 w-[150px] shadow-2xl shadow-black md:-mt-0 md:h-64 md:w-44 xl:h-72 xl:w-48'
+							className='xl:h-68 md:w-34 z-[2] mx-auto h-56 w-[150px] shadow-2xl shadow-black md:-mt-0 md:h-auto xl:h-auto xl:w-44'
 						/>
 						<motion.img
 							initial={{
@@ -307,12 +307,12 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							width=''
-							height=''
+							width={176}
+							height={256}
 							loading='lazy'
 							src='https://upload.wikimedia.org/wikipedia/en/f/f2/Fast_X_poster.jpg'
 							alt='watching'
-							className='mx-auto -ml-10 h-48 w-[130px] shadow-2xl shadow-black brightness-75 md:-mt-0 md:h-56 md:w-40 xl:h-64 xl:w-44'
+							className='md:w-34 mx-auto -ml-10 h-48 w-[130px] shadow-2xl shadow-black brightness-75 md:-mt-0 md:h-auto xl:h-auto xl:w-40'
 						/>
 					</motion.div>
 				</motion.div>
