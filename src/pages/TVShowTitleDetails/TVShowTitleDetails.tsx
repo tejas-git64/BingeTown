@@ -106,7 +106,7 @@ export default function TVShowTitleDetails() {
 
 	function fetchFact() {
 		return new Promise<void>((resolve) => {
-			setTimeout(resolve, 2000);
+			setTimeout(resolve, 100);
 		});
 	}
 
@@ -164,9 +164,9 @@ export default function TVShowTitleDetails() {
 
 	const DetailsComponent = () => {
 		return (
-			<motion.div className='mx-auto mt-20 flex h-auto w-[calc(100%-10%)] flex-col overflow-x-hidden overflow-y-hidden pt-2 md:h-auto md:pb-4 xl:w-full xl:flex-row'>
-				<div className='mx-auto hidden h-64 w-full px-4 lg:mt-10 lg:h-[1000px] xl:block xl:w-[500px]'>
-					<p className='mb-4 text-lg text-teal-500'>Recommendations</p>
+			<motion.div className='mx-auto mt-16 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-20 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
+				<div className='mx-auto hidden h-64 w-full px-4 lg:h-[1100px] xl:block xl:w-[500px]'>
+					<p className='my-2 text-left text-sm text-white'>Recommendations</p>
 					<motion.ul
 						variants={animationY}
 						initial='initial'
@@ -175,40 +175,27 @@ export default function TVShowTitleDetails() {
 						{tvRecommendations?.results?.map((recom) => (
 							<motion.div key={recom.id} variants={animationY}>
 								<Recommendation
-									backdrop_path={recom.backdrop_path}
-									name={recom.name}
-									vote_average={recom.vote_average}
-									first_air_date={recom.first_air_date}
-									adult={false}
-									genre_ids={[]}
-									id={recom.id}
-									origin_country={[]}
-									original_language={""}
-									original_name={""}
-									overview={""}
-									popularity={0}
-									poster_path={""}
-									show_vote_average={""}
-									vote_count={0}
 									title={""}
+									show_vote_average={""}
+									{...recom}
 									isShow={true}
 								/>
 							</motion.div>
 						))}
 					</motion.ul>
 				</div>
-				<div className='mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1200px]'>
-					<p className='mx-auto mb-4 w-full text-left text-lg text-teal-400 md:text-xl xl:w-full'>
+				<div className='3xl:w-full mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1100px]'>
+					<p className='mb-2 w-full text-left text-base text-white md:text-xl xl:w-full'>
 						{titleInfo?.name}
 					</p>
 					<iframe
-						className='mx-auto h-60 w-full rounded-xl sm:h-80 md:h-96 lg:h-[550px] lg:w-full xl:w-[900px] 2xl:w-[1200px]'
+						className='mx-auto h-60 w-full rounded-xl sm:h-80 md:h-96 lg:h-[550px] lg:w-full xl:w-[900px] 2xl:w-full'
 						src={`https://www.youtube.com/embed/${vidID}` || ""}
 						title='YouTube video player'
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
 						allowFullScreen
 					/>
-					<motion.div className='mx-auto mb-2 mt-4 h-auto w-full'>
+					<motion.div className='mx-auto h-auto w-full'>
 						<motion.div
 							id='videos'
 							variants={animationX}
@@ -236,37 +223,37 @@ export default function TVShowTitleDetails() {
 								<p>This title has no videos</p>
 							)}
 						</motion.div>
-						<ul className='mx-auto -mt-2 flex w-full items-center py-2 xl:w-full'>
-							<p className='mr-2 pl-0 text-sm text-gray-500 md:pr-4 md:text-base'>
+						<ul className='mx-auto my-2.5 flex w-full items-center xl:w-full'>
+							<p className='mr-2 pb-[3px] pl-0 text-xs text-gray-500 md:text-sm'>
 								Genres:{" "}
 							</p>
-							<ul id='genres' className='my-1 flex overflow-x-scroll'>
+							<ul id='genres' className='flex overflow-x-scroll'>
 								{titleInfo?.genres?.map((genre) => (
 									<div
 										key={genre.id}
-										className='mr-1 whitespace-nowrap p-2 pl-0 text-sm font-extrabold text-gray-300 md:pr-6 md:text-base'>
+										className='mr-1 whitespace-nowrap pr-1 text-xs font-semibold text-gray-300 md:pr-2 md:text-sm'>
 										{genre.name}
 									</div>
 								))}
 							</ul>
 						</ul>
-						<div className='mx-auto mb-3 w-full text-left text-teal-400 xl:w-full'>
+						<div className='mx-auto mb-2 w-full text-left text-white xl:w-full'>
 							<div className='-mt-2 mb-2 flex w-full items-center justify-center'>
-								<p className='mr-2 whitespace-nowrap text-sm md:text-base'>
+								<p className='mr-2 mt-0.5 whitespace-nowrap text-xs text-gray-500 md:text-sm'>
 									Release date:
 								</p>
-								<h3 className='-mb-1 w-full text-left text-xs font-bold text-gray-500 sm:-mb-0.5 md:text-base'>
+								<h3 className='mt-0.5 w-full text-left text-xs font-bold text-gray-300 md:text-sm'>
 									{titleInfo?.first_air_date}
 								</h3>
 							</div>
-							<h3 className='mb-0.5 mt-3 text-sm font-bold md:text-base'>
+							<h3 className='mb-0.5 mt-2.5 text-xs font-bold text-white md:text-sm'>
 								Summary
 							</h3>
-							<h3 className='w-full text-justify text-sm text-gray-500 sm:text-sm md:text-base'>
+							<h3 className='w-full text-justify text-xs text-gray-500'>
 								{titleInfo?.overview}
 							</h3>
 						</div>
-						<p className='mb-2 w-full text-left text-sm text-teal-400 xl:text-base'>
+						<p className='mb-2 w-full text-left text-xs text-white xl:text-sm'>
 							Seasons
 						</p>
 						<motion.div
@@ -292,7 +279,7 @@ export default function TVShowTitleDetails() {
 							)}
 						</motion.div>
 					</motion.div>
-					<h4 className='mb-2 text-left font-bold text-teal-500'>
+					<h4 className='mb-2 text-left text-xs font-bold text-white md:text-sm'>
 						Cast members
 					</h4>
 					<motion.ul
@@ -300,38 +287,23 @@ export default function TVShowTitleDetails() {
 						variants={animationX}
 						initial='initial'
 						animate='animate'
-						className='mb-2 flex h-auto w-full overflow-x-scroll pb-4'>
+						className='mb-2 flex h-auto w-full overflow-x-scroll'>
 						{showCast?.cast?.map((member) => (
 							<motion.div key={member.id} variants={animationX}>
-								<CastMember
-									adult={false}
-									gender={0}
-									id={0}
-									known_for_department={""}
-									name={member.name}
-									original_name={""}
-									popularity={0}
-									profile_path={member.profile_path}
-									cast_id={0}
-									character={member.character}
-									credit_id={""}
-									order={0}
-								/>
+								<CastMember {...member} order={0} />
 							</motion.div>
 						))}
 					</motion.ul>
 					<div className='h-auto w-full'>
 						<div className='my-2 flex w-full items-center justify-between'>
-							<p className='py-text-left text-base text-teal-500 lg:text-base'>
-								Reviews
-							</p>
+							<p className='text-left text-sm text-white'>Reviews</p>
 							<button
 								style={{
 									border: "none",
 									outline: "none",
 								}}
 								onClick={() => setShowComments(!showComments)}
-								className='bg-transparent p-2 py-1 text-sm text-gray-400'>
+								className='bg-transparent px-0 py-1 text-xs text-gray-400'>
 								{showComments ? "Hide Comments" : "Show Comments"}
 							</button>
 						</div>
@@ -342,17 +314,12 @@ export default function TVShowTitleDetails() {
 							{showReviews?.results ? (
 								showReviews.results.map((review) => (
 									<Review
-										key={review.id}
-										author={review.author}
-										username={review.author_details.username}
-										rating={review.author_details.rating}
-										content={review.content}
-										avatar_path={review.author_details.avatar_path}
-										updated_at={review.updated_at}
 										name={""}
-										created_at={""}
-										id={""}
-										url={""}
+										username={""}
+										avatar_path={""}
+										rating={null}
+										key={review.id}
+										{...review}
 									/>
 								))
 							) : (
@@ -361,34 +328,27 @@ export default function TVShowTitleDetails() {
 						</motion.ul>
 					</div>
 				</div>
-				<div className='h-84 mx-auto w-full pb-4 xl:mt-10 xl:h-[1000px] xl:w-[500px] xl:px-4'>
-					<p className='mb-4 text-left text-sm text-teal-500 lg:text-lg xl:text-center'>
+				<div className='h-84 mx-auto w-full pb-4 xl:h-[1100px] xl:w-[500px] xl:px-4'>
+					<p className='text-right text-sm text-white md:my-2'>
 						Similar Titles
 					</p>
 					<motion.ul
 						id='similar'
 						initial='initial'
 						animate='animate'
-						className='grid h-auto grid-flow-col gap-6 overflow-x-scroll pb-4 xl:h-full xl:grid-flow-row xl:grid-cols-1 xl:gap-3 xl:gap-y-5 xl:overflow-x-hidden xl:overflow-y-scroll 2xl:grid-cols-2'>
+						style={{
+							gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+							gridTemplateRows: "repeat(auto-fill, minmax(260px, 1fr))",
+							rowGap: "15px",
+							columnGap: "10px",
+						}}
+						className='flex h-auto place-items-end overflow-x-scroll pt-[23px] lg:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll'>
 						{similarShows?.results?.map((show) => (
 							<SimilarTitle
-								key={show.id}
-								adult={false}
-								backdrop_path={""}
-								first_air_date={""}
-								genre_ids={[]}
-								id={show.id}
-								name={show.name}
-								origin_country={[]}
-								original_language={""}
-								original_name={""}
-								overview={""}
-								popularity={0}
-								poster_path={show.poster_path}
-								vote_average={show.vote_average}
-								show_vote_average={""}
-								vote_count={0}
 								title={""}
+								show_vote_average={""}
+								key={show.id}
+								{...show}
 								isShow={true}
 							/>
 						))}

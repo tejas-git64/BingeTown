@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	useState,
 	useEffect,
@@ -13,7 +12,7 @@ import { MovieListGenres, TVList } from "../Home/HomeTypes";
 import MovieShowFallback from "../Movies/MovieShowFalback";
 import { motion } from "framer-motion";
 
-export default function Movies() {
+export default function TVShows() {
 	const [sortedShows, setSortedShows] = useState<TVList["shows"] | null>(null);
 	const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
 	const [selected, setSelected] = useState<number | string>("");
@@ -48,7 +47,7 @@ export default function Movies() {
 	}, [selected, options]);
 
 	useEffect(() => {
-		getShowGenres();
+		genres === null && getShowGenres();
 	}, []);
 
 	useEffect(() => {
@@ -64,7 +63,7 @@ export default function Movies() {
 			transition: {
 				staggerChildren: 0.05,
 				ease: "easeInOut",
-				duration: 0.2,
+				duration: 0.25,
 			},
 		},
 	};
@@ -86,25 +85,7 @@ export default function Movies() {
 					className='mb-10 ml-2 mt-4 h-auto w-full sm:ml-0 sm:pl-0'>
 					{sortedShows?.map((show) => (
 						<motion.div key={show.id} variants={animation}>
-							<TVTitle
-								adult={false}
-								backdrop_path={""}
-								first_air_date={show.first_air_date}
-								genre_ids={[]}
-								id={show.id}
-								original_language={""}
-								overview={""}
-								popularity={0}
-								poster_path={show.poster_path}
-								title={""}
-								vote_average={show.vote_average}
-								vote_count={0}
-								isShow={false}
-								name={show.name}
-								origin_country={[]}
-								original_name={""}
-								show_vote_average={""}
-							/>
+							<TVTitle {...show} isShow={false} />
 						</motion.div>
 					))}
 				</motion.div>
@@ -117,38 +98,17 @@ export default function Movies() {
 			return <TVComponent />;
 		} else {
 			throw new Promise<void>((resolve) => {
-				setTimeout(resolve, 0);
+				setTimeout(() => resolve(), 0);
 			});
 		}
-	};
-
-	const pagevar = {
-		initial: {
-			opacity: 0,
-		},
-		animate: {
-			opacity: 1,
-		},
-		exit: {
-			opacity: 0,
-		},
-		transition: {
-			type: "spring",
-			duration: 0.2,
-			ease: "easeIn",
-		},
 	};
 
 	return (
 		<>
 			<motion.div
-				variants={pagevar}
+				variants={animation}
 				initial='initial'
 				animate='animate'
-				exit='exit'
-				transition={{
-					duration: 0.3,
-				}}
 				className='max-h-max min-h-[1000px] w-full bg-neutral-900 px-6 pb-8 pt-20 text-left md:px-20'>
 				<div className='my-3 flex w-full items-center justify-between px-2 sm:px-0'>
 					<h3 className='mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl'>
@@ -157,7 +117,8 @@ export default function Movies() {
 					<select
 						name='Sort by Genre'
 						onChange={(e) => setSelected(e.target.value)}
-						className='h-8 w-40 rounded-md border-none bg-neutral-600 pr-2 text-xs font-semibold text-teal-400 outline-none'>
+						aria-label='Sort by genre'
+						className='h-8 w-40 rounded-md border-none bg-neutral-900 pr-2 text-xs font-semibold text-teal-400 outline-none'>
 						{genres?.map((genre) => (
 							<option
 								key={genre.id}

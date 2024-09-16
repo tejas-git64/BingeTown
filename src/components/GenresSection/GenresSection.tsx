@@ -72,7 +72,7 @@ const GenresSection = memo(({ id, heading }: GenreType) => {
 		return (
 			<motion.div
 				id='genre'
-				className='mx-auto flex h-[310px] w-[calc(100%-5%)] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto md:w-[calc(100%-13%)] lg:w-[calc(100%-11.5%)] xl:w-[calc(100%-10.5%)] 2xl:w-[calc(100%-10%)]'>
+				className='mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto'>
 				{genreMovies?.map((movie: Movie) => (
 					<motion.div key={movie.id} variants={animation}>
 						<MovieTitle {...movie} key={movie.id} />
@@ -94,10 +94,12 @@ const GenresSection = memo(({ id, heading }: GenreType) => {
 
 	return (
 		<>
-			<section ref={sectionRef} className='mx-auto h-auto w-full md:h-auto'>
+			<section
+				ref={sectionRef}
+				className='titles mx-auto my-4 h-auto w-full md:h-auto'>
 				<h2
 					onClick={() => navigate("/movies")}
-					className='mx-auto w-full cursor-pointer p-4 pl-3 text-left text-xl font-extrabold text-amber-500 sm:w-[calc(100%-8%)]'>
+					className='mx-auto w-full cursor-pointer text-left text-lg font-extrabold text-white'>
 					{heading}
 				</h2>
 				<Suspense fallback={<Loading />}>

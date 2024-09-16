@@ -69,9 +69,6 @@ export default {
 					"96%,98%,99%": {
 						transform: "translateX(-1900%)",
 					},
-					"100%": {
-						transform: "translateX(-2000%)",
-					},
 				},
 			},
 			animation: {

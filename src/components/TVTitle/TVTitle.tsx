@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TVDiscover } from "../../pages/Home/HomeTypes";
 import { useNavigate } from "react-router-dom";
 import menu from "../../assets/images/icons8-menu-78.png";
@@ -14,32 +14,12 @@ export default function TVTitle({
 	poster_path,
 	id,
 }: TVDiscover) {
-	const [color, setColor] = useState("");
 	const navigate = useNavigate();
 	const [showMenu, setShowMenu] = useState(false);
 	const uid = auth.currentUser ? auth.currentUser?.uid : "";
 	const savedDocRef = doc(db, "saved", uid);
 	const watchDocRef = doc(db, "watchlist", uid);
 	const year = new Date(first_air_date).getFullYear();
-	function getRatingColor(rating: number) {
-		switch (true) {
-			case rating === 0:
-				setColor("text-gray-600");
-				break;
-			case rating <= 5 && rating > 0:
-				setColor("text-red-500");
-				break;
-			case rating > 5 && rating < 7:
-				setColor("text-yellow-600");
-				break;
-			case rating > 7 && rating <= 10:
-				setColor("text-green-500");
-				break;
-			default:
-				setColor("text-gray-600");
-				break;
-		}
-	}
 
 	async function addToSavedList(
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -91,11 +71,6 @@ export default function TVTitle({
 	function showTVShow() {
 		id && navigate(`/tvshows/${id}`);
 	}
-
-	useEffect(() => {
-		getRatingColor(vote_average);
-	}, [vote_average]);
-
 	return (
 		<>
 			<div
@@ -104,22 +79,24 @@ export default function TVTitle({
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='movie-poster'
-					className='mb-2 h-[231px] w-[154px] cursor-pointer text-ellipsis rounded-lg transition-all delay-100 ease-in hover:scale-90 md:h-[231px] md:w-[154px]'
+					width={154}
+					height={231}
+					className='mb-2 h-[231px] w-[154px] cursor-pointer text-ellipsis rounded-lg object-cover transition-all delay-100 ease-in hover:scale-90 md:h-[231px] md:w-[154px]'
 				/>
 				<h3
-					className='line-clamp-1 whitespace-nowrap
-					 text-left text-sm font-semibold text-teal-500 sm:whitespace-pre-line sm:text-sm'>
+					className='line-clamp-1 text-ellipsis
+					 whitespace-pre-line text-left text-sm font-semibold text-white sm:text-[12px]'>
 					{name}
 				</h3>
 				<div className='flex w-full items-center justify-between'>
 					<div className='flex flex-col items-start justify-center'>
-						<div className='my-1 flex text-sm font-bold'>
-							<h4 className='mr-2 text-xs font-normal text-white'>Rating:</h4>
-							<h4 className={`${color} mt-[1px] text-xs`}>
-								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)} ✨`}
+						<div className='flex text-[10.5px]'>
+							<h4 className='mr-1 font-normal text-neutral-400'>Rating</h4>
+							<h4 className='text-neutral-400'>
+								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}/10`}
 							</h4>
 						</div>
-						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-400'>
+						<h3 className='whitespace-nowrap text-[10.5px] font-semibold text-neutral-300'>
 							{year}
 						</h3>
 					</div>

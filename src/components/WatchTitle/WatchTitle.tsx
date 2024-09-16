@@ -56,10 +56,12 @@ export default function WatchTitle({
 		<>
 			<div
 				onClick={() => navigateToShow(type, id)}
-				className='relative mx-auto mr-4 flex h-[300px] w-[155px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-10 md:h-[300px] md:w-[155px]'>
+				className='relative mx-auto mr-4 flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl xl:pl-32'>
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='image-cover'
+					height={231}
+					width={154}
 					className='mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg md:h-auto md:w-auto'
 				/>
 				<h3

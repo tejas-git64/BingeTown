@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Movie } from "../../pages/Home/HomeTypes";
 import menu from "../../assets/images/icons8-menu-78.png";
@@ -14,34 +14,12 @@ export default function MovieTitle({
 	poster_path,
 	id,
 }: Movie) {
-	const [color, setColor] = useState("");
 	const navigate = useNavigate();
 	const [showMenu, setShowMenu] = useState(false);
 	const uid = auth.currentUser ? auth.currentUser?.uid : "";
 	const savedDocRef = doc(db, "saved", uid);
 	const watchDocRef = doc(db, "watchlist", uid);
 	const year = new Date(release_date).getFullYear();
-	function getRatingColor(rating: number) {
-		let newColor = "";
-		switch (true) {
-			case rating === 0:
-				newColor = "text-gray-600";
-				break;
-			case rating <= 5 && rating > 1:
-				newColor = "text-red-500";
-				break;
-			case rating > 5 && rating < 7:
-				newColor = "text-yellow-600";
-				break;
-			case rating > 7 && rating <= 10:
-				newColor = "text-green-500";
-				break;
-			default:
-				newColor = "text-gray-600";
-				break;
-		}
-		setColor(newColor);
-	}
 
 	function showMovie(
 		e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>
@@ -104,34 +82,32 @@ export default function MovieTitle({
 		});
 	}
 
-	useEffect(() => {
-		getRatingColor(typeof vote_average === "number" ? vote_average : 0);
-	}, [vote_average]);
-
 	return (
 		<>
 			<div
 				onClick={showMovie}
-				className='relative mx-auto mr-4 flex h-[300px] w-[155px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-10 md:h-[300px] md:w-[155px]'>
+				className='relative mx-auto mr-2 flex h-[300px] w-[155px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-6 md:h-[300px] md:w-[154px]'>
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='movie-poster'
+					width={154}
+					height={231}
 					className='mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg transition-all delay-0 ease-in hover:scale-95 md:h-auto md:w-auto'
 				/>
 				<h3
-					className='sm:text-md line-clamp-1
-					 text-ellipsis whitespace-pre-line text-left text-sm font-medium text-teal-500'>
+					className='line-clamp-1 text-ellipsis
+					 whitespace-pre-line text-left text-sm font-semibold text-white sm:text-[12px]'>
 					{title}
 				</h3>
 				<div className='flex w-full items-center justify-between'>
 					<div className='flex flex-col items-start justify-center'>
-						<div className='my-1 flex text-sm font-bold'>
-							<h4 className='mr-2 text-xs font-normal text-white'>Rating:</h4>
-							<h4 className={`${color} mt-[1px] text-xs`}>
-								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}✨`}
+						<div className='flex text-[10.5px]'>
+							<h4 className='mr-1 font-normal text-neutral-400'>Rating</h4>
+							<h4 className='text-neutral-400'>
+								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}/10`}
 							</h4>
 						</div>
-						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-400'>
+						<h3 className='whitespace-nowrap text-[10.5px] font-semibold text-neutral-300'>
 							{year}
 						</h3>
 					</div>

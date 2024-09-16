@@ -10,7 +10,7 @@ export default defineConfig({
 		preload({
 			includeCss: true,
 			includeJs: true,
-			mode: "prefetch",
+			mode: "preload",
 		}),
 		compression({ algorithm: "brotliCompress", deleteOriginalAssets: false }),
 	],

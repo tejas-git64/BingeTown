@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	Suspense,
 	lazy,
@@ -48,11 +46,13 @@ export default function Movies() {
 	}, [selected, options]);
 
 	useEffect(() => {
-		getMovieGenres();
-	}, []);
+		genres === null && getMovieGenres();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [genres]);
 
 	useEffect(() => {
 		getMoviesData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selected]);
 
 	const animation = {
@@ -110,7 +110,6 @@ export default function Movies() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				exit='exit'
 				className='max-h-max min-h-[1000px] w-full bg-neutral-900 px-3 pb-2 pt-20 text-left md:px-20'>
 				<div className='my-3 flex w-full items-center justify-between px-2 sm:px-0'>
 					<h3 className='py-2 text-xl font-bold text-teal-400 md:text-2xl'>
@@ -118,8 +117,9 @@ export default function Movies() {
 					</h3>
 					<select
 						name='Sort by Genre'
+						aria-label='Sort by genre'
 						onChange={(e) => setSelected(e.target.value)}
-						className='h-8 w-32 rounded-md border-none bg-neutral-600 pr-2 text-xs font-semibold text-teal-400 outline-none'>
+						className='none h-8 w-32 rounded-md border-none bg-neutral-900 pr-2 text-xs font-semibold text-teal-400 outline-none'>
 						{genres?.map((genre) => (
 							<option
 								key={genre.id}

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Movie } from '../../pages/Home/HomeTypes';
+import { Movie } from "../../pages/Home/HomeTypes";
 import { motion } from "framer-motion";
 import { memo, useEffect, useState } from "react";
 
@@ -54,7 +54,7 @@ const SlideShow = memo(
 						backgroundColor: "transparent",
 						backgroundBlendMode: "overlay",
 					}}
-					className={`mx-0 flex h-[440px] w-[440px] flex-shrink-0 animate-slide flex-col justify-center pl-10 pt-16 text-left transition-all animation-delay-200 sm:pl-20 md:mt-0 md:h-[440px] md:w-[780px] md:pl-32 xl:h-[720px] xl:w-[1280px] xl:pl-44 2xl:h-[800px]`}>
+					className='mx-1 flex h-[440px] w-screen flex-shrink-0 animate-slide flex-col justify-center rounded-2xl pl-10 pt-16 text-left transition-all animation-delay-200 sm:pl-20 md:mt-0 md:h-[440px] md:w-[780px] md:pl-32 xl:h-[640px] xl:w-[1280px] xl:pl-44'>
 					<p
 						style={{
 							textShadow: "0px 5px 10px #555",
@@ -76,7 +76,8 @@ const SlideShow = memo(
 				</motion.div>
 			</>
 		);
-	}
-, isSameSlideShow);
+	},
+	isSameSlideShow
+);
 
 export default SlideShow;

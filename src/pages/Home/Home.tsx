@@ -144,10 +144,10 @@ export default function Home() {
 	const HomeComponent = () => {
 		return (
 			<>
-				<motion.div className='max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900 pb-20'>
+				<motion.div className='mt-16 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900 px-[20px] xl:px-[45px]'>
 					<motion.div
 						id='slideshow'
-						className='relative flex h-[440px] w-full overflow-x-hidden sm:pl-28 md:h-[440px] md:pl-0 lg:pl-32 xl:h-[720px] xl:pl-0 2xl:h-[800px] 2xl:pl-32'>
+						className='relative flex h-[440px] w-screen overflow-x-hidden md:h-[450px] xl:h-[640px] xl:pl-72'>
 						{popularMovies?.map((movie) => (
 							<Slideshow key={movie.id} {...movie} />
 						))}
@@ -158,8 +158,8 @@ export default function Home() {
 					{videoType.shows.map((section) => (
 						<TVSection key={section.heading} {...section} />
 					))}
-					<p className='mx-auto mt-4 w-full py-3 pl-3 text-left text-2xl text-red-400 sm:mt-2 md:w-[calc(100%-9.8%)]'>
-						Get MoviesType by Genres
+					<p className='mx-auto mt-6 w-full cursor-pointer text-left text-xl font-extrabold text-white'>
+						Movies by Genres
 					</p>
 					{videoType.genres.map((section) => (
 						<GenresSection key={section.id} {...section} />

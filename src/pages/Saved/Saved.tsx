@@ -7,14 +7,15 @@ import { motion } from "framer-motion";
 
 export default function Saved() {
 	const savedContext = useContext(NameContext);
-
 	const animation = {
+		initial: {
+			opacity: 0,
+		},
 		animate: {
-			x: 0,
 			opacity: 1,
 			transition: {
 				staggerChildren: 0.15,
-				ease: "easeInOut",
+				ease: "easeIn",
 				duration: 0.2,
 			},
 		},
@@ -34,8 +35,8 @@ export default function Saved() {
 					exit='exit'
 					style={{
 						display: "grid",
-						gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-						gridTemplateRows: "repeat(auto-fill, minmax(200px, 1fr))",
+						gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+						gridTemplateRows: "repeat(auto-fill, minmax(231px, 1fr))",
 						rowGap: "15px",
 						columnGap: "15px",
 					}}
@@ -77,10 +78,6 @@ export default function Saved() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				exit='exit'
-				transition={{
-					duration: 0.2,
-				}}
 				className='h-auto w-full bg-neutral-900 px-6 pb-2 text-left md:px-20 md:pl-[85px]'>
 				<p className='mb-2 pt-20 text-xl font-bold text-teal-400 md:text-2xl'>
 					Saved

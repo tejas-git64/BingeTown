@@ -82,11 +82,12 @@ export default function Nav() {
 				duration: 0.2,
 			}}
 			className={`${
-				path === "/login" || path === "/signup" ? "hidden" : "absolute"
-			} left-0 top-0 z-10 flex h-20 w-full items-center justify-between bg-gradient-to-b from-black to-transparent pl-4 pr-6 transition-all delay-[3] ease-out md:pl-10 md:pr-12`}>
+				path === "/login" || path === "/signup" ? "hidden" : "fixed"
+			} left-0 top-0 z-50 flex h-16
+			  w-full items-center justify-between bg-neutral-900 pl-4 pr-6 transition-all delay-[3] ease-out xl:px-10`}>
 			<Link
 				to='/'
-				className='mr-10 flex items-center text-2xl font-bold text-teal-400 md:mt-0 lg:-ml-1'>
+				className='mr-10 flex items-center text-2xl font-bold text-teal-400 md:-mt-1 lg:-ml-1'>
 				<img src={logo} alt='icon' className='h-10 w-10 md:h-12 md:w-14' />
 				<p className='text-xl text-teal-400'>BingeTown</p>
 			</Link>
@@ -96,7 +97,7 @@ export default function Nav() {
 					className='mr-4 border-none bg-transparent p-0 outline-none md:mr-5 md:mt-0.5 lg:hidden'>
 					<img src={search} alt='search' className='h-6 w-6 sm:h-7 sm:w-7' />
 				</button>
-				<div className='hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex'>
+				<div className='hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:w-[1330px]'>
 					<div
 						className={`${
 							path !== "/" ? "block" : "hidden"
@@ -147,21 +148,23 @@ export default function Nav() {
 							))}
 						</ul>
 					</div>
-					<Link
-						to='/home'
-						className='delay-3 mr-10 py-5 text-lg font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]'>
-						Home
-					</Link>
-					<Link
-						to='/movies'
-						className='delay-3 mr-10 py-5 text-lg font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]'>
-						Movies
-					</Link>
-					<Link
-						to='/tvshows'
-						className='delay-3 mr-12 whitespace-nowrap py-5 text-lg font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]'>
-						TV Shows
-					</Link>
+					<div>
+						<Link
+							to='/home'
+							className='mr-10 pt-3 text-sm font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]'>
+							Home
+						</Link>
+						<Link
+							to='/movies'
+							className='mr-10 pt-3 text-sm font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]'>
+							Movies
+						</Link>
+						<Link
+							to='/tvshows'
+							className='mr-12 whitespace-nowrap pt-3 text-sm font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]'>
+							TV Shows
+						</Link>
+					</div>
 				</div>
 				<Link
 					to='/signup'
@@ -186,7 +189,7 @@ export default function Nav() {
 					className={`${
 						auth.currentUser ? "block" : "hidden"
 					} h-5 w-5 bg-transparent p-0 sm:h-6 sm:w-6`}>
-					<img src={menu} alt='hamburger-menu' width={50} height={50} />
+					<img src={menu} alt='hamburger-menu' width={20} height={20} />
 				</button>
 			</div>
 		</motion.nav>

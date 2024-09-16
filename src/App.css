@@ -14,7 +14,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-	background: linear-gradient(to bottom, black, fuchsia, black);
+	background: #363636;
 }
 
 ::-webkit-scrollbar-track {
@@ -41,8 +41,7 @@
 #cast::-webkit-scrollbar-thumb,
 #similar::-webkit-scrollbar-thumb,
 #slideshow::-webkit-scrollbar-thumb {
-	background: #888;
-	background: linear-gradient(to bottom, black, fuchsia, black);
+	background: #363636;
 }
 
 .logo {
@@ -94,5 +93,5 @@
 
 #section-loading::-webkit-scrollbar-thumb,
 #genre::-webkit-scrollbar-thumb {
-	background: #888;
+	background: #363636;
 }

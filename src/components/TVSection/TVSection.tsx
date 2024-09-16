@@ -71,7 +71,7 @@ const TVSection = memo(({ heading, uri }: ContentType) => {
 		return (
 			<motion.div
 				id='latest'
-				className='mx-auto flex h-[310px] w-[calc(100%-5%)] overflow-x-scroll pt-2 md:h-auto md:w-[calc(100%-13%)] md:pb-4 lg:w-[calc(100%-11.5%)] xl:w-[calc(100%-10.5%)] 2xl:w-[calc(100%-10%)]'>
+				className='mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto'>
 				{shows &&
 					shows?.map((show: TVDiscover) => (
 						<motion.div key={show.id} variants={animation}>
@@ -102,10 +102,10 @@ const TVSection = memo(({ heading, uri }: ContentType) => {
 				initial='initial'
 				animate='animate'
 				id={heading}
-				className='titles mx-auto h-auto w-full md:h-auto'>
+				className='titles mx-auto my-4 h-auto w-full md:h-auto'>
 				<motion.h2
 					onClick={() => navigate("/tvshows")}
-					className='mx-auto w-full cursor-pointer p-4 pl-3 text-left text-xl font-extrabold text-fuchsia-600 sm:w-[calc(100%-8%)]'>
+					className='mx-auto w-full cursor-pointer text-left text-lg font-extrabold text-white'>
 					{heading}
 				</motion.h2>
 				<Suspense fallback={<Loading key={heading} />}>

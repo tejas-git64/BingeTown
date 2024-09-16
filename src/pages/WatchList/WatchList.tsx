@@ -13,14 +13,15 @@ export default function WatchList() {
 		watchContext?.getWatchlistData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 	const animation = {
+		initial: {
+			opacity: 0,
+		},
 		animate: {
-			x: 0,
 			opacity: 1,
 			transition: {
 				staggerChildren: 0.15,
-				ease: "easeInOut",
+				ease: "easeIn",
 				duration: 0.2,
 			},
 		},
@@ -76,7 +77,6 @@ export default function WatchList() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				exit='exit'
 				transition={{
 					duration: 0.2,
 				}}

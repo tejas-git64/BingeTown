@@ -71,7 +71,7 @@ const MovieSection = memo(({ heading, uri }: ContentType) => {
 		return (
 			<motion.div
 				id={"latest"}
-				className='mx-auto flex h-[310px] w-[calc(100%-5%)] overflow-x-scroll pt-2 md:h-auto md:w-[calc(100%-13%)] md:pb-4 lg:w-[calc(100%-11.5%)] xl:w-[calc(100%-10.5%)] 2xl:w-[calc(100%-10%)]'>
+				className='mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto'>
 				{movies?.map((movie: Movie) => (
 					<motion.div key={movie.id} variants={animation}>
 						<MovieTitle
@@ -114,10 +114,10 @@ const MovieSection = memo(({ heading, uri }: ContentType) => {
 			<section
 				id={heading}
 				ref={sectionRef}
-				className=' titles mx-auto my-4 h-auto w-full md:h-auto'>
+				className='titles mx-auto my-4 h-auto w-full md:h-auto'>
 				<h2
 					onClick={() => navigate("/movies")}
-					className='mx-auto w-full cursor-pointer p-4 pl-3 text-left text-xl font-extrabold text-amber-500 sm:w-[calc(100%-8%)]'>
+					className='mx-auto w-full cursor-pointer text-left text-lg font-extrabold text-white'>
 					{heading}
 				</h2>
 				<Suspense fallback={<Loading key={heading} />}>

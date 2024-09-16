@@ -46,11 +46,13 @@ export default function SavedTitle({
 		<>
 			<div
 				onClick={() => navigateToShow(type, id)}
-				className='relative mx-auto mr-4 flex h-[300px] w-[155px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-10 md:h-[300px] md:w-[155px]'>
+				className='relative mx-auto mr-4 flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-4'>
 				<img
-					src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='image-cover'
-					className='mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg md:h-auto md:w-auto'
+					width={154}
+					height={231}
+					className='mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg md:h-[231px] md:w-[154px]'
 				/>
 				<button
 					onClick={(e) =>

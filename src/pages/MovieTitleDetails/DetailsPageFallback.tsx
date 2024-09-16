@@ -1,31 +1,30 @@
 import loadingCircle from "../../assets/gifs/icons8-loading-circle.gif";
 
 export default function DetailsPageFallback() {
-	const arr = [{}, {}, {}, {}, {}, {}];
+	const arr = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 	return (
 		<>
 			<div className='h-auto w-full bg-neutral-900'>
-				<div className='mx-auto mt-20 flex h-auto w-[calc(100%-10%)] flex-col overflow-x-hidden pt-2 md:h-auto md:pb-4 xl:w-full xl:flex-row'>
-					<div className='mx-auto hidden h-64 w-full px-4 lg:mt-10 lg:h-[1000px] xl:block xl:w-[500px]'>
-						<p className='mb-4 text-lg text-teal-500'>Recommendations</p>
-						<ul className='h-full overflow-y-scroll pr-3'>
+				<div className='mx-auto mt-16 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-20 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
+					<div className='mx-auto hidden h-64 w-full px-4 lg:h-[1100px] xl:block xl:w-[500px]'>
+						<p className='my-2 text-left text-sm text-white'>Recommendations</p>
+						<ul className='h-full w-full overflow-y-scroll pr-3'>
 							{arr?.map(() => (
 								<div
 									key={Math.random()}
-									className='00 mb-1 flex h-auto w-full animate-pulse items-center justify-between rounded-md bg-neutral-700 p-2'>
-									<p className='mr-2 h-12 w-20 overflow-clip rounded-md text-xs'></p>
-									<div className='mr-2 flex h-12 w-44 flex-col items-start justify-start overflow-x-hidden'>
-										<h3 className='whitespace-nowrap text-xs font-extrabold text-white'></h3>
-										<h4 className='whitespace-nowrap text-xs font-semibold text-neutral-400'></h4>
+									className='mb-1 flex h-auto w-full items-center justify-start rounded-md bg-neutral-800 hover:bg-neutral-700'>
+									<div className='mr-6 h-[52px] w-[92px] scale-100 overflow-clip rounded-md bg-neutral-500 text-xs'></div>
+									<div className='mr-2 flex h-12 w-44 flex-col items-start justify-center overflow-x-hidden'>
+										<div className='mb-1 h-2.5 w-full rounded-full bg-neutral-500 text-xs'></div>
+										<div className='h-2.5 w-20 rounded-full bg-neutral-600 text-xs'></div>
 									</div>
-									<h4 className='w-auto text-xs font-bold text-neutral-400'></h4>
 								</div>
 							))}
 						</ul>
 					</div>
-					<div className='mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1100px]'>
-						<p className='mb-5 h-[28px] w-[300px] rounded-full bg-neutral-600 text-left md:text-xl xl:w-[50%]'></p>
+					<div className='3xl:w-full mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1100px]'>
+						<p className='mb-2 h-4 w-full rounded-full bg-neutral-500 text-left md:h-[20px] xl:w-[500px]'></p>
 						<div className='mx-auto flex h-60 w-full items-center justify-center rounded-xl bg-black sm:h-80 md:h-96 lg:h-[560px] lg:w-full xl:w-[900px] 2xl:w-[1100px]'>
 							<img
 								src={loadingCircle}
@@ -40,38 +39,36 @@ export default function DetailsPageFallback() {
 								{arr.map(() => (
 									<p
 										key={Math.random()}
-										className='mr-2 h-[100px] w-40 flex-shrink-0 animate-pulse rounded-lg bg-neutral-700 md:w-52'></p>
+										className='mr-2 h-28 w-40 flex-shrink-0 animate-pulse rounded-lg bg-neutral-600 md:h-36 md:w-52'></p>
 								))}
 							</ul>
 							<ul
 								id='genres'
-								className='mx-auto flex w-full items-center py-2 xl:w-full'>
-								<p className='mr-2 mt-2 pb-[3px] pl-0 text-xs text-gray-500 md:mt-1 md:text-base'>
+								className='mx-auto my-2.5 flex w-full items-center xl:w-full'>
+								<p className='mr-2 pb-[3px] pl-0 text-xs text-gray-500 md:text-sm'>
 									Genres:{" "}
 								</p>
-								<ul id='genres' className='mt-1.5 flex overflow-x-scroll'>
-									<div className='mr-2 h-[16px] w-20 animate-pulse rounded-full bg-neutral-600 pr-1 text-xs font-semibold md:h-[24px] md:pr-2'></div>
-									<div className='mr-2 h-[16px] w-20 animate-pulse rounded-full bg-neutral-600 pr-1 text-xs font-semibold md:h-[24px] md:pr-2'></div>
-									<div className='mr-2 h-[16px] w-20 animate-pulse rounded-full bg-neutral-600 pr-1 text-xs font-semibold md:h-[24px] md:pr-2'></div>
-									<div className='mr-2 h-[16px] w-20 animate-pulse rounded-full bg-neutral-600 pr-1 text-xs font-semibold md:h-[24px] md:pr-2'></div>
+								<ul id='genres' className='flex overflow-x-scroll'>
+									<div className='mr-1 h-[12px] w-20 whitespace-nowrap rounded-full bg-neutral-600 pr-1 font-semibold md:h-[14px] md:pr-2'></div>
+									<div className='mr-1 h-[12px] w-20 whitespace-nowrap rounded-full bg-neutral-600 pr-1 font-semibold md:h-[14px] md:pr-2'></div>
+									<div className='mr-1 h-[12px] w-20 whitespace-nowrap rounded-full bg-neutral-600 pr-1 font-semibold md:h-[14px] md:pr-2'></div>
+									<div className='mr-1 h-[12px] w-20 whitespace-nowrap rounded-full bg-neutral-600 pr-1 font-semibold md:h-[14px] md:pr-2'></div>
 								</ul>
 							</ul>
 							<div className='mx-auto mb-3 w-full text-left text-teal-400 xl:w-full'>
-								<p className='mb-3 mr-2 whitespace-nowrap text-xs text-gray-500 md:text-base'>
-									Release date:
+								<p className='mr-2 mt-0.5 whitespace-nowrap text-xs text-gray-500 md:text-sm'>
+									Release year:
 								</p>
-								<h3 className='mb-0.5 mt-1 text-xs font-bold md:text-base'>
+								<h3 className='mb-0.5 mt-2.5 text-xs font-bold text-white md:text-sm'>
 									Summary
 								</h3>
-								<h3 className='w-full border-b-[1px] border-gray-700 pb-2 text-justify text-sm text-gray-500 sm:text-sm md:text-base'></h3>
+								<h3 className='w-full text-justify text-xs text-gray-500'></h3>
 							</div>
 						</div>
-						<h4 className='-mt-1 mb-4 text-left text-xs font-bold text-teal-400 md:text-sm'>
+						<h4 className='mb-2 text-left text-xs font-bold text-white md:text-sm'>
 							Cast members
 						</h4>
-						<ul
-							id='cast'
-							className='mb-2 flex h-auto w-full overflow-x-scroll pb-6'>
+						<ul id='cast' className='mb-2 flex h-auto w-full overflow-x-scroll'>
 							{arr.map(() => (
 								<div
 									key={Math.random()}
@@ -82,43 +79,41 @@ export default function DetailsPageFallback() {
 								</div>
 							))}
 						</ul>
-						<div className='z-20 mb-2 h-auto w-full'>
+						<div className='mb-2 h-auto w-full'>
 							<div className='my-2 flex w-full items-center justify-between'>
-								<p className='py-text-left text-base text-teal-500 lg:text-base'>
-									Reviews
-								</p>
+								<p className='text-left text-sm text-white'>Reviews</p>
 								<button
 									style={{
 										border: "none",
 										outline: "none",
 									}}
 									className='bg-transparent p-2 py-1 text-sm text-gray-400'>
-									Comments
+									Hide comments
 								</button>
 							</div>
 						</div>
 					</div>
-					<div className='h-84 mx-auto w-full pb-4 xl:mt-10 xl:h-[1000px] xl:w-[500px] xl:px-4'>
-						<p className='mb-4 text-left text-sm text-teal-500 lg:text-lg xl:text-center'>
+					<div className='h-84 mx-auto w-full pb-4 xl:h-[1100px] xl:w-[500px] xl:px-4'>
+						<p className='text-right text-sm text-white md:my-2'>
 							Similar Titles
 						</p>
 						<ul
 							id='similar'
-							className='flex h-auto overflow-x-scroll lg:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll'
+							className='flex h-auto place-items-end overflow-x-scroll pt-[23px] lg:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll'
 							style={{
-								gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-								gridTemplateRows: "repeat(auto-fill, minmax(200px, 1fr))",
+								gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+								gridTemplateRows: "repeat(auto-fill, minmax(260px, 1fr))",
 								rowGap: "15px",
 								columnGap: "10px",
 							}}>
 							{arr.map(() => (
 								<div
 									key={Math.random()}
-									className='mx-auto h-52 w-32 flex-shrink-0 animate-pulse rounded-lg bg-neutral-700'>
-									<p className='h-44 w-full rounded-xl'></p>
+									className='h-auto w-[154px] flex-shrink-0 animate-pulse'>
+									<p className='h-[231px] w-[154px] rounded-xl bg-neutral-500 transition-all ease-in hover:scale-95'></p>
 									<div className='mt-1 flex h-12 w-full flex-col items-start justify-start'>
-										<p className='h-6 w-full overflow-x-hidden whitespace-nowrap text-left text-sm font-bold text-white'></p>
-										<h4 className='h-6 w-full text-left text-xs font-semibold text-gray-400'></h4>
+										<div className='mb-1 h-[12px] w-full rounded-full bg-neutral-600 text-left'></div>
+										<div className='h-[10px] w-20 rounded-full bg-neutral-600 text-left font-normal'></div>
 									</div>
 								</div>
 							))}
