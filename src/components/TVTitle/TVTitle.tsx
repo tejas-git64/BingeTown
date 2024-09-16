@@ -89,7 +89,7 @@ export default function TVTitle({
 	}
 
 	function showTVShow() {
-		navigate(`/tvshows/${id}`);
+		id && navigate(`/tvshows/${id}`);
 	}
 
 	useEffect(() => {
@@ -119,7 +119,7 @@ export default function TVTitle({
 								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)} ✨`}
 							</h4>
 						</div>
-						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-600'>
+						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-400'>
 							{year}
 						</h3>
 					</div>
@@ -142,13 +142,13 @@ export default function TVTitle({
 						showMenu ? "absolute" : "hidden"
 					} bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}>
 					<button
-						onClick={(e) => addToWatchList(e, id)}
+						onClick={(e) => addToWatchList(e, Number(id))}
 						className='mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700'>
 						<h4 className='text-xs text-white'>Add to watchlist</h4>
 						<img src={watchlist} alt='add' className='h-5 w-5 pr-0.5' />
 					</button>
 					<button
-						onClick={(e) => addToSavedList(e, id)}
+						onClick={(e) => addToSavedList(e, Number(id))}
 						className='mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700'>
 						<h4 className='text-xs font-semibold text-white'>Save</h4>
 						<img src={save} alt='save' className='h-5 w-5' />

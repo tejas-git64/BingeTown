@@ -5,7 +5,12 @@ import close from "../../assets/images/not-bookmarked.png";
 import { auth, db } from "../../config/Firebase";
 import { useNavigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import {
+	doc,
+	DocumentData,
+	DocumentReference,
+	getDoc,
+} from "firebase/firestore";
 import { motion } from "framer-motion";
 
 export default function Profile() {
@@ -28,25 +33,29 @@ export default function Profile() {
 		}
 	};
 
+	async function getSavedData(
+		userRef: DocumentReference<DocumentData, DocumentData>
+	) {
+		//Saved data
+		const userDoc = await getDoc(userRef);
+		const userData = userDoc.data();
+		if (userData) {
+			setName(userData.fullname);
+			setEmail(userData.email);
+		}
+	}
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			if (user) {
-				const uid = user.uid;
-				const userRef = doc(db, "users", uid);
-
-				(async function getSavedData() {
-					//Saved data
-					const userDoc = await getDoc(userRef);
-					const userData = userDoc.data();
-					if (userData) {
-						setName(userData.fullname);
-						setEmail(userData.email);
-					}
-				})();
-			}
-		});
-		return () => unsubscribe();
-	}, []);
+		if (!email && !name) {
+			const unsubscribe = onAuthStateChanged(auth, (user) => {
+				if (user) {
+					const uid = user.uid;
+					const userRef = doc(db, "users", uid);
+					getSavedData(userRef);
+				}
+			});
+			return () => unsubscribe();
+		}
+	}, [email, name]);
 
 	const pagevar = {
 		initial: {

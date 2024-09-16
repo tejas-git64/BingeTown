@@ -67,7 +67,8 @@ export default function Nav() {
 	}
 
 	useEffect(() => {
-		getSearchResults();
+		query && getSearchResults();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [query]);
 
 	return (
@@ -82,7 +83,7 @@ export default function Nav() {
 			}}
 			className={`${
 				path === "/login" || path === "/signup" ? "hidden" : "absolute"
-			} left-0 top-0 z-10 flex h-20 w-full items-center justify-between bg-gradient-to-b from-black to-transparent pl-4 pr-6 transition-all delay-[3] ease-out md:px-20`}>
+			} left-0 top-0 z-10 flex h-20 w-full items-center justify-between bg-gradient-to-b from-black to-transparent pl-4 pr-6 transition-all delay-[3] ease-out md:pl-10 md:pr-12`}>
 			<Link
 				to='/'
 				className='mr-10 flex items-center text-2xl font-bold text-teal-400 md:mt-0 lg:-ml-1'>

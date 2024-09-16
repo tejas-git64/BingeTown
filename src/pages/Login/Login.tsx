@@ -183,9 +183,11 @@ export default function Login() {
 					<input
 						type='email'
 						name='email'
+						id='email'
 						onChange={handleChange}
 						placeholder='Enter email address'
 						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
+						autoComplete='email'
 						required
 					/>
 					<label
@@ -196,9 +198,11 @@ export default function Login() {
 					<input
 						type='password'
 						name='password'
+						id='password'
 						onChange={handleChange}
 						placeholder='Enter your password'
 						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
+						autoComplete='current-password'
 						required
 					/>
 					{error && (

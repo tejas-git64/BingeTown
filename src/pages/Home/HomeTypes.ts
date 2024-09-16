@@ -18,12 +18,14 @@ export type Movie = {
 	vote_count: number;
 };
 
-export type MoviesType = {
-	movies: Movie[] | null;
+export type ContentType = {
 	heading: string;
-	genre: number;
-	id: string;
-	getMoviesorTVData: (type: string) => Promise<void>;
+	uri: string;
+};
+
+export type GenreType = {
+	id: number;
+	heading: string;
 };
 
 // for discovering, Airing today, OTA, Popular and Top Rated

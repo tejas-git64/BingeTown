@@ -5,7 +5,7 @@ const Review = lazy(() => import("../../components/Review/Review"));
 const Recommendation = lazy(
 	() => import("../../components/Recommendation/Recommendation")
 );
-import { MoviesType, SimilarMovies } from "../Home/HomeTypes";
+import { Movie, SimilarMovies } from "../Home/HomeTypes";
 const SimilarTitle = lazy(
 	() => import("../../components/SimilarTitle/SimilarTitle")
 );
@@ -19,7 +19,7 @@ export default function MovieTitleDetails() {
 	const [movieReviews, setMovieReviews] = useState<ReviewsTotal | null>(null);
 	const [showComments, setShowComments] = useState(false);
 	const [movieRecommendations, setMovieRecommendations] = useState<
-		MoviesType["movies"] | null
+		Movie[] | null
 	>(null);
 	const [similarMovies, setSimilarMovies] = useState<SimilarMovies | null>(
 		null

@@ -210,9 +210,11 @@ export default function SignUp() {
 					<input
 						type='text'
 						name='fullname'
+						id='fullname'
 						onChange={(e) => SignContext?.name[1](e.target.value)}
 						placeholder='Enter your full name'
 						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
+						autoComplete='name'
 						required
 					/>
 					<label
@@ -223,9 +225,11 @@ export default function SignUp() {
 					<input
 						type='email'
 						name='email'
+						id='email'
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder='Enter email address'
 						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
+						autoComplete='email'
 						required
 					/>
 					<label
@@ -235,10 +239,12 @@ export default function SignUp() {
 					</label>
 					<input
 						type='password'
+						id='password'
 						name='password'
 						onChange={(e) => setPass(e.target.value)}
 						placeholder='Enter your password'
 						className='mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400'
+						autoComplete='new-password'
 						required
 					/>
 					{error && (

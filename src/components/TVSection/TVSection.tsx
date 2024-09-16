@@ -1,17 +1,17 @@
-import React from "react";
+import React, { memo, useState } from "react";
 import { Suspense, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { TVDiscover, TVList } from "../../pages/Home/HomeTypes";
+import { ContentType, TVDiscover } from "../../pages/Home/HomeTypes";
 const TVTitle = React.lazy(() => import("../TVTitle/TVTitle"));
 import { motion } from "framer-motion";
 const Loading = React.lazy(() => import("../MovieSection/Loading"));
 
-export default function TVSection({
-	shows,
-	heading,
-	id,
-	getMoviesorTVData,
-}: TVList) {
+const isSameTVList = (prevProps: ContentType, nextProps: ContentType) => {
+	return prevProps.heading === nextProps.heading;
+};
+
+const TVSection = memo(({ heading, uri }: ContentType) => {
+	const [shows, setShows] = useState<TVDiscover[] | null>(null);
 	const navigate = useNavigate();
 	const animation = {
 		initial: {
@@ -26,6 +26,20 @@ export default function TVSection({
 			},
 		},
 	};
+	async function fetchTVData() {
+		const response = await fetch(
+			`https://api.themoviedb.org/3/${uri}?language=en-US&page=1`,
+			{
+				method: "GET",
+				headers: {
+					accept: "application/json",
+					Authorization: import.meta.env.VITE_TMDB_READ_ACCESS_KEY,
+				},
+			}
+		);
+		const data = await response.json();
+		setShows(data.results);
+	}
 
 	const tvsectionRef = useRef(null);
 
@@ -34,9 +48,7 @@ export default function TVSection({
 			(enteries) => {
 				enteries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						if (entry.target.id.includes("tv")) {
-							getMoviesorTVData(entry.target.id);
-						}
+						shows === null && fetchTVData();
 					}
 				});
 			},
@@ -52,6 +64,7 @@ export default function TVSection({
 		return () => {
 			titleObserver.disconnect();
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tvsectionRef.current]);
 
 	const TVSectionComponent = () => {
@@ -62,25 +75,7 @@ export default function TVSection({
 				{shows &&
 					shows?.map((show: TVDiscover) => (
 						<motion.div key={show.id} variants={animation}>
-							<TVTitle
-								backdrop_path={""}
-								first_air_date={show.first_air_date}
-								genre_ids={[]}
-								id={show.id}
-								name={show.name}
-								origin_country={[]}
-								original_language={""}
-								original_name={""}
-								overview={""}
-								popularity={0}
-								poster_path={show.poster_path}
-								vote_average={show.vote_average}
-								show_vote_average={""}
-								vote_count={0}
-								adult={false}
-								isShow={false}
-								title={""}
-							/>
+							<TVTitle key={show.id} {...show} />
 						</motion.div>
 					))}
 			</motion.div>
@@ -94,7 +89,7 @@ export default function TVSection({
 			throw new Promise<void>((resolve) => {
 				setTimeout(() => {
 					resolve();
-				}, 100);
+				}, 0);
 			});
 		}
 	};
@@ -106,17 +101,19 @@ export default function TVSection({
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				id={id}
+				id={heading}
 				className='titles mx-auto h-auto w-full md:h-auto'>
 				<motion.h2
 					onClick={() => navigate("/tvshows")}
 					className='mx-auto w-full cursor-pointer p-4 pl-3 text-left text-xl font-extrabold text-fuchsia-600 sm:w-[calc(100%-8%)]'>
 					{heading}
 				</motion.h2>
-				<Suspense fallback={<Loading key={id} />}>
+				<Suspense fallback={<Loading key={heading} />}>
 					<DataComponent />
 				</Suspense>
 			</motion.section>
 		</>
 	);
-}
+}, isSameTVList);
+
+export default TVSection;

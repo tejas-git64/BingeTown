@@ -1,12 +1,17 @@
-import React from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Movie, MoviesType } from "../../pages/Home/HomeTypes";
+import { GenreType, Movie } from "../../pages/Home/HomeTypes";
 const MovieTitle = React.lazy(() => import("../MovieTitle/MovieTitle"));
 import { motion } from "framer-motion";
 import { Suspense } from "react";
 const Loading = React.lazy(() => import("../MovieSection/Loading"));
 
-const GenresSection = ({ movies, heading }: MoviesType) => {
+const isSameGenre = (prevProps: GenreType, nextProps: GenreType) => {
+	return prevProps.id === nextProps.id;
+};
+
+const GenresSection = memo(({ id, heading }: GenreType) => {
+	const [genreMovies, setGenreMovies] = useState<Movie[] | null>(null);
 	const animation = {
 		initial: {
 			x: "-5rem",
@@ -22,35 +27,55 @@ const GenresSection = ({ movies, heading }: MoviesType) => {
 			},
 		},
 	};
-
 	const navigate = useNavigate();
+	const sectionRef = useRef(null);
+	const introptions = {
+		rootMargin: "200px",
+		threshold: 1.0,
+	};
+	const options = {
+		method: "GET",
+		headers: {
+			accept: "application/json",
+			Authorization: import.meta.env.VITE_TMDB_READ_ACCESS_KEY,
+		},
+	};
+
+	async function fetchGenreData() {
+		const response = await fetch(
+			`https://api.themoviedb.org/3/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`,
+			options
+		);
+		const data = await response.json();
+		data && setGenreMovies(data.results);
+	}
+
+	useEffect(() => {
+		const titleObserver = new IntersectionObserver((enteries) => {
+			enteries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					genreMovies === null && fetchGenreData();
+				}
+			});
+		}, introptions);
+		if (sectionRef.current) {
+			titleObserver.observe(sectionRef.current);
+		}
+		// Cleanup the observer on component unmount
+		return () => {
+			titleObserver.disconnect();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [sectionRef.current]);
 
 	const GenresSectionComponent = () => {
 		return (
 			<motion.div
 				id='genre'
 				className='mx-auto flex h-[310px] w-[calc(100%-5%)] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto md:w-[calc(100%-13%)] lg:w-[calc(100%-11.5%)] xl:w-[calc(100%-10.5%)] 2xl:w-[calc(100%-10%)]'>
-				{movies?.map((movie: Movie) => (
+				{genreMovies?.map((movie: Movie) => (
 					<motion.div key={movie.id} variants={animation}>
-						<MovieTitle
-							key={movie.id}
-							adult={false}
-							backdrop_path={""}
-							first_air_date={""}
-							genre_ids={[]}
-							id={movie.id}
-							original_language={""}
-							original_title={""}
-							overview={""}
-							popularity={0}
-							poster_path={movie.poster_path}
-							release_date={movie.release_date}
-							title={movie.title}
-							video={false}
-							vote_average={movie.vote_average}
-							vote_count={0}
-							genre={movie.genre}
-						/>
+						<MovieTitle {...movie} key={movie.id} />
 					</motion.div>
 				))}
 			</motion.div>
@@ -58,9 +83,9 @@ const GenresSection = ({ movies, heading }: MoviesType) => {
 	};
 
 	const DataComponent = () => {
-		if (!movies) {
+		if (!genreMovies) {
 			throw new Promise<void>((resolve): void => {
-				setTimeout(() => resolve(), 1000);
+				setTimeout(() => resolve(), 0);
 			});
 		} else {
 			return <GenresSectionComponent />;
@@ -69,7 +94,7 @@ const GenresSection = ({ movies, heading }: MoviesType) => {
 
 	return (
 		<>
-			<section className='mx-auto h-auto w-full md:h-auto'>
+			<section ref={sectionRef} className='mx-auto h-auto w-full md:h-auto'>
 				<h2
 					onClick={() => navigate("/movies")}
 					className='mx-auto w-full cursor-pointer p-4 pl-3 text-left text-xl font-extrabold text-amber-500 sm:w-[calc(100%-8%)]'>
@@ -81,6 +106,6 @@ const GenresSection = ({ movies, heading }: MoviesType) => {
 			</section>
 		</>
 	);
-};
+}, isSameGenre);
 
 export default GenresSection;

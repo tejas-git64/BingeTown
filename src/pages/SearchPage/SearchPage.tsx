@@ -39,7 +39,9 @@ export default function Search() {
 	}
 
 	useEffect(() => {
-		getSearchResults();
+		if (searchval) {
+			getSearchResults();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchval]);
 

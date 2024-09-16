@@ -131,7 +131,7 @@ export default function MovieTitle({
 								{vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}✨`}
 							</h4>
 						</div>
-						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-500'>
+						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-400'>
 							{year}
 						</h3>
 					</div>

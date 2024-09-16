@@ -8,15 +8,13 @@ import {
 	useMemo,
 	useState,
 } from "react";
-import { MovieListGenres, MoviesType } from "../Home/HomeTypes";
+import { MovieListGenres, Movie } from "../Home/HomeTypes";
 const MovieTitle = lazy(() => import("../../components/MovieTitle/MovieTitle"));
 import MovieShowFallback from "./MovieShowFalback";
 import { motion } from "framer-motion";
 
 export default function Movies() {
-	const [sortedMovies, setSortedMovies] = useState<MoviesType["movies"] | null>(
-		[]
-	);
+	const [sortedMovies, setSortedMovies] = useState<Movie[] | null>([]);
 	const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
 	const [selected, setSelected] = useState<number | string>(28);
 
@@ -86,26 +84,9 @@ export default function Movies() {
 						columnGap: "30px",
 					}}
 					className='max-h-auto mb-6 mt-4 min-h-[500px] w-full pl-2'>
-					{sortedMovies?.map((movie) => (
+					{sortedMovies?.map((movie: Movie) => (
 						<motion.div key={movie.id} variants={animation}>
-							<MovieTitle
-								adult={false}
-								backdrop_path={""}
-								first_air_date={""}
-								genre_ids={[]}
-								id={movie.id}
-								genre={0}
-								original_language={""}
-								original_title={""}
-								overview={""}
-								popularity={0}
-								poster_path={movie.poster_path}
-								release_date={movie.release_date}
-								title={movie.title}
-								video={false}
-								vote_average={movie.vote_average}
-								vote_count={0}
-							/>
+							<MovieTitle {...movie} />
 						</motion.div>
 					))}
 				</motion.div>
