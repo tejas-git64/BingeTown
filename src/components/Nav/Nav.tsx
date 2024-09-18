@@ -97,8 +97,12 @@ export default function Nav() {
 			</Link>
 			<div className='flex w-full items-center justify-end'>
 				<button
-					onClick={() => NavContext?.searchPage[1](true)}
-					className='mr-4 border-none bg-transparent p-0 outline-none md:mr-5 md:mt-0.5 lg:hidden'>
+					onClick={() => navigate("/search")}
+					style={{
+						border: "none",
+						outline: "none",
+					}}
+					className='mr-4 bg-transparent p-0 md:mr-5 md:mt-0.5 lg:hidden'>
 					<img src={search} alt='search' className='h-6 w-6 sm:h-7 sm:w-7' />
 				</button>
 				<div className='hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:max-w-[1330px]'>

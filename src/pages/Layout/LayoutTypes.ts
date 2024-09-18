@@ -38,10 +38,6 @@ export type SavedTypes =
 
 export type LayoutTypes = {
 	name: [name: string, setName: React.Dispatch<React.SetStateAction<string>>];
-	searchPage: [
-		searchPage: boolean,
-		setSearchPage: React.Dispatch<React.SetStateAction<boolean>>
-	];
 	profilePage: [
 		profilePage: boolean,
 		setProfilePage: React.Dispatch<React.SetStateAction<boolean>>

@@ -2,7 +2,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import { createContext, useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
-import SearchPage from "../SearchPage/SearchPage";
 import Profile from "../Profile/Profile";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import { doc, getDoc } from "firebase/firestore";
@@ -15,7 +14,6 @@ export const NameContext = createContext<LayoutTypes | null>(null);
 export const SVGContext = createContext<number>(0);
 export default function Layout() {
 	const [name, setName] = useState("");
-	const [searchPage, setSearchPage] = useState(false);
 	const [profilePage, setProfilePage] = useState(false);
 	const [sideNav, setSideNav] = useState(false);
 	const [saved, setSaved] = useState<SavedTypes | null>(null);
@@ -104,7 +102,6 @@ export default function Layout() {
 					<NameContext.Provider
 						value={{
 							name: [name, setName],
-							searchPage: [searchPage, setSearchPage],
 							profilePage: [profilePage, setProfilePage],
 							sideNav: [sideNav, setSideNav],
 							saved: [saved, setSaved],
@@ -112,8 +109,7 @@ export default function Layout() {
 							getSavedTitles,
 							getWatchlistData,
 						}}>
-						<Nav />
-						<SearchPage />
+						{path !== "/search" && <Nav />}
 						<SVGContext.Provider value={svg}>
 							<Sidenav />
 							<Profile />

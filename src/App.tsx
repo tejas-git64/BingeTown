@@ -9,6 +9,7 @@ import "./App.css";
 import AuthGuard from "./utils/AuthGuard";
 import loadingGif from "./assets/gifs/icons8-movie.gif";
 import { AnimatePresence, motion } from "framer-motion";
+import SearchPage from "./pages/Search/SearchPage";
 const Layout = lazy(() => import("./pages/Layout/Layout"));
 const Login = lazy(() => import("./pages/Login/Login"));
 const SignUp = lazy(() => import("./pages/Signup/Signup"));
@@ -39,6 +40,10 @@ export default function App() {
 				<Route
 					path='watchlist'
 					element={<AuthGuard component={<WatchList />} />}
+				/>
+				<Route
+					path='search'
+					element={<AuthGuard component={<SearchPage />} />}
 				/>
 				<Route path='tvshows' element={<AuthGuard component={<TVShows />} />} />
 				<Route path='home' element={<AuthGuard component={<Home />} />} />
