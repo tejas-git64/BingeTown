@@ -1,11 +1,4 @@
-import {
-	Suspense,
-	lazy,
-	useCallback,
-	useEffect,
-	useMemo,
-	useState,
-} from "react";
+import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { MovieListGenres, Movie } from "../Home/HomeTypes";
 const MovieTitle = lazy(() => import("../../components/MovieTitle/MovieTitle"));
 import MovieShowFallback from "./MovieShowFalback";
@@ -16,16 +9,13 @@ export default function Movies() {
 	const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
 	const [selected, setSelected] = useState<number | string>(28);
 
-	const options = useMemo(
-		() => ({
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization: import.meta.env.VITE_TMDB_READ_ACCESS_KEY,
-			},
-		}),
-		[]
-	);
+	const options = {
+		method: "GET",
+		headers: {
+			accept: "application/json",
+			Authorization: import.meta.env.VITE_TMDB_READ_ACCESS_KEY,
+		},
+	};
 
 	async function getMovieGenres() {
 		const res = await fetch(
@@ -43,7 +33,8 @@ export default function Movies() {
 		);
 		const data = await res.json();
 		setSortedMovies(data.results);
-	}, [selected, options]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selected]);
 
 	useEffect(() => {
 		genres === null && getMovieGenres();
@@ -78,14 +69,15 @@ export default function Movies() {
 					animate='animate'
 					style={{
 						display: "grid",
-						gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-						gridTemplateRows: "repeat(auto-fill, minmax(200px, 1fr))",
-						rowGap: "20px",
-						columnGap: "30px",
+						gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+						gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
 					}}
-					className='max-h-auto mb-6 mt-4 min-h-[500px] w-full pl-2'>
+					className='mb-6 mt-4 h-auto gap-x-4 gap-y-4 md:gap-x-6'>
 					{sortedMovies?.map((movie: Movie) => (
-						<motion.div key={movie.id} variants={animation}>
+						<motion.div
+							key={movie.id}
+							variants={animation}
+							className='mx-auto w-min'>
 							<MovieTitle {...movie} />
 						</motion.div>
 					))}
@@ -110,16 +102,16 @@ export default function Movies() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				className='max-h-max min-h-[1000px] w-full bg-neutral-900 px-3 pb-2 pt-20 text-left md:px-20'>
-				<div className='my-3 flex w-full items-center justify-between px-2 sm:px-0'>
-					<h3 className='py-2 text-xl font-bold text-teal-400 md:text-2xl'>
+				className='max-h-auto h-full w-full bg-neutral-900 px-5 pb-2 pt-12 text-left md:px-6'>
+				<div className='my-4 flex h-auto w-full items-center justify-between'>
+					<h3 className='py-2 text-base font-bold text-white md:text-lg'>
 						Movies
 					</h3>
 					<select
 						name='Sort by Genre'
 						aria-label='Sort by genre'
 						onChange={(e) => setSelected(e.target.value)}
-						className='none h-8 w-32 rounded-md border-none bg-neutral-900 pr-2 text-xs font-semibold text-teal-400 outline-none'>
+						className='none h-8 w-32 rounded-md border-none bg-neutral-900 text-xs font-semibold text-white outline-none'>
 						{genres?.map((genre) => (
 							<option
 								key={genre.id}

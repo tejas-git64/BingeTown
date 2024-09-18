@@ -116,11 +116,11 @@ export default function Profile() {
 							<div className='flex h-auto w-[70%] flex-col items-center justify-start text-left'>
 								<div className='my-1 h-full w-full rounded-lg bg-transparent pl-4'>
 									<p className='text-xs text-neutral-400'>Name</p>
-									<p className='text-base font-medium text-teal-500'>{name}</p>
+									<p className='text-base font-medium text-white'>{name}</p>
 								</div>
 								<div className='my-1 h-full w-full rounded-lg bg-transparent pl-4'>
 									<p className='text-xs text-neutral-400'>Email</p>
-									<p className='text-base font-medium text-teal-500'>{email}</p>
+									<p className='text-base font-medium text-white'>{email}</p>
 								</div>
 							</div>
 						</div>
@@ -129,7 +129,7 @@ export default function Profile() {
 								<p className='mr-2 text-sm font-medium text-neutral-400'>
 									No of titles in watchlist:
 								</p>
-								<p className='text-sm text-fuchsia-500'>
+								<p className='text-sm text-white'>
 									{ProfileContext?.watchlist[0]?.watchlist.length}
 								</p>
 							</div>
@@ -139,7 +139,7 @@ export default function Profile() {
 								<p className='mr-2 text-sm font-medium text-neutral-400'>
 									No of titles saved:
 								</p>
-								<p className='text-sm text-fuchsia-500'>
+								<p className='text-sm text-white'>
 									{ProfileContext?.saved[0]?.savedtitles.length}
 								</p>
 							</div>

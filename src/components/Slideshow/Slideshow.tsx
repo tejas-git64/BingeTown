@@ -70,7 +70,7 @@ const SlideShow = memo(
 					</h3>
 					<button
 						onClick={showTitle}
-						className='my-4 w-32 rounded-full border-none bg-amber-400 text-sm font-extrabold text-black outline-none transition-all delay-[1] ease-linear hover:scale-105 md:w-40 md:text-base lg:py-3'>
+						className='my-4 w-28 rounded-full border-none bg-amber-400 text-xs font-extrabold text-black outline-none transition-all delay-[1] ease-linear hover:scale-105 md:w-32 md:py-3'>
 						Watch Now
 					</button>
 				</motion.div>

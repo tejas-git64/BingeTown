@@ -204,12 +204,12 @@ export default function Landing() {
 							transition={{
 								duration: 0.5,
 							}}
-							width={350}
+							width={300}
 							height={300}
 							loading='lazy'
 							src={review}
 							alt='watching'
-							className='-mt-16 mr-20 h-52 w-72 md:-mt-0 md:h-auto md:w-[200px] xl:w-[300px]'
+							className='-mt-16 mr-20 h-52 w-[250px] md:-mt-0 md:h-auto xl:w-[300px]'
 						/>
 					</motion.div>
 					<motion.div className='flex h-44 w-96 flex-col justify-evenly p-4 md:h-auto md:w-[calc(100%-60%)]'>

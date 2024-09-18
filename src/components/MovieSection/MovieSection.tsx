@@ -73,26 +73,11 @@ const MovieSection = memo(({ heading, uri }: ContentType) => {
 				id={"latest"}
 				className='mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto'>
 				{movies?.map((movie: Movie) => (
-					<motion.div key={movie.id} variants={animation}>
-						<MovieTitle
-							key={movie.id}
-							adult={false}
-							backdrop_path={""}
-							first_air_date={""}
-							genre_ids={[]}
-							id={movie.id}
-							original_language={""}
-							original_title={""}
-							overview={""}
-							popularity={0}
-							poster_path={movie.poster_path}
-							release_date={movie.release_date}
-							title={movie.title}
-							video={false}
-							vote_average={movie.vote_average}
-							vote_count={0}
-							genre={movie.genre}
-						/>
+					<motion.div
+						key={movie.id}
+						variants={animation}
+						className='mr-2 sm:mr-4'>
+						<MovieTitle key={movie.id} {...movie} />
 					</motion.div>
 				))}
 			</motion.div>

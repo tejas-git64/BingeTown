@@ -75,7 +75,7 @@ export default function TVTitle({
 		<>
 			<div
 				onClick={showTVShow}
-				className='relative mx-auto mr-6 flex h-72 w-36 flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-10 md:h-[300px] md:w-[154px]'>
+				className='relative mx-auto flex h-72 w-36 flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:h-[300px] md:w-[154px]'>
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='movie-poster'

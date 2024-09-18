@@ -74,7 +74,10 @@ const GenresSection = memo(({ id, heading }: GenreType) => {
 				id='genre'
 				className='mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto'>
 				{genreMovies?.map((movie: Movie) => (
-					<motion.div key={movie.id} variants={animation}>
+					<motion.div
+						key={movie.id}
+						variants={animation}
+						className='mr-2 sm:mr-4'>
 						<MovieTitle {...movie} key={movie.id} />
 					</motion.div>
 				))}

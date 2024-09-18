@@ -84,10 +84,14 @@ export default function Nav() {
 			className={`${
 				path === "/login" || path === "/signup" ? "hidden" : "fixed"
 			} left-0 top-0 z-50 flex h-16
-			  w-full items-center justify-between bg-neutral-900 pl-4 pr-6 transition-all delay-[3] ease-out xl:px-10`}>
+			  w-full items-center justify-between ${
+					path === "/"
+						? "bg-gradient-to-b from-neutral-900 to-transparent"
+						: "bg-neutral-900"
+				} pl-3 pr-4 transition-all delay-[3] ease-out md:pl-4 md:pr-6`}>
 			<Link
 				to='/'
-				className='mr-10 flex items-center text-2xl font-bold text-teal-400 md:-mt-1 lg:-ml-1'>
+				className='mr-40 flex items-center text-2xl font-bold text-teal-400 md:-mt-1'>
 				<img src={logo} alt='icon' className='h-10 w-10 md:h-12 md:w-14' />
 				<p className='text-xl text-teal-400'>BingeTown</p>
 			</Link>
@@ -97,7 +101,7 @@ export default function Nav() {
 					className='mr-4 border-none bg-transparent p-0 outline-none md:mr-5 md:mt-0.5 lg:hidden'>
 					<img src={search} alt='search' className='h-6 w-6 sm:h-7 sm:w-7' />
 				</button>
-				<div className='hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:w-[1330px]'>
+				<div className='hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:max-w-[1330px]'>
 					<div
 						className={`${
 							path !== "/" ? "block" : "hidden"

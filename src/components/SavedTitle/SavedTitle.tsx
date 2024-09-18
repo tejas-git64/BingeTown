@@ -46,13 +46,13 @@ export default function SavedTitle({
 		<>
 			<div
 				onClick={() => navigateToShow(type, id)}
-				className='relative mx-auto mr-4 flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-4'>
+				className='relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl'>
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='image-cover'
 					width={154}
 					height={231}
-					className='mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg md:h-[231px] md:w-[154px]'
+					className='mx-auto h-[231px] w-[154px] cursor-pointer rounded-lg transition-all delay-0 ease-in hover:scale-95 md:h-auto md:w-auto'
 				/>
 				<button
 					onClick={(e) =>
@@ -65,19 +65,19 @@ export default function SavedTitle({
 							vote_average,
 						})
 					}
-					className='absolute right-0 top-0 rounded-none rounded-bl-xl rounded-tr-sm border-none bg-neutral-800 p-1.5 outline-none'>
+					className='absolute right-1 top-1 rounded-xl rounded-bl-xl border-none bg-neutral-800 p-1 outline-none'>
 					<img src={notbookmarked} alt='unsave' className='h-5 w-5' />
 				</button>
 				<div className='flex h-auto w-full flex-col items-start justify-center'>
 					<p
-						className='sm:text-md line-clamp-1
-					 text-ellipsis whitespace-pre-line text-left text-sm font-medium text-teal-500'>
+						className='line-clamp-1
+					 h-[24px] text-ellipsis whitespace-pre-line text-left text-[12px] font-semibold text-white'>
 						{title}
 					</p>
-					<h4 className='my-1 mr-2 text-xs font-normal text-white'>
-						Rating: {vote_average} ⭐
+					<h4 className='mr-1  text-[10.5px] font-normal text-neutral-400'>
+						Rating: {vote_average}/10
 					</h4>
-					<h4 className='h-auto w-full pb-2 text-left text-xs font-semibold text-gray-400'>
+					<h4 className='whitespace-nowrap text-[10.5px] font-semibold text-neutral-300'>
 						{year}
 					</h4>
 				</div>

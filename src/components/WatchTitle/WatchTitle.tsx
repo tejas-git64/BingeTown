@@ -56,30 +56,28 @@ export default function WatchTitle({
 		<>
 			<div
 				onClick={() => navigateToShow(type, id)}
-				className='relative mx-auto mr-4 flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl xl:pl-32'>
+				className='relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl'>
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='image-cover'
 					height={231}
 					width={154}
-					className='mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg md:h-auto md:w-auto'
+					className='mx-auto h-[231px] w-[154px] cursor-pointer rounded-lg transition-all delay-0 ease-in hover:scale-95 md:h-auto md:w-auto'
 				/>
 				<h3
-					className='sm:text-md line-clamp-1
-					 text-ellipsis whitespace-pre-line text-left text-sm font-medium text-teal-500'>
+					className='mt-1
+					 line-clamp-1 text-ellipsis whitespace-pre-line text-left text-[12px] font-semibold text-white'>
 					{title}
 				</h3>
 				<div className='flex w-full items-center justify-between'>
 					<div className='flex flex-col items-start justify-center'>
-						<div className='flex text-sm font-bold'>
-							<h4 className='my-1 mr-2 text-xs font-normal text-white'>
-								Rating:
-							</h4>
-							<h4 className='my-1 mr-2 text-xs font-normal text-white'>
-								{vote_average === 0 ? "NA" : `${vote_average}✨`}
+						<div className='flex text-[10.5px]'>
+							<h4 className='mr-1 font-normal text-neutral-400'>Rating:</h4>
+							<h4 className='text-neutral-400'>
+								{vote_average === 0 ? "NA" : `${vote_average}/10`}
 							</h4>
 						</div>
-						<h3 className='whitespace-nowrap text-xs font-semibold text-neutral-400'>
+						<h3 className='whitespace-nowrap text-[10.5px] font-semibold text-neutral-300'>
 							{year}
 						</h3>
 					</div>
@@ -95,7 +93,7 @@ export default function WatchTitle({
 								watched: false,
 							})
 						}
-						className='h-auto border-none bg-transparent p-0 outline-none'>
+						className=' -mr-1 h-auto border-none bg-transparent p-0'>
 						<img src={trash} alt='title-menu' className='h-5 w-5' />
 					</button>
 				</div>

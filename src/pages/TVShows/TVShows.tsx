@@ -63,7 +63,7 @@ export default function TVShows() {
 			transition: {
 				staggerChildren: 0.05,
 				ease: "easeInOut",
-				duration: 0.25,
+				duration: 0.5,
 			},
 		},
 	};
@@ -77,14 +77,15 @@ export default function TVShows() {
 					animate='animate'
 					style={{
 						display: "grid",
-						gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-						gridTemplateRows: "repeat(auto-fill, minmax(200px, 1fr))",
-						rowGap: "30px",
-						columnGap: "30px",
+						gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+						gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
 					}}
-					className='mb-10 ml-2 mt-4 h-auto w-full sm:ml-0 sm:pl-0'>
+					className='mb-6 mt-4 h-auto gap-x-4 gap-y-4 md:gap-x-6'>
 					{sortedShows?.map((show) => (
-						<motion.div key={show.id} variants={animation}>
+						<motion.div
+							key={show.id}
+							variants={animation}
+							className='mx-auto w-min'>
 							<TVTitle {...show} isShow={false} />
 						</motion.div>
 					))}
@@ -109,16 +110,16 @@ export default function TVShows() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				className='max-h-max min-h-[1000px] w-full bg-neutral-900 px-6 pb-8 pt-20 text-left md:px-20'>
-				<div className='my-3 flex w-full items-center justify-between px-2 sm:px-0'>
-					<h3 className='mb-2 py-2 text-xl font-bold text-teal-400 md:text-2xl'>
+				className='max-h-auto h-full w-full bg-neutral-900 px-5 pb-2 pt-12 text-left md:px-6'>
+				<div className='my-4 flex h-auto w-full items-center justify-between'>
+					<h3 className='py-2 text-base font-bold text-white md:text-lg'>
 						TV Shows
 					</h3>
 					<select
 						name='Sort by Genre'
 						onChange={(e) => setSelected(e.target.value)}
 						aria-label='Sort by genre'
-						className='h-8 w-40 rounded-md border-none bg-neutral-900 pr-2 text-xs font-semibold text-teal-400 outline-none'>
+						className='mr-1 h-8 w-36 rounded-md border-none bg-neutral-900 text-xs font-semibold text-white outline-none'>
 						{genres?.map((genre) => (
 							<option
 								key={genre.id}

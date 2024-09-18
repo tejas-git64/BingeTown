@@ -6,7 +6,7 @@ export default function DetailsPageFallback() {
 	return (
 		<>
 			<div className='h-auto w-full bg-neutral-900'>
-				<div className='mx-auto mt-16 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-20 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
+				<div className='mx-auto mt-12 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-16 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
 					<div className='mx-auto hidden h-64 w-full px-4 lg:h-[1100px] xl:block xl:w-[500px]'>
 						<p className='my-2 text-left text-sm text-white'>Recommendations</p>
 						<ul className='h-full w-full overflow-y-scroll pr-3'>
@@ -24,7 +24,7 @@ export default function DetailsPageFallback() {
 						</ul>
 					</div>
 					<div className='3xl:w-full mb-2 flex h-auto w-full flex-col xl:w-[900px] 2xl:w-[1100px]'>
-						<p className='mb-2 h-4 w-full rounded-full bg-neutral-500 text-left md:h-[20px] xl:w-[500px]'></p>
+						<p className='mb-2 h-3 w-[300px] rounded-full bg-neutral-500 text-left md:h-4'></p>
 						<div className='mx-auto flex h-60 w-full items-center justify-center rounded-xl bg-black sm:h-80 md:h-96 lg:h-[560px] lg:w-full xl:w-[900px] 2xl:w-[1100px]'>
 							<img
 								src={loadingCircle}

@@ -70,37 +70,37 @@ export default function Sidenav() {
 				<div className='mx-auto flex h-auto w-[250px] flex-col items-center justify-center rounded-3xl bg-black py-0'>
 					<div
 						onClick={showProfile}
-						className='flex w-full items-center justify-between rounded-t-3xl border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
+						className='flex w-full cursor-pointer items-center justify-between rounded-t-3xl border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
 						<img src={profile} alt='profile' className='mr-1 h-5 w-5' />
 						<p className='text-sm text-white'>Profile</p>
 					</div>
 					<div
 						onClick={() => navigateToPage("home")}
-						className='flex w-full items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
+						className='flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
 						<img src={home} alt='profile' className='-ml-0.5 mr-1 h-6 w-6' />
 						<p className='text-sm text-white'>Home</p>
 					</div>
 					<div
 						onClick={() => navigateToPage("movies")}
-						className='flex w-full items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
+						className='flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
 						<img src={movie} alt='profile' className='-ml-0.5 mr-1 h-6 w-6' />
 						<p className='text-sm text-white'>Movies</p>
 					</div>
 					<div
 						onClick={() => navigateToPage("tvshows")}
-						className='flex w-full items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
+						className='flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
 						<img src={tvshow} alt='profile' className='-ml-1 h-7 w-7' />
 						<p className='text-sm text-white'>TV Shows</p>
 					</div>
 					<div
 						onClick={() => navigateToPage("saved")}
-						className='flex w-full items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
+						className='flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
 						<img src={bookmarked} alt='saved' className='mr-1 h-5 w-5' />
 						<p className='text-sm text-white'>Saved</p>
 					</div>
 					<div
 						onClick={() => navigateToPage("watchlist")}
-						className='flex w-full items-center justify-between rounded-b-3xl px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
+						className='flex w-full cursor-pointer items-center justify-between rounded-b-3xl px-6 py-3 transition-colors duration-75 hover:bg-neutral-700'>
 						<img src={watchlist} alt='watchlist' className='mr-1.5 h-5 w-5' />
 						<p className='text-sm text-white'>Watchlist</p>
 					</div>

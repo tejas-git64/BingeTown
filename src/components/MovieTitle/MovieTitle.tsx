@@ -86,7 +86,7 @@ export default function MovieTitle({
 		<>
 			<div
 				onClick={showMovie}
-				className='relative mx-auto mr-2 flex h-[300px] w-[155px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:mr-6 md:h-[300px] md:w-[154px]'>
+				className='relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl'>
 				<img
 					src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
 					alt='movie-poster'
@@ -96,7 +96,7 @@ export default function MovieTitle({
 				/>
 				<h3
 					className='line-clamp-1 text-ellipsis
-					 whitespace-pre-line text-left text-sm font-semibold text-white sm:text-[12px]'>
+					 whitespace-pre-line text-left text-[12px] font-semibold text-white'>
 					{title}
 				</h3>
 				<div className='flex w-full items-center justify-between'>

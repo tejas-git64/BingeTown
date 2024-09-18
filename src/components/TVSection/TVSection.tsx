@@ -74,7 +74,10 @@ const TVSection = memo(({ heading, uri }: ContentType) => {
 				className='mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto'>
 				{shows &&
 					shows?.map((show: TVDiscover) => (
-						<motion.div key={show.id} variants={animation}>
+						<motion.div
+							key={show.id}
+							variants={animation}
+							className='mr-2 sm:mr-4'>
 							<TVTitle key={show.id} {...show} />
 						</motion.div>
 					))}

@@ -1,12 +1,14 @@
-import { Suspense, lazy, useContext, useEffect } from "react";
-import { NameContext } from "../Layout/Layout";
-import { SavedTitleType } from "../Layout/LayoutTypes";
+import { Suspense, lazy, useEffect, useState } from "react";
+import { SavedTitleType, SavedTypes } from "../Layout/LayoutTypes";
 const SavedTitle = lazy(() => import("../../components/SavedTitle/SavedTitle"));
 import MovieShowFallback from "../Movies/MovieShowFalback";
 import { motion } from "framer-motion";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../config/Firebase";
 
 export default function Saved() {
-	const savedContext = useContext(NameContext);
+	const [saved, setSaved] = useState<SavedTypes | null>(null);
 	const animation = {
 		initial: {
 			opacity: 0,
@@ -21,9 +23,27 @@ export default function Saved() {
 		},
 	};
 
+	const getSavedTitles = () => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			if (user) {
+				const uid = user.uid;
+				const savedRef = doc(db, "saved", uid);
+
+				(async function getSavedData() {
+					//Saved data
+					const savedDoc = await getDoc(savedRef);
+					const savedData = savedDoc.data();
+					if (savedData) {
+						setSaved(savedData);
+					}
+				})();
+			}
+		});
+		return () => unsubscribe();
+	};
+
 	useEffect(() => {
-		savedContext?.getSavedTitles();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		getSavedTitles();
 	}, []);
 
 	const SavedComponent = () => {
@@ -36,22 +56,16 @@ export default function Saved() {
 					style={{
 						display: "grid",
 						gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-						gridTemplateRows: "repeat(auto-fill, minmax(231px, 1fr))",
-						rowGap: "15px",
-						columnGap: "15px",
+						gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
 					}}
-					className='max-h-auto mb-6 mt-4 min-h-[500px] w-full'>
-					{savedContext?.saved[0]?.savedtitles ? (
-						savedContext.saved[0].savedtitles.map((title: SavedTitleType) => (
-							<motion.div key={title.id} variants={animation}>
-								<SavedTitle
-									id={title.id}
-									type={title.type}
-									title={title.title}
-									poster_path={title.poster_path}
-									vote_average={title.vote_average}
-									release_date={title.release_date}
-								/>
+					className='h-auto gap-x-4 gap-y-4 md:gap-x-6'>
+					{saved?.savedtitles ? (
+						saved.savedtitles.map((title: SavedTitleType) => (
+							<motion.div
+								key={title.id}
+								variants={animation}
+								className='mx-auto w-min'>
+								<SavedTitle {...title} />
 							</motion.div>
 						))
 					) : (
@@ -63,7 +77,7 @@ export default function Saved() {
 	};
 
 	const DataComponent = () => {
-		if (!savedContext?.saved[0]?.savedtitles) {
+		if (!saved?.savedtitles) {
 			throw new Promise<void>((resolve) => {
 				setTimeout(resolve, 0);
 			});
@@ -78,8 +92,8 @@ export default function Saved() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				className='h-auto w-full bg-neutral-900 px-6 pb-2 text-left md:px-20 md:pl-[85px]'>
-				<p className='mb-2 pt-20 text-xl font-bold text-teal-400 md:text-2xl'>
+				className='max-h-auto h-full w-full bg-neutral-900 px-5 pb-2 pt-12 text-left md:px-6'>
+				<p className='my-4 py-2 text-base font-bold text-white md:text-lg'>
 					Saved
 				</p>
 				<Suspense fallback={<MovieShowFallback />}>
