@@ -144,26 +144,28 @@ export default function Home() {
 	const HomeComponent = () => {
 		return (
 			<>
-				<motion.div className='mt-16 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900 px-[20px] xl:px-[45px]'>
+				<motion.div className='mt-16 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900'>
 					<motion.div
 						id='slideshow'
-						className='relative flex h-[440px] w-screen overflow-x-hidden md:h-[450px] xl:h-[640px] xl:pl-72'>
+						className='relative flex h-[440px] w-screen overflow-x-hidden sm:px-[20px] md:h-[450px] xl:h-[640px] xl:px-[45px] xl:pl-72'>
 						{popularMovies?.map((movie) => (
 							<Slideshow key={movie.id} {...movie} />
 						))}
 					</motion.div>
-					{videoType.movies.map((movie) => (
-						<MovieSection key={movie.heading} {...movie} />
-					))}
-					{videoType.shows.map((section) => (
-						<TVSection key={section.heading} {...section} />
-					))}
-					<p className='mx-auto mt-6 w-full cursor-pointer text-left text-xl font-extrabold text-white'>
-						Movies by Genres
-					</p>
-					{videoType.genres.map((section) => (
-						<GenresSection key={section.id} {...section} />
-					))}
+					<div className='px-[20px] xl:px-[45px]'>
+						{videoType.movies.map((movie) => (
+							<MovieSection key={movie.heading} {...movie} />
+						))}
+						{videoType.shows.map((section) => (
+							<TVSection key={section.heading} {...section} />
+						))}
+						<p className='mx-auto mt-6 w-full cursor-pointer text-left text-xl font-extrabold text-white'>
+							Movies by Genres
+						</p>
+						{videoType.genres.map((section) => (
+							<GenresSection key={section.id} {...section} />
+						))}
+					</div>
 				</motion.div>
 			</>
 		);

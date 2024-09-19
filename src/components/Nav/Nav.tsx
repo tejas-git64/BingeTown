@@ -88,7 +88,7 @@ export default function Nav() {
 					path === "/"
 						? "bg-gradient-to-b from-neutral-900 to-transparent"
 						: "bg-neutral-900"
-				} pl-3 pr-4 transition-all delay-[3] ease-out md:pl-4 md:pr-6`}>
+				} pl-3 pr-5 transition-all delay-[3] ease-out md:pl-4 md:pr-6`}>
 			<Link
 				to='/'
 				className='mr-40 flex items-center text-2xl font-bold text-teal-400 md:-mt-1'>

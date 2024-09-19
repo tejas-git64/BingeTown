@@ -326,7 +326,7 @@ export default function MovieTitleDetails() {
 				variants={animation}
 				initial='initial'
 				animate='animate'
-				className='mx-auto mt-12 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-14 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
+				className='mx-auto mt-12 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-[52px] md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
 				<RecommendationCompoonent id={titleId} />
 				<MovieComponent id={titleId} />
 				<SimilarTitlesComponent id={titleId} />

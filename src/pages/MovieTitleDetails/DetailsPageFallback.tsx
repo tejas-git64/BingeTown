@@ -6,7 +6,7 @@ export default function DetailsPageFallback() {
 	return (
 		<>
 			<div className='h-auto w-full bg-neutral-900'>
-				<div className='mx-auto mt-12 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-16 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
+				<div className='mx-auto mt-[57px] flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-16 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
 					<div className='mx-auto hidden h-64 w-full px-4 lg:h-[1100px] xl:block xl:w-[500px]'>
 						<p className='my-2 text-left text-sm text-white'>Recommendations</p>
 						<ul className='h-full w-full overflow-y-scroll pr-3'>

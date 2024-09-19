@@ -360,7 +360,7 @@ export default function TVShowTitleDetails() {
 
 	const DetailsComponent = () => {
 		return (
-			<motion.div className='mx-auto mt-12 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-16 md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
+			<motion.div className='mx-auto mt-12 flex h-auto flex-col overflow-x-hidden px-[20px] pt-2 md:mt-[54px] md:h-auto md:pb-4 xl:w-full xl:flex-row xl:px-6'>
 				<RecommendationCompoonent id={titleId} />
 				<ShowComponent id={titleId} />
 				<SimilarTitlesComponent id={titleId} />
