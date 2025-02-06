@@ -13,8 +13,8 @@ export default function Footer() {
         path !== "/login" && path !== "/signup" ? "flex" : "hidden"
       } h-auto w-full flex-col bg-black p-4 md:space-y-6`}
     >
-      <div className="flex w-full flex-col items-center justify-center py-6 pt-20 md:mx-auto md:h-32 md:w-[80%] md:flex-row md:pt-0 lg:w-[800px] xl:w-[600px]">
-        <h2 className="my-10 -mt-1 whitespace-nowrap text-lg font-semibold text-neutral-200 md:my-0 md:mb-0 md:mr-10 lg:mr-20">
+      <div className="flex w-full flex-col items-center justify-center py-6 pt-10 md:mx-auto md:h-16 md:w-[80%] md:flex-row md:items-start md:pt-0 lg:w-[800px] xl:w-[600px]">
+        <h2 className="text-md -mt-1 whitespace-nowrap py-10 font-semibold text-neutral-200 md:my-0 md:mb-0 md:mr-10 lg:mr-20">
           Reach us here
         </h2>
         <div className="flex h-auto w-[80%] flex-row justify-around md:flex-col md:items-start md:justify-around md:space-y-6">
@@ -83,7 +83,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="mx-auto flex h-auto w-full flex-col items-center justify-center py-16 md:w-[80%] md:flex-row md:py-0 lg:w-[800px] xl:mx-auto xl:w-[660px]">
-        <h4 className="text-md font-semibold text-neutral-200 md:mr-10 md:whitespace-nowrap">
+        <h4 className="text-md font-semibold text-neutral-200 md:-mr-16 md:whitespace-nowrap lg:-mr-44 xl:-mr-6 xl:ml-1">
           Look me up here
         </h4>
         <div className="mx-auto flex w-full items-center justify-center md:w-[400px] md:justify-start">
@@ -116,8 +116,8 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="flex h-10 w-full flex-col items-center justify-center px-6 md:flex-row-reverse md:items-end md:justify-start">
-        <h4 className="my-3 text-sm font-bold text-neutral-300 md:my-0 md:text-xl">
+      <div className="flex h-10 w-full flex-col items-center justify-center px-6 md:h-4 md:flex-row-reverse md:items-end md:justify-start">
+        <h4 className="my-3 text-sm font-bold text-neutral-400 md:my-0 md:text-xl">
           BingeTown {new Date().getFullYear()}
         </h4>
         <p className="pb-1 text-sm font-medium text-neutral-400 md:mr-10">

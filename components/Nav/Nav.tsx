@@ -16,7 +16,7 @@ export default function Nav() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [searchResults, setSearchResults] = useState<MultiSearch | null>(null);
   const [query, setQuery] = useState("");
-  const { setSideNav } = useContext<LayoutContextTypes>(LayoutContext);
+  const NavContext = useContext<LayoutContextTypes | null>(LayoutContext);
   const { push } = useRouter();
 
   const options = {
@@ -67,10 +67,10 @@ export default function Nav() {
     >
       <Link
         href="/"
-        className="mr-40 mt-0.5 flex items-center text-2xl font-bold text-teal-400"
+        className="mr-40 flex items-center text-2xl font-bold text-teal-400"
       >
         <Image src={logo} alt="icon" className="h-8 w-8 md:h-10 md:w-10" />
-        <p className="text-xl text-teal-400">BingeTown</p>
+        <p className="text-lg text-teal-400 sm:text-xl">BingeTown</p>
       </Link>
       <div className="flex w-full items-center justify-end">
         {/* <button
@@ -168,7 +168,7 @@ export default function Nav() {
           href="/signup"
           className={`${
             loggedIn ? "hidden" : "block"
-          } delay-3 mr-0 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mr-4`}
+          } duration-3 mr-0 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mr-4`}
         >
           Sign up
         </Link>
@@ -176,12 +176,12 @@ export default function Nav() {
           href="/login"
           className={`${
             loggedIn ? "hidden" : "hidden md:block"
-          } delay-3 whitespace-nowrap rounded-full border-[1px] border-teal-500 px-5 py-1 text-[14px] font-bold text-teal-400 transition-colors ease-out hover:bg-teal-500 hover:text-black`}
+          } duration-3 whitespace-nowrap rounded-full border-[1px] border-teal-500 px-5 py-1 text-[14px] font-bold text-teal-400 transition-colors ease-out hover:bg-teal-500 hover:text-black`}
         >
           Login
         </Link>
         <button
-          onClick={() => setSideNav((prev) => !prev)}
+          onClick={() => NavContext?.setSideNav((prev) => !prev)}
           style={{
             border: "none",
             outline: "none",
