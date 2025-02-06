@@ -1,5 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import {
   AuthError,
   onAuthStateChanged,
@@ -7,7 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db, googleProvider } from "../../firebase/Firebase";
-import googlelogo from "../../assets/images/icons8-google-48.png";
+import googlelogo from "@/public/svgs/google-svgrepo-com.svg";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Credentials } from "@/types/Auth";
 import Link from "next/link";
@@ -16,7 +17,7 @@ import Image from "next/image";
 
 export default function Login() {
   const [isDisabled, setIsDisabled] = useState(false);
-  const [error, setError] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>(undefined);
   const [loggedIn, setLoggedIn] = useState(false);
   const [creds, setCreds] = useState<Credentials>({
     email: "",
@@ -27,36 +28,29 @@ export default function Login() {
     switch (true) {
       case err.code === "auth/invalid-email":
         return "Invalid email format";
-        break;
       case err.code === "auth/user-disabled":
         return "User account is disabled";
-        break;
       case err.code === "auth/user-not-found":
         return "User account not found";
-        break;
       case err.code === "auth/wrong-password":
         return "Entered wrong password";
-        break;
       default:
         return "";
-        break;
     }
   }
 
-  //Form Validation Function
-  function formValidation() {
+  const formValidation = useCallback(() => {
     if (creds.email.length === 0 || creds.password.length === 0) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
     }
-  }
+  }, [creds.email.length, creds.password.length]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     const { name, value } = e.currentTarget;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setCreds((prev: any) => ({
+    setCreds((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -74,11 +68,12 @@ export default function Login() {
           }, 50);
         }
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error(error);
-      const authError = getAuthStatus(error);
+    } catch (error: unknown) {
+      const authError = getAuthStatus(error as AuthError);
       setError(authError);
+      throw new Error("Could not login", {
+        cause: error,
+      });
     }
   };
 
@@ -135,24 +130,24 @@ export default function Login() {
 
   useEffect(() => {
     formValidation();
-  }, [creds.email.length, creds.password.length]);
+  }, [creds.email.length, creds.password.length, formValidation]);
 
   return (
     <>
-      <div className="relative grid h-[calc(100dvh-0dvh)] w-full place-items-center bg-neutral-800 p-4">
+      <div className="relative grid h-[1000px] w-full place-items-center bg-neutral-900 p-4">
         <Link
           href="/"
-          className="absolute right-5 top-5 h-14 w-auto font-bold text-zinc-400 hover:text-teal-400"
+          className="absolute right-4 top-3 w-auto text-sm font-semibold text-zinc-400 transition-colors hover:text-teal-400"
         >
           ⬅ Back to site
         </Link>
-        <form className="flex h-auto w-full flex-col items-start justify-center rounded-xl bg-zinc-900 p-8 px-6 shadow-xl transition-all duration-[2] ease-out md:w-[450px] md:px-10">
-          <h2 className="mb-14 w-full whitespace-nowrap text-2xl font-extrabold text-teal-700">
+        <form className="flex h-auto w-full flex-col items-start justify-center rounded-xl border-2 border-black bg-neutral-900 p-5 px-6 transition-all duration-[2] ease-out sm:w-[450px]">
+          <h2 className="mb-14 w-full whitespace-nowrap text-2xl font-extrabold text-teal-500">
             Login
           </h2>
           <label
             htmlFor="email"
-            className="mb-0.5 text-left text-sm font-semibold text-gray-200"
+            className="mb-0.5 text-left text-[13px] font-semibold text-neutral-400"
           >
             Email
           </label>
@@ -161,14 +156,14 @@ export default function Login() {
             name="email"
             id="email"
             onChange={handleChange}
-            placeholder="Enter email address"
-            className="mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400"
+            placeholder="Enter email address here"
+            className="mb-4 h-10 w-full rounded-md border-2 border-transparent bg-neutral-700 px-2 text-[14px] font-semibold tracking-wide text-neutral-300 outline-none transition-colors placeholder:text-[14px] placeholder:text-neutral-400 focus:border-teal-500"
             autoComplete="email"
             required
           />
           <label
             htmlFor="password"
-            className="mb-0.5 text-left text-sm font-semibold text-gray-200"
+            className="mb-0.5 text-left text-[13px] font-semibold text-neutral-400"
           >
             Password
           </label>
@@ -177,54 +172,53 @@ export default function Login() {
             name="password"
             id="password"
             onChange={handleChange}
-            placeholder="Enter your password"
-            className="mb-4 h-10 w-full rounded-lg border-none bg-neutral-700 px-3 font-semibold text-zinc-300 outline-none placeholder:text-sm placeholder:text-gray-400"
+            placeholder="Enter your password here"
+            className="mb-4 h-10 w-full rounded-md border-2 border-transparent bg-neutral-700 px-2 text-[14px] font-semibold tracking-wide text-neutral-300 outline-none transition-colors placeholder:text-[14px] placeholder:text-neutral-400 focus:border-teal-500"
             autoComplete="current-password"
             required
           />
           {error && (
-            <h4 className="mx-auto -mt-6 mb-4 w-full rounded-md p-2 font-semibold text-red-500 transition-all duration-[2s] ease-in md:w-80">
+            <h4 className="mx-auto w-full text-center text-sm font-medium text-red-500 transition-all duration-200 ease-in">
               {error}
             </h4>
           )}
           {loggedIn && (
-            <h4 className="mx-auto -mt-4 mb-8 w-full rounded-md bg-green-500 p-3 font-bold text-black transition-all duration-[2s] ease-in md:w-80">
-              Logged in ✔️
+            <h4 className="mx-auto w-full rounded-md p-2 text-center text-sm font-extrabold text-green-500 transition-all duration-200 ease-in">
+              Logged in successfully
             </h4>
           )}
           <button
             onClick={logIn}
             type="submit"
-            disabled={isDisabled}
+            // disabled={isDisabled}
             className={`${
               isDisabled
                 ? "cursor-not-allowed brightness-50"
                 : "bg-black text-gray-200"
-            } mx-auto my-4 mb-0 h-12 w-full border-none bg-black text-sm font-bold tracking-wider text-gray-200 outline-none md:w-80`}
+            } hover:text-md mx-auto my-3 h-[43px] w-full rounded-md border-none bg-black text-sm font-bold tracking-wider text-gray-200 outline-none transition-all duration-200 ease-in hover:shadow-lg hover:shadow-neutral-700`}
           >
-            Continue Binging 🍿🍾
+            Submit
           </button>
           <Link
             href="/signup"
-            className="mx-auto my-4 w-full text-sm text-zinc-400 hover:text-teal-400 md:w-72"
+            className="mx-auto mb-4 mt-1 w-auto text-center text-sm font-semibold text-zinc-400 transition-colors hover:text-teal-400"
           >
             Don&apos;t have an account ?
           </Link>
-          <div className="mx-auto my-2 h-auto w-full border-t-2 border-zinc-700 md:w-80">
-            <p className="mx-auto -mt-[15px] h-10 w-12 bg-zinc-900 text-sm">
+          <div className="mx-auto my-2 h-auto w-full border-t-2 border-dashed border-zinc-700">
+            <p className="mx-auto -mt-[13px] h-6 w-10 bg-neutral-900 text-center text-sm">
               or
             </p>
           </div>
           <button
             onClick={signInWithGoogle}
             type="button"
-            className="mx-auto mb-6 flex h-10 w-full items-center justify-center border-none bg-white font-bold outline-none md:w-80"
+            className="mx-auto mb-6 flex h-10 w-full items-center justify-center rounded-md border-none bg-neutral-200 font-bold outline-none transition-colors hover:bg-white"
           >
-            {" "}
-            <p className="mr-4 text-sm font-semibold text-black">
+            <p className="mr-3 text-[14px] font-extrabold text-neutral-900">
               Sign in with Google
             </p>
-            <Image src={googlelogo} alt="google" className="h-7 w-7" />
+            <Image src={googlelogo} alt="google" className="h-6 w-6" />
           </button>
         </form>
       </div>

@@ -5,12 +5,6 @@ import movie from "@/public/images/stranger things.jpg";
 import review from "@/public//svgs/ratings.svg";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "BingeTown",
-  description: "Watch Movies, TV Shows and more in one place",
-};
 
 export default function Landing() {
   function allowAccess() {

@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 // import search from "@/public/svgs/search-alt-2-svgrepo-com.svg";
@@ -6,17 +8,17 @@ import { MultiSearch } from "../../types/Search";
 import logo from "@/public/images/icons8-video-48.png";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { LayoutContext } from "@/app/layout";
 import { LayoutContextTypes } from "@/types/LayoutTypes";
 import Image from "next/image";
 import { auth } from "@/firebase/Firebase";
+import { GlobalStore } from "@/store/GlobalStore";
 
 export default function Nav() {
   const path = usePathname();
   const [loggedIn, setLoggedIn] = useState(false);
   const [searchResults, setSearchResults] = useState<MultiSearch | null>(null);
   const [query, setQuery] = useState("");
-  const NavContext = useContext<LayoutContextTypes | null>(LayoutContext);
+  const NavContext = useContext<LayoutContextTypes>(GlobalStore);
   const { push } = useRouter();
 
   const options = {

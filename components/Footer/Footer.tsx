@@ -1,19 +1,12 @@
 import twit from "@/public/svgs/icons8-twitterx.svg";
 import linkedin from "@/public/svgs/linkedin-svgrepo-com.svg";
 import github from "@/public/svgs/github-svgrepo-com.svg";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 export default function Footer() {
-  const path = usePathname();
-
   return (
-    <footer
-      className={`${
-        path !== "/login" && path !== "/signup" ? "flex" : "hidden"
-      } h-auto w-full flex-col bg-black p-4 md:space-y-6`}
-    >
-      <div className="flex w-full flex-col items-center justify-center py-6 pt-10 md:mx-auto md:h-16 md:w-[80%] md:flex-row md:items-start md:pt-0 lg:w-[800px] xl:w-[600px]">
+    <footer className="flex h-auto w-full flex-col bg-black p-4 md:space-y-6">
+      <div className="flex w-full flex-col items-center justify-center py-6 pt-10 md:mx-auto md:h-28 md:w-[80%] md:flex-row md:items-end md:pt-0 lg:w-[800px] xl:w-[600px]">
         <h2 className="text-md -mt-1 whitespace-nowrap py-10 font-semibold text-neutral-200 md:my-0 md:mb-0 md:mr-10 lg:mr-20">
           Reach us here
         </h2>

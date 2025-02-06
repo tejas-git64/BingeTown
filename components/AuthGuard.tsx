@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AuthGuardProps } from "../types/Auth";
 import { redirect } from "next/navigation";
 
-const AuthGuard: React.FC<AuthGuardProps> = ({ component }) => {
+export const AuthGuard: React.FC<AuthGuardProps> = ({ component }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -23,4 +23,3 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ component }) => {
     redirect("/login");
   }
 };
-export default AuthGuard;

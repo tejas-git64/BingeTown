@@ -1,14 +1,11 @@
-"use client";
-
 import { Quicksand } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
 import Sidenav from "@/components/Sidenav/Sidenav";
-import { createContext, useEffect, useState } from "react";
-// import Profile from "../components/Profile/Profile";
-import { usePathname } from "next/navigation";
-import { LayoutContextTypes } from "@/types/LayoutTypes";
+import { AuthProvider } from "@/auth/AuthContext";
+import { GlobalContext } from "@/store/GlobalStore";
+import { Metadata } from "next";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -16,51 +13,29 @@ const quicksand = Quicksand({
   subsets: ["latin"],
 });
 
-export const LayoutContext = createContext<LayoutContextTypes | null>(null);
+export const metadata: Metadata = {
+  title: "BingeTown",
+  description: "Watch Movies, TV Shows, and more!",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [name, setName] = useState<string>("");
-  const [profilePage, setProfilePage] = useState(false);
-  const [sideNav, setSideNav] = useState(false);
-  const path = usePathname();
-  const [svg, setSvg] = useState<number>(0);
-
-  // useEffect(() => {
-  // 	window.scrollTo({
-  // 		top: 0,
-  // 		behavior: "smooth",
-  // 	});
-  // }, [path]);
-
-  useEffect(() => {
-    const number = Math.floor(Math.random() * 2000) + 1;
-    setSvg(number);
-  }, []);
-
   return (
     <html lang="en">
       <body
         className={`${quicksand.variable} grid w-full flex-shrink-0 place-items-center scroll-smooth bg-black font-quicksand antialiased`}
       >
         <div className="max-h-auto relative flex min-h-[100dvh] w-full max-w-[2160px] flex-shrink-0 flex-col items-center justify-start overflow-x-hidden">
-          <LayoutContext.Provider
-            value={{
-              name,
-              setName,
-              profilePage,
-              setProfilePage,
-              sideNav,
-              setSideNav,
-            }}
-          >
-            {path !== "/search" && <Nav />}
-            <Sidenav svg={svg} />
-            {children}
-            {/* <Profile svg={svg} /> */}
-          </LayoutContext.Provider>
+          <Nav />
+          <AuthProvider>
+            <GlobalContext>
+              <Sidenav />
+              {children}
+            </GlobalContext>
+          </AuthProvider>
           <Footer />
         </div>
       </body>
