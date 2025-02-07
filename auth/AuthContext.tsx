@@ -3,36 +3,48 @@
 import { auth } from "@/firebase/Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { redirect, usePathname } from "next/navigation";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ReactNode } from "react";
+export const AuthContext = createContext<AuthContextType>(
+  {} as AuthContextType,
+);
 
-type AuthContextType = {
-  user: string | undefined;
-  setUser: React.Dispatch<React.SetStateAction<string | undefined>>;
+export type AuthContextType = {
+  username: RefObject<string | null>;
+  isLoggedIn: boolean;
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
-
-export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<string | undefined>(undefined);
-  const authStatus = useRef(false);
-
+  const username = useRef<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const path = usePathname();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user !== null) {
-        authStatus.current = true;
+      if (user) {
+        username.current = user.displayName;
+        setIsLoggedIn(true);
       } else {
-        authStatus.current = false;
         if (path !== "/login" && path !== "/signup" && path !== "/") {
-          redirect("login");
+          setIsLoggedIn(false);
+          redirect("/");
         }
       }
     });
-  }, [path]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, auth]);
+
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ username, isLoggedIn, setIsLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

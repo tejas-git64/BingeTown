@@ -3,9 +3,9 @@ import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
 import Sidenav from "@/components/Sidenav/Sidenav";
-import { AuthProvider } from "@/auth/AuthContext";
 import { GlobalContext } from "@/store/GlobalStore";
 import { Metadata } from "next";
+import { AuthProvider } from "@/auth/AuthContext";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -26,16 +26,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksand.variable} grid w-full flex-shrink-0 place-items-center scroll-smooth bg-black font-quicksand antialiased`}
+        className={`${quicksand.variable} grid w-full flex-shrink-0 place-items-center scroll-smooth bg-neutral-900 font-quicksand antialiased`}
       >
         <div className="max-h-auto relative flex min-h-[100dvh] w-full max-w-[2160px] flex-shrink-0 flex-col items-center justify-start overflow-x-hidden">
-          <Nav />
-          <AuthProvider>
-            <GlobalContext>
+          <GlobalContext>
+            <AuthProvider>
+              <Nav />
               <Sidenav />
               {children}
-            </GlobalContext>
-          </AuthProvider>
+            </AuthProvider>
+          </GlobalContext>
           <Footer />
         </div>
       </body>

@@ -3,8 +3,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import Image from "next/image";
 import movie from "@/public/images/stranger things.jpg";
 import review from "@/public//svgs/ratings.svg";
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Landing() {
   function allowAccess() {
