@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeferredValue, useEffect, useState } from "react";
-import backarrow from "@/public/svgs/bookmark-x-svgrepo-com.svg";
+import backarrow from "@/public/svgs/arrow-left-bold-svgrepo-com.svg";
 import { MultiSearch } from "../../types/Search";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -48,33 +48,25 @@ export default function Search() {
 
   return (
     <>
-      <div className="left-0 top-0 z-20 h-full w-full bg-neutral-900">
-        <div className="flex h-auto items-center justify-between border-b-[1px] border-neutral-900 p-3 px-4">
+      <div className="left-0 top-0 min-h-[1000px] w-full bg-neutral-900">
+        <div className="flex h-auto items-center justify-center border-b-[1px] border-neutral-900 p-3 px-4">
           <input
             type="search"
             name="search-bar"
             value={searchval}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search for movies or TV shows"
-            className="mr-4 h-8 w-full rounded-md border-none bg-neutral-600 px-3 text-xs font-semibold text-white outline-none"
+            placeholder="Search for Movies or TV shows"
+            className="text-md mr-4 h-10 w-[92.5%] rounded-md border border-transparent bg-neutral-800 px-3 font-semibold text-white outline-none transition-colors placeholder:text-sm placeholder:text-neutral-400 focus:border-teal-500"
           />
           <button
             onClick={() => back()}
-            style={{
-              border: "none",
-              outline: "none",
-            }}
-            className="h-7 w-7 bg-transparent p-0"
+            className="-mr-1 h-9 w-9 rounded-full border border-neutral-800 bg-transparent p-2"
           >
-            <Image
-              src={backarrow}
-              alt="back"
-              className="h-[90%] w-[90%] sm:h-full sm:w-full"
-            />
+            <Image src={backarrow} alt="back" className="h-full w-full" />
           </button>
         </div>
-        <div className="p-2 px-0">
-          <ul className="absolute mx-auto flex h-[calc(100dvh-10dvh)] w-full flex-col items-end justify-start overflow-y-scroll px-1">
+        <div className="h-auto p-2 px-0">
+          <ul className="absolute mx-auto flex h-auto w-full flex-col items-end justify-start overflow-y-scroll px-1">
             {searchResults?.map((result) => (
               <div
                 key={result.id}

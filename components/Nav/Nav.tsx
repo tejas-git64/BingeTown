@@ -63,7 +63,7 @@ export default function Nav() {
     >
       <Link
         href="/"
-        className="mr-40 flex items-center text-2xl font-bold text-teal-400"
+        className="ml-0.5 mr-20 flex items-center text-2xl font-bold text-teal-400 sm:mr-40"
       >
         <Image src={logo} alt="icon" className="h-8 w-8 md:h-10 md:w-10" />
         <p className="text-lg text-teal-400 sm:text-xl">BingeTown</p>
@@ -75,14 +75,16 @@ export default function Nav() {
               path !== "/" ? "block" : "hidden"
             } relative -ml-28 mr-16 mt-1 h-auto w-full`}
           >
-            <input
-              type="search"
-              name="movie-search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for your favorite movies, tv shows and more"
-              className="hidden h-10 w-full rounded-full border-none bg-neutral-800 px-4 text-sm font-bold text-white outline-none placeholder:font-medium placeholder:text-neutral-500 lg:-ml-0 xl:block"
-            />
+            {!["/search", "/"].includes(path) && (
+              <input
+                type="search"
+                name="movie-search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search for your favorite movies, tv shows and more"
+                className="hidden h-9 w-full rounded-full border-none bg-neutral-800 px-4 text-sm font-bold text-white outline-none placeholder:font-medium placeholder:text-neutral-500 lg:-ml-0 xl:block"
+              />
+            )}
             <ul className="absolute flex h-auto w-full flex-col items-end justify-start">
               {searchResults?.map((result) => (
                 <div
@@ -144,26 +146,28 @@ export default function Nav() {
             </Link>
           </div>
         </div>
-        <button
-          onClick={() => push("/search")}
-          style={{
-            border: "none",
-            outline: "none",
-          }}
-          className="z-10 -ml-10 mr-12 flex-shrink-0 bg-transparent p-0 md:mr-0 lg:hidden"
-        >
-          <Image
-            src={search}
-            alt="search"
-            width={24}
-            height={24}
-            className="mt-0.5 h-6 w-6 flex-shrink-0"
-          />
-        </button>
+        {path !== "/search" && (
+          <button
+            onClick={() => push("/search")}
+            style={{
+              border: "none",
+              outline: "none",
+            }}
+            className="z-10 mr-12 flex-shrink-0 bg-transparent p-0 md:mr-3 lg:hidden"
+          >
+            <Image
+              src={search}
+              alt="search"
+              width={24}
+              height={24}
+              className="mt-0.5 h-6 w-6 flex-shrink-0"
+            />
+          </button>
+        )}
         <Link
           href="/signup"
           className={`${
-            !auth.currentUser && !isLoggedIn ? "block" : "hidden"
+            !auth.currentUser || !isLoggedIn ? "block" : "hidden"
           } duration-3 -ml-8 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mx-4`}
         >
           Sign up
@@ -171,7 +175,7 @@ export default function Nav() {
         <Link
           href="/login"
           className={`${
-            !auth.currentUser && !isLoggedIn ? "hidden md:block" : "hidden"
+            !auth.currentUser || !isLoggedIn ? "hidden md:block" : "hidden"
           } duration-3 whitespace-nowrap rounded-full border-[1px] border-teal-500 px-5 py-1 text-[14px] font-bold text-teal-400 transition-colors ease-out hover:bg-teal-500 hover:text-black`}
         >
           Login

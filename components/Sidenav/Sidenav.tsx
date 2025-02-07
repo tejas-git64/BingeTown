@@ -38,7 +38,7 @@ export default function Sidenav() {
   return (
     <>
       <div
-        className={`fixed top-0 z-20 flex h-full w-80 animate-none flex-col items-center justify-start border-l-[1px] border-neutral-800 bg-neutral-900 transition-all ease-in-out ${
+        className={`fixed top-0 z-20 flex max-h-full min-h-[1290px] w-80 animate-none flex-col items-center justify-start border-l-[1px] border-neutral-800 bg-neutral-900 transition-all ease-in-out ${
           sideNav ? "right-0" : "-right-full sm:-right-96"
         }`}
       >
@@ -97,7 +97,7 @@ export default function Sidenav() {
         </div>
         <button
           onClick={SignOut}
-          className="mt-12 rounded-full border-none bg-teal-500 px-6 py-2 text-[12px] font-extrabold text-black outline-none transition-colors hover:bg-teal-600 md:mt-40"
+          className="mt-12 rounded-full border-none bg-teal-500 px-6 py-2 text-[12px] font-extrabold text-black outline-none transition-colors hover:bg-teal-600 md:mt-20"
         >
           Sign out
         </button>
