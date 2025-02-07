@@ -1,5 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
+// import { Credentials } from "./Auth";
 
 //Watched Types
 export type WatchListTitle = {

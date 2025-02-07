@@ -12,7 +12,7 @@ export default function Loading() {
 
   return (
     <>
-      <div className="mt-16 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900">
+      <div className="mt-2 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900">
         <div
           id="slideshow"
           className="relative flex h-[440px] w-full animate-pulse overflow-x-clip rounded-xl sm:px-[20px] md:h-[450px] xl:h-[640px] xl:px-[45px] xl:pl-72"

@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-// import search from "@/public/svgs/search-alt-2-svgrepo-com.svg";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import search from "@/public/svgs/search-alt-2-svgrepo-com.svg";
 import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
 import { MultiSearch } from "../../types/Search";
 import logo from "@/public/images/icons8-video-48.png";
@@ -12,37 +12,31 @@ import { LayoutContextTypes } from "@/types/LayoutTypes";
 import Image from "next/image";
 import { auth } from "@/firebase/Firebase";
 import { GlobalStore } from "@/store/GlobalStore";
+import { AuthContext } from "@/auth/AuthContext";
 
 export default function Nav() {
   const path = usePathname();
-  const [loggedIn, setLoggedIn] = useState(false);
   const [searchResults, setSearchResults] = useState<MultiSearch | null>(null);
   const [query, setQuery] = useState("");
-  const NavContext = useContext<LayoutContextTypes>(GlobalStore);
+  const { setSideNav } = useContext<LayoutContextTypes>(GlobalStore);
+  const { isLoggedIn } = useContext(AuthContext);
   const { push } = useRouter();
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: process.env.TMDB_READ_ACCESS_KEY as string,
-    },
-  };
+  const options = useMemo(() => {
+    return {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: process.env.TMDB_READ_ACCESS_KEY as string,
+      },
+    };
+  }, []);
 
   function showTitle(mediaType: string, id: number) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     mediaType === "tv" ? push(`/tvshows/${id}`) : push(`/movies/${id}`);
     setSearchResults(null);
   }
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      user ? setLoggedIn(true) : setLoggedIn(false);
-    });
-  }, []);
-
-  async function getSearchResults() {
+  const getSearchResults = useCallback(async () => {
     const res = await fetch(
       `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`,
       options,
@@ -53,18 +47,18 @@ export default function Nav() {
       (res: { media_type: string }) => res.media_type !== "person",
     );
     setSearchResults(min.slice(0, 5));
-  }
+  }, [options, query]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    query && getSearchResults();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+    if (query !== "") getSearchResults();
+  }, [getSearchResults, query]);
 
   return (
     <nav
       className={`${
-        path === "/login" || path === "/signup" ? "hidden" : ""
+        path === "/login" || path === "/signup" || path === "/not-found"
+          ? "hidden"
+          : ""
       } z-30 flex h-14 w-full items-center justify-between bg-gradient-to-t from-neutral-900 to-black pl-3 pr-5 transition-all duration-[3] ease-out md:pl-4 md:pr-6`}
     >
       <Link
@@ -75,22 +69,6 @@ export default function Nav() {
         <p className="text-lg text-teal-400 sm:text-xl">BingeTown</p>
       </Link>
       <div className="flex w-full items-center justify-end">
-        {/* <button
-          onClick={() => push("/search")}
-          style={{
-            border: "none",
-            outline: "none",
-          }}
-          className="mr-4 bg-transparent p-0 md:mr-5 lg:hidden"
-        >
-          <Image
-            src={search}
-            alt="search"
-            width={20}
-            height={20}
-            className="mt-0.5 h-[20px] w-[20px] flex-shrink-0"
-          />
-        </button> */}
         <div className="hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:max-w-[1330px]">
           <div
             className={`${
@@ -166,33 +144,55 @@ export default function Nav() {
             </Link>
           </div>
         </div>
+        <button
+          onClick={() => push("/search")}
+          style={{
+            border: "none",
+            outline: "none",
+          }}
+          className="z-10 -ml-10 mr-12 flex-shrink-0 bg-transparent p-0 md:mr-0 lg:hidden"
+        >
+          <Image
+            src={search}
+            alt="search"
+            width={24}
+            height={24}
+            className="mt-0.5 h-6 w-6 flex-shrink-0"
+          />
+        </button>
         <Link
           href="/signup"
           className={`${
-            loggedIn ? "hidden" : "block"
-          } duration-3 mr-0 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mr-4`}
+            !auth.currentUser && !isLoggedIn ? "block" : "hidden"
+          } duration-3 -ml-8 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mx-4`}
         >
           Sign up
         </Link>
         <Link
           href="/login"
           className={`${
-            loggedIn ? "hidden" : "hidden md:block"
+            !auth.currentUser && !isLoggedIn ? "hidden md:block" : "hidden"
           } duration-3 whitespace-nowrap rounded-full border-[1px] border-teal-500 px-5 py-1 text-[14px] font-bold text-teal-400 transition-colors ease-out hover:bg-teal-500 hover:text-black`}
         >
           Login
         </Link>
         <button
-          onClick={() => NavContext?.setSideNav((prev) => !prev)}
+          onClick={() => setSideNav((prev) => !prev)}
           style={{
             border: "none",
             outline: "none",
           }}
           className={`${
-            auth.currentUser ? "block" : "hidden"
-          } h-5 w-5 bg-transparent p-0 sm:h-6 sm:w-6`}
+            auth.currentUser && isLoggedIn ? "block" : "hidden"
+          } h-7 w-7 flex-shrink-0 bg-transparent p-0 sm:h-10 sm:w-10 md:-mr-3 md:ml-3`}
         >
-          <Image src={menu} alt="hamburger-menu" width={20} height={20} />
+          <Image
+            src={menu}
+            alt="hamburger-menu"
+            width={30}
+            height={30}
+            className="flex-shrink-0"
+          />
         </button>
       </div>
     </nav>
