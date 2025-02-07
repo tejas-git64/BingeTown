@@ -1,26 +1,22 @@
 "use client";
 
-import React, { useActionState, useEffect } from "react";
+import React, { useActionState } from "react";
 import FormButton from "../FormButton/FormButton";
 import Link from "next/link";
 import GoogleSignInButton from "../GoogleSignInButton/GoogleSignInButton";
 import { auth, db } from "@/firebase/Firebase";
-// import { getErrorStatus } from "@/helpers/helpers";
-import { APIResponse } from "@/types/Auth";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
+import { getErrorStatus } from "@/helpers/helpers";
 
 export default function SignupForm() {
-  const [state, action, pending] = useActionState(signUp, {
-    success: false,
-    message: "",
-  });
+  const [error, action, pending] = useActionState(signUp, "");
 
-  async function signUp(state: APIResponse | undefined, data: FormData) {
+  async function signUp(state: string | undefined, data: FormData) {
     const email = data?.get("email") as string;
     const fullname = data?.get("fullname") as string;
     const pass = data?.get("password") as string;
@@ -57,18 +53,11 @@ export default function SignupForm() {
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      // const authError = getErrorStatus(err);
-      if (state) {
-        state.success = false;
-        state.message = err.message;
-      }
+      const authError = getErrorStatus(err.code);
+      state = `AuthError: ${authError}`;
       return state;
     }
   }
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <form
@@ -123,16 +112,16 @@ export default function SignupForm() {
         autoComplete="current-password"
         required
       />
-      {!state?.success && (
+      {error && (
         <h4 className="mx-auto w-full text-center text-sm font-medium text-red-500 transition-all duration-200 ease-in">
-          {state?.message}
+          {error}
         </h4>
       )}
-      {state?.success && (
+      {/* {state?.success && (
         <h4 className="mx-auto w-full rounded-md p-2 text-center text-sm font-extrabold text-green-500 transition-all duration-200 ease-in">
           {state.message}
         </h4>
-      )}
+      )} */}
       <FormButton type="Sign up" pending={pending} />
       <Link
         href={"/login"}

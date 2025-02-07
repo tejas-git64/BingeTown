@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import FormButton from "../FormButton/FormButton";
-import { APIResponse } from "@/types/Auth";
 import { auth } from "@/firebase/Firebase";
-import { getErrorStatus } from "@/helpers/helpers";
+// import { getErrorStatus } from "@/helpers/helpers";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { redirect } from "next/navigation";
+import { getErrorStatus } from "@/helpers/helpers";
 
 export default function LoginForm() {
-  const logIn = async (state: APIResponse | undefined, data: FormData) => {
+  const logIn = async (state: string | undefined, data: FormData) => {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
     try {
@@ -24,23 +24,17 @@ export default function LoginForm() {
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.log(err.code);
       const authError = getErrorStatus(err.code);
-      return {
-        success: false,
-        message: authError,
-      };
+      state = `AuthError: ${authError}`;
+      return state;
     }
   };
 
-  const [state, action, pending] = useActionState(logIn, {
-    success: false,
-    message: "",
-  });
+  const [error, action, pending] = useActionState(logIn, "");
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    console.log(error);
+  }, [error]);
 
   return (
     <form
@@ -80,16 +74,16 @@ export default function LoginForm() {
         autoComplete="current-password"
         required
       />
-      {!state?.success && (
+      {error && (
         <h4 className="mx-auto w-full text-center text-sm font-medium text-red-500 transition-all duration-200 ease-in">
-          {state?.message}
+          {error}
         </h4>
       )}
-      {state?.success && (
+      {/* {error && (
         <h4 className="mx-auto w-full rounded-md p-2 text-center text-sm font-extrabold text-green-500 transition-all duration-200 ease-in">
-          {state.message}
+          {error.message}
         </h4>
-      )}
+      )} */}
       <FormButton type="Login" pending={pending} />
       <Link
         href={"/signup"}
