@@ -9,7 +9,7 @@ import { videoType } from "@/utils/utils";
 import { getMediaData } from "@/api/requests";
 
 export default async function Home() {
-  const data: Movie[] = await getMediaData(
+  const data: Movie[] | null = await getMediaData(
     `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
   );
 
@@ -21,9 +21,7 @@ export default async function Home() {
             id="slideshow"
             className="relative flex h-[440px] w-screen overflow-x-hidden sm:px-[20px] md:h-[450px] xl:h-[640px] xl:px-[45px] xl:pl-72"
           >
-            {data.map((movie) => (
-              <SlideShow key={movie.id} {...movie} />
-            ))}
+            {data?.map((movie) => <SlideShow key={movie.id} {...movie} />)}
           </div>
           <div className="px-[20px] xl:px-[45px]">
             {videoType.movies.map((movie) => (

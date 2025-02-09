@@ -13,7 +13,7 @@ import { LayoutContextTypes } from "@/types/LayoutTypes";
 import Image from "next/image";
 import { GlobalStore } from "@/store/GlobalStore";
 import { AuthContext } from "@/auth/AuthContext";
-import { getDocCount } from "@/helpers/helpers";
+import { getDocCount } from "@/firebase/requests";
 
 export default function Sidenav() {
   const { svg, sideNav, setSideNav } =

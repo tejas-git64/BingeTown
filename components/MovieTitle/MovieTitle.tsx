@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
-import save from "@/public/svgs/icons8-search.svg";
-import watchlist from "@/public/svgs/list-ul-alt-svgrepo-com.svg";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { db, auth } from "../../firebase/Firebase";
+import save from "@/public/svgs/save-svgrepo-com.svg";
+import watchlist from "@/public/svgs/add-to-queue-svgrepo-com.svg";
 import { Movie } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { auth, db } from "@/firebase/Firebase";
+import { doc, DocumentData, DocumentReference } from "firebase/firestore";
+import { addToWatchList, addToSavedList } from "@/firebase/requests";
 
 export default function MovieTitle({
   title,
@@ -19,10 +20,19 @@ export default function MovieTitle({
 }: Movie) {
   const { push } = useRouter();
   const [showMenu, setShowMenu] = useState(false);
-  const uid = auth.currentUser ? auth.currentUser?.uid : "";
-  const savedDocRef = doc(db, "saved", uid);
-  const watchDocRef = doc(db, "watchlist", uid);
   const year = new Date(release_date).getFullYear();
+
+  const uid = auth.currentUser ? auth.currentUser?.uid : "";
+  const savedDocRef: DocumentReference<DocumentData, DocumentData> = doc(
+    db,
+    "saved",
+    uid,
+  );
+  const watchDocRef: DocumentReference<DocumentData, DocumentData> = doc(
+    db,
+    "watchlist",
+    uid,
+  );
 
   function showMovie(
     e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>,
@@ -31,65 +41,11 @@ export default function MovieTitle({
     push(`/movies/${id}`);
   }
 
-  function revealMenu(
-    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>,
-  ) {
-    e.stopPropagation();
-    e.preventDefault();
-    setShowMenu(true);
-  }
-
-  async function addToSavedList(
-    
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    movieid: number,
-    title: string,
-    poster_path: string,
-    vote_average: number,
-    release_date: string,
-  ) {
-    e.stopPropagation();
-    e.preventDefault();
-    setShowMenu(false);
-    await updateDoc(savedDocRef, {
-      savedtitles: arrayUnion({
-        id: movieid,
-        type: "movie",
-        title: title,
-        poster_path: poster_path,
-        vote_average: vote_average,
-        release_date: release_date,
-      }),
-    });
-  }
-  async function addToWatchList(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    movieid: number,
-    title: string,
-    poster_path: string,
-    vote_average: number,
-    release_date: string,
-  ) {
-    e.stopPropagation();
-    e.preventDefault();
-    setShowMenu(false);
-    await updateDoc(watchDocRef, {
-      watchlist: arrayUnion({
-        id: movieid,
-        type: "movie",
-        watched: false,
-        title: title,
-        poster_path: poster_path,
-        vote_average: vote_average,
-        release_date: release_date,
-      }),
-    });
-  }
-
   return (
     <>
       <div
         onClick={showMovie}
+        role="link"
         className="relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl"
       >
         <Image
@@ -115,7 +71,11 @@ export default function MovieTitle({
             </h3>
           </div>
           <button
-            onClick={revealMenu}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              setShowMenu(true);
+            }}
             style={{
               outline: "none",
             }}
@@ -134,23 +94,26 @@ export default function MovieTitle({
           } bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}
         >
           <button
-            onClick={(e) =>
+            onClick={(e) => {
               addToWatchList(
                 e,
                 id,
+                "movie",
                 title,
                 poster_path,
                 vote_average,
                 release_date.toString(),
-              )
-            }
+                watchDocRef,
+              );
+              setShowMenu(false);
+            }}
             className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
           >
             <h4 className="text-xs text-white">Add to watchlist</h4>
             <Image src={watchlist} alt="add" className="h-5 w-5 pr-0.5" />
           </button>
           <button
-            onClick={(e) =>
+            onClick={(e) => {
               addToSavedList(
                 e,
                 id,
@@ -158,8 +121,11 @@ export default function MovieTitle({
                 poster_path,
                 vote_average,
                 release_date.toString(),
-              )
-            }
+                "movie",
+                savedDocRef,
+              );
+              setShowMenu(false);
+            }}
             className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
           >
             <h4 className="text-xs font-semibold text-white">Save</h4>

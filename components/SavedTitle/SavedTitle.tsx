@@ -1,11 +1,12 @@
 "use client";
 
-import { updateDoc, arrayRemove, doc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import { auth, db } from "../../firebase/Firebase";
-import notbookmarked from "../../assets/images/not-bookmarked.png";
+import unBookmark from "../../assets/images/not-bookmarked.png";
 import { SavedTitleType } from "@/types/LayoutTypes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { unSaveTitle } from "@/firebase/requests";
 
 export default function SavedTitle({
   title,
@@ -15,39 +16,13 @@ export default function SavedTitle({
   type,
   vote_average,
 }: SavedTitleType) {
-  const { push, refresh } = useRouter();
+  const { push } = useRouter();
   const uid = auth.currentUser ? auth.currentUser?.uid : "";
-  const userRef = doc(db, "saved", uid);
+  const docRef = doc(db, "saved", uid);
   const year = new Date(release_date).getFullYear();
   function navigateToShow(type: string, id: number) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    type === "tv" ? push(`/tvshows/${id}`) : push(`/movies/${id}`);
-  }
-
-  async function unSaveTitle(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    {
-      title,
-      id,
-      poster_path,
-      release_date,
-      type,
-      vote_average,
-    }: SavedTitleType,
-  ) {
-    e.preventDefault();
-    e.stopPropagation();
-    await updateDoc(userRef, {
-      savedtitles: arrayRemove({
-        id: id,
-        poster_path: poster_path,
-        release_date: release_date,
-        title: title,
-        type: type,
-        vote_average: vote_average,
-      }),
-    });
-    refresh();
+    if (type === "tv") push(`/tvshows/${id}`);
+    else push(`/movies/${id}`);
   }
 
   return (
@@ -72,11 +47,12 @@ export default function SavedTitle({
               release_date,
               type,
               vote_average,
+              docRef,
             })
           }
           className="absolute right-1 top-1 rounded-xl rounded-bl-xl border-none bg-neutral-800 p-1 outline-none"
         >
-          <Image src={notbookmarked} alt="unsave" className="h-5 w-5" />
+          <Image src={unBookmark} alt="unsave" className="h-5 w-5" />
         </button>
         <div className="flex h-auto w-full flex-col items-start justify-center">
           <p className="line-clamp-1 h-[24px] text-ellipsis whitespace-pre-line text-left text-[12px] font-semibold text-white">

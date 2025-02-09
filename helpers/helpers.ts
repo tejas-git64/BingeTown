@@ -1,11 +1,3 @@
-import { db } from "@/firebase/Firebase";
-import {
-  query,
-  where,
-  getCountFromServer,
-  collection,
-} from "firebase/firestore";
-
 export const getErrorStatus = (err: string) => {
   switch (true) {
     case err === "auth/email-already-in-use":
@@ -27,11 +19,4 @@ export const getErrorStatus = (err: string) => {
     default:
       return "";
   }
-};
-
-export const getDocCount = async (uid: string, docname: string) => {
-  const watchlistRef = collection(db, docname);
-  const q = query(watchlistRef, where("uid", "==", uid));
-  const snapshot = await getCountFromServer(q);
-  return snapshot.data().count;
 };

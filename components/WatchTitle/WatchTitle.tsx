@@ -1,11 +1,11 @@
 "use client";
-
-import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import { auth, db } from "../../firebase/Firebase";
 import trash from "../../assets/images/icons8-trash-24.png";
-import { SavedTitleType, WatchListTitle } from "@/types/LayoutTypes";
+import { SavedTitleType } from "@/types/LayoutTypes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { removeTitle } from "@/firebase/requests";
 
 export default function WatchTitle({
   title,
@@ -15,42 +15,14 @@ export default function WatchTitle({
   type,
   vote_average,
 }: SavedTitleType) {
-  const { push, refresh } = useRouter();
+  const { push } = useRouter();
   const uid = auth.currentUser ? auth.currentUser?.uid : "";
-  const userRef = doc(db, "watchlist", uid);
+  const docRef = doc(db, "watchlist", uid);
   const year = new Date(release_date).getFullYear();
 
   function navigateToShow(type: string, id: number) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    type === "tv" ? push(`/tvshows/${id}`) : push(`/movies/${id}`);
-  }
-
-  async function removeTitle(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    {
-      title,
-      id,
-      poster_path,
-      release_date,
-      type,
-      vote_average,
-      watched,
-    }: WatchListTitle,
-  ) {
-    e.preventDefault();
-    e.stopPropagation();
-    await updateDoc(userRef, {
-      watchlist: arrayRemove({
-        id: id,
-        poster_path: poster_path,
-        release_date: release_date,
-        title: title,
-        type: type,
-        vote_average: vote_average,
-        watched: watched,
-      }),
-    });
-    refresh();
+    if (type === "tv") push(`/tvshows/${id}`);
+    else push(`/movies/${id}`);
   }
 
   return (
@@ -91,6 +63,7 @@ export default function WatchTitle({
                 type,
                 vote_average,
                 watched: false,
+                docRef,
               })
             }
             className="-mr-1 h-auto border-none bg-transparent p-0"

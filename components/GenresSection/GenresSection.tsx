@@ -22,7 +22,7 @@ const GenresSection = ({ id, heading }: GenreType) => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`,
     );
-    if (data) setGenreMovies(data.results);
+    if (data) setGenreMovies(data);
   }, [id]);
 
   useEffect(() => {

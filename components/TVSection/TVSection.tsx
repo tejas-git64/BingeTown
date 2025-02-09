@@ -21,7 +21,7 @@ const TVSection = ({ heading, uri }: ContentType) => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/${uri}?language=en-US&page=1`,
     );
-    if (data) setShows(data.results);
+    if (data) setShows(data);
   }, [uri]);
 
   useEffect(() => {
