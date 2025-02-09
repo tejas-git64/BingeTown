@@ -3,7 +3,6 @@
 import React, { useActionState } from "react";
 import FormButton from "../FormButton/FormButton";
 import Link from "next/link";
-import GoogleSignInButton from "../GoogleSignInButton/GoogleSignInButton";
 import { auth, db } from "@/firebase/Firebase";
 import {
   createUserWithEmailAndPassword,
@@ -62,7 +61,7 @@ export default function SignupForm() {
   return (
     <form
       action={action}
-      className="flex h-[550px] w-full flex-shrink-0 flex-col items-start justify-center rounded-xl border-2 border-black bg-neutral-900 px-6 pt-0 transition-all duration-[2] ease-out sm:w-[450px]"
+      className="flex h-auto w-full flex-shrink-0 flex-col items-start justify-center bg-neutral-900 transition-all duration-[2] ease-out"
     >
       <h2 className="mb-14 w-full whitespace-nowrap text-2xl font-extrabold text-teal-500">
         Create an account
@@ -134,7 +133,6 @@ export default function SignupForm() {
           or
         </p>
       </div>
-      <GoogleSignInButton />
     </form>
   );
 }

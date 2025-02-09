@@ -33,7 +33,9 @@ export default function RootLayout({
             <AuthProvider>
               <Nav />
               <Sidenav />
-              {children}
+              <div className="mt-14 h-full w-full overflow-hidden">
+                {children}
+              </div>
             </AuthProvider>
           </GlobalContext>
           <Footer />

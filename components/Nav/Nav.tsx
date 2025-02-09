@@ -48,7 +48,7 @@ export default function Nav() {
         path === "/login" || path === "/signup" || path === "/not-found"
           ? "hidden"
           : ""
-      } z-30 flex h-14 w-full items-center justify-between bg-gradient-to-t from-neutral-900 to-black px-3 pr-4 transition-all duration-[3] ease-out`}
+      } absolute left-0 top-0 z-30 flex h-14 w-full items-center justify-between bg-gradient-to-t from-neutral-900 to-black px-3 pr-4 transition-all duration-[3] ease-out`}
     >
       <Link
         href="/"
@@ -142,7 +142,7 @@ export default function Nav() {
               border: "none",
               outline: "none",
             }}
-            className="z-10 mr-12 flex-shrink-0 bg-transparent p-0 md:mr-3 lg:hidden"
+            className="z-10 mr-4 flex-shrink-0 bg-transparent p-0 md:mr-3 lg:hidden"
           >
             <Image
               src={search}

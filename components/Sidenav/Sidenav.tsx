@@ -58,11 +58,11 @@ export default function Sidenav() {
   return (
     <>
       <div
-        className={`fixed top-0 z-20 flex max-h-full min-h-[1290px] w-80 animate-none flex-col items-center justify-start border-l-[1px] border-neutral-800 bg-neutral-900 transition-all ease-in-out ${
-          sideNav ? "right-0" : "-right-full sm:-right-96"
+        className={`absolute right-0 top-14 z-20 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-l-3xl bg-neutral-900 pb-10 transition-transform ${
+          sideNav ? "-translate-x-0" : "translate-x-96"
         }`}
       >
-        <div className="mb-2 flex h-auto w-full flex-col items-center justify-evenly space-y-3 p-5 pt-24">
+        <div className="flex h-auto w-full flex-col items-center justify-evenly p-5 pt-8">
           <Image
             src={
               auth.currentUser?.photoURL ||
@@ -72,12 +72,12 @@ export default function Sidenav() {
             height={32}
             alt="user-Image"
             quality={100}
-            className="h-[32px] w-[32px] rounded-full border-none bg-gray-200 text-[10px]"
+            className="mb-2 h-[32px] w-[32px] rounded-full border-none bg-gray-200 text-[10px]"
           />
-          <h3 className="font-semibold text-white">
+          <h3 className="mb-2 mt-1 font-semibold text-white">
             {auth.currentUser?.displayName}
           </h3>
-          <div className="mx-auto flex w-[250px] items-center justify-center px-3">
+          <div className="mx-auto mt-2 flex w-[250px] items-center justify-center px-3">
             <p className="mr-2 text-sm font-medium text-neutral-500">
               Saved titles:
             </p>
@@ -85,7 +85,7 @@ export default function Sidenav() {
               {titleCount.saved}
             </p>
           </div>
-          <div className="mx-auto flex w-[250px] items-center justify-center px-3">
+          <div className="mx-auto my-1 flex w-[250px] items-center justify-center px-3">
             <p className="mr-2 text-sm font-medium text-neutral-500">
               Watched titles:
             </p>
@@ -133,7 +133,7 @@ export default function Sidenav() {
         </div>
         <button
           onClick={SignOut}
-          className="mt-12 rounded-full border-none bg-teal-500 px-6 py-2 text-[12px] font-extrabold text-black outline-none transition-colors hover:bg-teal-600 md:mt-20"
+          className="mt-10 rounded-full border-none bg-teal-500 px-6 py-2 text-[12px] font-extrabold text-black outline-none transition-colors hover:bg-teal-600"
         >
           Sign out
         </button>

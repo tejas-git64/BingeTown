@@ -1,4 +1,4 @@
 export const introptions = {
   rootMargin: "200px",
-  threshold: 0.5,
+  threshold: 0.8,
 };

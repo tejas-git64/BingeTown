@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
+import menu from "@/public/svgs/menu-vertical-svgrepo-com.svg";
 import save from "@/public/svgs/save-svgrepo-com.svg";
 import watchlist from "@/public/svgs/add-to-queue-svgrepo-com.svg";
 import { Movie } from "@/types/HomeTypes";
@@ -53,7 +53,7 @@ export default function MovieTitle({
           alt="movie-poster"
           width={154}
           height={231}
-          className="mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg transition-all duration-0 ease-in hover:scale-95 md:h-auto md:w-auto"
+          className="mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg transition-transform ease-in hover:scale-95 md:h-auto md:w-auto"
         />
         <h3 className="line-clamp-1 text-ellipsis whitespace-pre-line text-left text-[12px] font-semibold text-white">
           {title}
@@ -61,9 +61,11 @@ export default function MovieTitle({
         <div className="flex w-full items-center justify-between">
           <div className="flex flex-col items-start justify-center">
             <div className="flex text-[10.5px]">
-              <h4 className="mr-1 font-normal text-neutral-400">Rating</h4>
-              <h4 className="text-neutral-400">
-                {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}/10`}
+              <h4 className="mr-1 text-[10.5px] font-semibold text-neutral-500">
+                Rating
+              </h4>
+              <h4 className="text-[10.5px] font-semibold text-neutral-200">
+                {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
               </h4>
             </div>
             <h3 className="whitespace-nowrap text-[10.5px] font-semibold text-neutral-300">
@@ -129,7 +131,7 @@ export default function MovieTitle({
             className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
           >
             <h4 className="text-xs font-semibold text-white">Save</h4>
-            <Image src={save} alt="save" className="h-5 w-5" />
+            <Image src={save} alt="save" className="mr-1 h-4 w-4" />
           </button>
         </div>
       </div>

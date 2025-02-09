@@ -19,7 +19,7 @@ export default async function Home() {
         <div className="mt-2 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900">
           <div
             id="slideshow"
-            className="relative flex h-[440px] w-screen overflow-x-hidden sm:px-[20px] md:h-[450px] xl:h-[640px] xl:px-[45px] xl:pl-72"
+            className="relative mx-auto flex h-full w-[93.5%] overflow-x-hidden sm:w-full sm:px-[18px] md:h-[450px] xl:h-[640px] xl:px-[45px] 2xl:pl-72"
           >
             {data?.map((movie) => <SlideShow key={movie.id} {...movie} />)}
           </div>

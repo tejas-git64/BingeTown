@@ -11,9 +11,9 @@ export default function MovieShowFallback() {
         }}
         className="mb-6 mt-4 h-auto animate-pulse gap-x-4 gap-y-4 md:gap-x-6"
       >
-        {items.map(() => (
+        {items.map((_, i) => (
           <div
-            key={Math.random()}
+            key={i}
             className="relative mx-auto mr-4 flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden md:mr-6"
           >
             <div className="mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg bg-neutral-500 transition-all duration-0 ease-in"></div>

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
-import save from "@/public/svgs/icons8-search.svg";
-import watchlist from "@/public/svgs/list-ul-alt-svgrepo-com.svg";
+import menu from "@/public/svgs/menu-vertical-svgrepo-com.svg";
+import save from "@/public/svgs/save-svgrepo-com.svg";
+import watchlist from "@/public/svgs/add-to-queue-svgrepo-com.svg";
 import { doc } from "firebase/firestore";
 import { auth, db } from "../../firebase/Firebase";
 import { TVDiscover } from "@/types/HomeTypes";
@@ -47,7 +47,7 @@ export default function TVTitle({
           alt="movie-poster"
           width={154}
           height={231}
-          className="mb-2 h-[231px] w-[154px] cursor-pointer text-ellipsis rounded-lg object-cover transition-all duration-100 ease-in hover:scale-90 md:h-[231px] md:w-[154px]"
+          className="mb-2 h-[231px] w-[154px] cursor-pointer text-ellipsis rounded-lg object-cover transition-transform ease-in hover:scale-95 md:h-[231px] md:w-[154px]"
         />
         <h3 className="line-clamp-1 text-ellipsis whitespace-pre-line text-left text-sm font-semibold text-white sm:text-[12px]">
           {name}
@@ -72,7 +72,7 @@ export default function TVTitle({
             }}
             className="-mr-2 h-auto bg-transparent p-0"
           >
-            <Image src={menu} alt="title-menu" className="h-7 w-7" />
+            <Image src={menu} alt="title-menu" className="h-6 w-6" />
           </button>
         </div>
         <div
@@ -118,7 +118,7 @@ export default function TVTitle({
             className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
           >
             <h4 className="text-xs font-semibold text-white">Save</h4>
-            <Image src={save} alt="save" className="h-5 w-5" />
+            <Image src={save} alt="save" className="mr-1 h-4 w-4" />
           </button>
         </div>
       </div>
