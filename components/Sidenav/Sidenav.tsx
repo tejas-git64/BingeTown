@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import bookmarked from "@/public/svgs/icons8-bookmark.svg";
 import watchlist from "@/public/svgs/list-ul-alt-svgrepo-com.svg";
 import tvshow from "@/public/svgs/tv-mode-svgrepo-com.svg";
@@ -13,12 +13,17 @@ import { LayoutContextTypes } from "@/types/LayoutTypes";
 import Image from "next/image";
 import { GlobalStore } from "@/store/GlobalStore";
 import { AuthContext } from "@/auth/AuthContext";
+import { getDocCount } from "@/helpers/helpers";
 
 export default function Sidenav() {
   const { svg, sideNav, setSideNav } =
     useContext<LayoutContextTypes>(GlobalStore);
   const { setIsLoggedIn } = useContext(AuthContext);
   const { push } = useRouter();
+  const [titleCount, setTitleCount] = useState({
+    saved: 0,
+    watchlist: 0,
+  });
   function navigateToPage(page: string) {
     push(`/${page}`);
     setSideNav(false);
@@ -34,6 +39,21 @@ export default function Sidenav() {
       }
     });
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const watchlistCount = await getDocCount(user.uid, "watchlist");
+        const savedCount = await getDocCount(user.uid, "saved");
+        if (watchlistCount && savedCount) {
+          setTitleCount(() => ({
+            saved: savedCount,
+            watchlist: watchlistCount,
+          }));
+        }
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -57,6 +77,18 @@ export default function Sidenav() {
           <h3 className="font-semibold text-white">
             {auth.currentUser?.displayName}
           </h3>
+          <div className="my-2 flex w-full flex-col items-center justify-start px-3">
+            <p className="mr-2 text-sm font-medium text-neutral-400">
+              Saved titles:
+            </p>
+            <p className="text-sm text-white">{titleCount.saved}</p>
+          </div>
+          <div className="my-2 flex w-full flex-col items-center justify-start px-3">
+            <p className="mr-2 text-sm font-medium text-neutral-400">
+              Watched titles:
+            </p>
+            <p className="text-sm text-white">{titleCount.watchlist}</p>
+          </div>
         </div>
         <div className="mx-auto flex h-auto w-[250px] flex-col items-center justify-center overflow-hidden rounded-3xl bg-black py-0">
           <div

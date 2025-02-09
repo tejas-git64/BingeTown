@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useContext, useEffect } from "react";
-import googlelogo from "@/public/svgs/google-svgrepo-com.svg";
+import googleIcon from "@/public/svgs/google-svgrepo-com.svg";
 import { auth, googleProvider, db } from "@/firebase/Firebase";
 import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -76,7 +76,7 @@ export default function GoogleSignInButton() {
       <p className="mr-3 text-[15px] font-extrabold text-neutral-900">
         Sign in with Google
       </p>
-      <Image src={googlelogo} alt="google" className="h-6 w-6" />
+      <Image src={googleIcon} alt="google" className="h-6 w-6" />
     </button>
   );
 }

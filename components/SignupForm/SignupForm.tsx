@@ -25,18 +25,18 @@ export default function SignupForm() {
       onAuthStateChanged(auth, (user) => {
         (async () => {
           if (user) {
-            //Initialising Users document
+            //Initializing Users document
             await setDoc(doc(db, "users", user.uid), {
               email: email,
               fullname: fullname,
               uid: user.uid,
             });
-            //Initialising Saved document
+            //Initializing Saved document
             await setDoc(doc(db, "saved", user.uid), {
               savedtitles: [],
               uid: user.uid,
             });
-            //Initialising Watchlist document
+            //Initializing Watchlist document
             await setDoc(doc(db, "watchlist", user.uid), {
               uid: user.uid,
               watchlist: [],

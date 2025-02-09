@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import FormButton from "../FormButton/FormButton";
 import { auth } from "@/firebase/Firebase";
-// import { getErrorStatus } from "@/helpers/helpers";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { redirect } from "next/navigation";
 import { getErrorStatus } from "@/helpers/helpers";

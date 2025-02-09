@@ -10,12 +10,6 @@ const firebaseConfig = {
   // storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   // messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   // appId: process.env.FIREBASE_APP_ID,
-  apiKey: "AIzaSyD81iuvdEvDH_ULMAfqyBFvIEQqTO9wy3o",
-  authDomain: "bingetown-80d94.firebaseapp.com",
-  projectId: "bingetown-80d94",
-  storageBucket: "bingetown-80d94.firebasestorage.app",
-  messagingSenderId: "20306453663",
-  appId: "1:20306453663:web:790cb5a9ada5eb819c2eaa",
 };
 
 const app = initializeApp(firebaseConfig);

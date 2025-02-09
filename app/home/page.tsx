@@ -13,48 +13,6 @@ export default async function Home() {
     `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`,
   );
 
-  // const HomeComponent = () => {
-  // 	return (
-  // 		<>
-  // 			<div className='mt-16 max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900'>
-  // 				<div
-  // 					id='slideshow'
-  // 					className='relative flex h-[440px] w-screen overflow-x-hidden sm:px-[20px] md:h-[450px] xl:h-[640px] xl:px-[45px] xl:pl-72'>
-  // 					{data.map((movie) => (
-  // 						<Slideshow key={movie.id} {...movie} />
-  // 					))}
-  // 				</div>
-  // 				<div className='px-[20px] xl:px-[45px]'>
-  // 					{videoType.movies.map((movie) => (
-  // 						<MovieSection key={movie.heading} {...movie} />
-  // 					))}
-  // 					{videoType.shows.map((section) => (
-  // 						<TVSection key={section.heading} {...section} />
-  // 					))}
-  // 					<p className='mx-auto mt-6 w-full cursor-pointer text-left text-xl font-extrabold text-white'>
-  // 						Movies by Genres
-  // 					</p>
-  // 					{videoType.genres.map((section) => (
-  // 						<GenresSection key={section.id} {...section} />
-  // 					))}
-  // 				</div>
-  // 			</div>
-  // 		</>
-  // 	);
-  // };
-
-  // const DataComponent = () => {
-  // 	if (popularMovies) {
-  // 		return <HomeComponent />;
-  // 	} else {
-  // 		throw new Promise<void>((resolve) => {
-  // 			setTimeout(() => {
-  // 				resolve();
-  // 			}, 0);
-  // 		});
-  // 	}
-  // };
-
   return (
     <div className="h-full w-full">
       <Suspense fallback={<Loading />}>
