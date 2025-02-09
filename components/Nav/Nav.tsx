@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 "use client";
 
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
@@ -32,6 +31,7 @@ export default function Nav() {
   }, []);
 
   function showTitle(mediaType: string, id: number) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     mediaType === "tv" ? push(`/tvshows/${id}`) : push(`/movies/${id}`);
     setSearchResults(null);
   }

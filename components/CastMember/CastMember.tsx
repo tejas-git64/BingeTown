@@ -11,6 +11,8 @@ export function CastMember({ id, profile_path, name, character }: Cast) {
         <Image
           src={`https://image.tmdb.org/t/p/w185/${profile_path}`}
           alt="cast-member"
+          loading="lazy"
+          placeholder="blur"
           className="h-34 mb-1 w-24 rounded-2xl md:h-auto md:w-[200px]"
         />
         <p className="text-xs font-semibold">{name}</p>

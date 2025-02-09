@@ -1,4 +1,4 @@
-import twit from "@/public/svgs/icons8-twitterx.svg";
+import twitter from "@/public/svgs/icons8-twitterx.svg";
 import linkedin from "@/public/svgs/linkedin-svgrepo-com.svg";
 import github from "@/public/svgs/github-svgrepo-com.svg";
 import Image from "next/image";
@@ -82,7 +82,7 @@ export default function Footer() {
         <div className="mx-auto flex w-full items-center justify-center md:w-[400px] md:justify-start">
           <a href="https://twitter.com/yousurebro_tej">
             <Image
-              src={twit}
+              src={twitter}
               alt="twitter"
               width={10}
               height={10}
