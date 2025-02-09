@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import search from "@/public/svgs/search-alt-2-svgrepo-com.svg";
 import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
 import { MultiSearch } from "../../types/Search";
@@ -12,6 +12,7 @@ import Image from "next/image";
 import { auth } from "@/firebase/Firebase";
 import { GlobalStore } from "@/store/GlobalStore";
 import { AuthContext } from "@/auth/AuthContext";
+import { getMediaData } from "@/api/requests";
 
 export default function Nav() {
   const path = usePathname();
@@ -20,34 +21,22 @@ export default function Nav() {
   const { setSideNav } = useContext<LayoutContextTypes>(GlobalStore);
   const { isLoggedIn } = useContext(AuthContext);
   const { push } = useRouter();
-  const options = useMemo(() => {
-    return {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: process.env.TMDB_READ_ACCESS_KEY as string,
-      },
-    };
-  }, []);
 
   function showTitle(mediaType: string, id: number) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    mediaType === "tv" ? push(`/tvshows/${id}`) : push(`/movies/${id}`);
+    if (mediaType === "tv") push(`/tvshows/${id}`);
+    else push(`/movies/${id}`);
     setSearchResults(null);
   }
 
   const getSearchResults = useCallback(async () => {
-    const res = await fetch(
+    const data = await getMediaData(
       `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`,
-      options,
     );
-    const data = await res.json();
-    const results = data.results;
-    const min: MultiSearch = results.filter(
+    const min: MultiSearch = data.filter(
       (res: { media_type: string }) => res.media_type !== "person",
     );
     setSearchResults(min.slice(0, 5));
-  }, [options, query]);
+  }, [query]);
 
   useEffect(() => {
     if (query !== "") getSearchResults();
@@ -59,7 +48,7 @@ export default function Nav() {
         path === "/login" || path === "/signup" || path === "/not-found"
           ? "hidden"
           : ""
-      } z-30 flex h-14 w-full items-center justify-between bg-gradient-to-t from-neutral-900 to-black pl-3 pr-5 transition-all duration-[3] ease-out md:pl-4 md:pr-6`}
+      } z-30 flex h-14 w-full items-center justify-between bg-gradient-to-t from-neutral-900 to-black px-3 pr-4 transition-all duration-[3] ease-out`}
     >
       <Link
         href="/"
@@ -188,7 +177,7 @@ export default function Nav() {
           }}
           className={`${
             auth.currentUser && isLoggedIn ? "block" : "hidden"
-          } h-7 w-7 flex-shrink-0 bg-transparent p-0 sm:h-10 sm:w-10 md:-mr-3 md:ml-3`}
+          } h-7 w-7 flex-shrink-0 bg-transparent p-0 sm:h-8 sm:w-8 md:ml-3`}
         >
           <Image
             src={menu}

@@ -1,10 +1,11 @@
+"use client";
 import { ContentType, Movie } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import React from "react";
 import MovieTitle from "../MovieTitle/MovieTitle";
 import Loading from "./loading";
-import { getMediaData } from "@/api/home/requests";
+import { getMediaData } from "@/api/requests";
 import { introptions } from "@/api/options";
 
 // const isSameSection = (prevProps: ContentType, nextProps: ContentType) => {

@@ -77,17 +77,21 @@ export default function Sidenav() {
           <h3 className="font-semibold text-white">
             {auth.currentUser?.displayName}
           </h3>
-          <div className="my-2 flex w-full flex-col items-center justify-start px-3">
-            <p className="mr-2 text-sm font-medium text-neutral-400">
+          <div className="mx-auto flex w-[250px] items-center justify-center px-3">
+            <p className="mr-2 text-sm font-medium text-neutral-500">
               Saved titles:
             </p>
-            <p className="text-sm text-white">{titleCount.saved}</p>
+            <p className="text-sm font-semibold text-white">
+              {titleCount.saved}
+            </p>
           </div>
-          <div className="my-2 flex w-full flex-col items-center justify-start px-3">
-            <p className="mr-2 text-sm font-medium text-neutral-400">
+          <div className="mx-auto flex w-[250px] items-center justify-center px-3">
+            <p className="mr-2 text-sm font-medium text-neutral-500">
               Watched titles:
             </p>
-            <p className="text-sm text-white">{titleCount.watchlist}</p>
+            <p className="text-sm font-semibold text-white">
+              {titleCount.watchlist}
+            </p>
           </div>
         </div>
         <div className="mx-auto flex h-auto w-[250px] flex-col items-center justify-center overflow-hidden rounded-3xl bg-black py-0">

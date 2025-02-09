@@ -1,4 +1,4 @@
-import { options } from "../headers";
+import { options } from "./headers";
 
 export async function getMediaData(url: string) {
   const res = await fetch(url, options);

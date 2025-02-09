@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Suspense } from "react";
 import MovieTitle from "../MovieTitle/MovieTitle";
 import Loading from "../MovieSection/loading";
-import { getMediaData } from "@/api/home/requests";
+import { getMediaData } from "@/api/requests";
 import { introptions } from "@/api/options";
 
 // const isSameGenre = (prevProps: GenreType, nextProps: GenreType) => {

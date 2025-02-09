@@ -3,12 +3,12 @@ import { Movie } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
 import { memo, useEffect, useState } from "react";
 
-const isSameSlideShow = (prevProps: Movie, nextProps: Movie) => {
-  return prevProps.id === nextProps.id;
-};
+// const isSameSlideShow = (prevProps: Movie, nextProps: Movie) => {
+//   return prevProps.id === nextProps.id;
+// };
 
 // eslint-disable-next-line react/display-name
-export const SlideShow = memo(
+const SlideShow = memo(
   ({ backdrop_path, title, overview, id, release_date }: Movie) => {
     const { push } = useRouter();
     const formatter = new Intl.DateTimeFormat("en-IN", {
@@ -81,5 +81,6 @@ export const SlideShow = memo(
       </>
     );
   },
-  isSameSlideShow,
 );
+
+export default SlideShow;

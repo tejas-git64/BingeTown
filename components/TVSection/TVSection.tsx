@@ -6,14 +6,14 @@ import React, { useCallback, useState } from "react";
 import { Suspense, useEffect, useRef } from "react";
 import TVTitle from "@/components/TVTitle/TVTitle";
 import Loading from "@/components/MovieSection/loading";
-import { getMediaData } from "@/api/home/requests";
+import { getMediaData } from "@/api/requests";
 import { introptions } from "@/api/options";
 
 // const isSameTVList = (prevProps: ContentType, nextProps: ContentType) => {
 // 	return prevProps.heading === nextProps.heading;
 // };
 
-export const TVSection = ({ heading, uri }: ContentType) => {
+const TVSection = ({ heading, uri }: ContentType) => {
   const [shows, setShows] = useState<TVDiscover[] | null>(null);
   const { push } = useRouter();
   const tvSectionRef = useRef(null);

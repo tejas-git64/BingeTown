@@ -60,7 +60,7 @@ export default function Search() {
           />
           <button
             onClick={() => back()}
-            className="-mr-1 h-9 w-9 rounded-full border border-neutral-800 bg-transparent p-2"
+            className="-mr-1 h-8 w-8 rounded-full border border-neutral-800 bg-transparent p-[7px]"
           >
             <Image src={backarrow} alt="back" className="h-full w-full" />
           </button>

@@ -91,7 +91,7 @@ export default function LoginForm() {
         Don&apos;t have an account ?
       </Link>
       <div className="mx-auto my-2 h-auto w-full border-t-2 border-dashed border-zinc-700">
-        <p className="mx-auto -mt-[13px] h-6 w-10 bg-neutral-900 text-center text-sm">
+        <p className="mx-auto -mt-[13px] h-6 w-10 bg-neutral-900 text-center text-sm text-white">
           or
         </p>
       </div>
