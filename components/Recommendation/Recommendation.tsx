@@ -28,7 +28,7 @@ export default function Recommendation({
             {name || title}
           </h3>
           <h4 className="whitespace-nowrap text-xs font-semibold text-neutral-400">
-            Rating: {vote_average.toFixed(1)}/10
+            Rating: {vote_average.toFixed(1)}
           </h4>
         </div>
       </Link>

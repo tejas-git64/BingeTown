@@ -21,7 +21,7 @@ export default async function MovieTitleDetails({
       <div className="h-full w-full bg-neutral-900">
         <Suspense fallback={<DetailsPageFallback />}>
           <div className="mx-auto flex h-auto flex-col overflow-hidden px-4 pb-10 pt-2 md:mb-0 md:h-auto md:justify-around md:px-0 md:pb-8 lg:px-5 xl:w-full xl:flex-row xl:px-2">
-            <RecommendationContainer id={id} />
+            <RecommendationContainer id={id} type={"movie"} />
             {data ? (
               <Title
                 id={id}
@@ -29,7 +29,7 @@ export default async function MovieTitleDetails({
                 initKey={data?.videos.results[0]?.key}
               />
             ) : null}
-            <SimilarTitlesContainer id={id} />
+            <SimilarTitlesContainer id={id} type="movie" />
           </div>
         </Suspense>
       </div>

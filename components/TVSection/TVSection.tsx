@@ -7,7 +7,7 @@ import { Suspense, useEffect, useRef } from "react";
 import TVTitle from "@/components/TVTitle/TVTitle";
 import Loading from "@/components/MovieSection/loading";
 import { getMediaData } from "@/api/requests";
-import { introptions } from "@/api/options";
+import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
 
 // const isSameTVList = (prevProps: ContentType, nextProps: ContentType) => {
@@ -26,11 +26,11 @@ const TVSection = ({ heading, uri }: ContentType) => {
   }, [uri]);
 
   useEffect(() => {
-    const titleObserver = new IntersectionObserver((enteries) => {
-      enteries.forEach((entry) => {
+    const titleObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting && shows === null) fetchTVData();
       });
-    }, introptions);
+    }, observerOptions);
     if (tvSectionRef.current) {
       titleObserver.observe(tvSectionRef.current);
     }

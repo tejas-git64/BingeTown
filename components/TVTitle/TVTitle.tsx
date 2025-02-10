@@ -85,9 +85,8 @@ export default function TVTitle({
           } bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}
         >
           <button
-            onClick={(e) =>
+            onClick={() =>
               addToWatchList(
-                e,
                 Number(id),
                 "tv",
                 name,
@@ -103,9 +102,8 @@ export default function TVTitle({
             <Image src={watchlist} alt="add" className="h-5 w-5 pr-0.5" />
           </button>
           <button
-            onClick={(e) =>
+            onClick={() =>
               addToSavedList(
-                e,
                 Number(id),
                 name,
                 poster_path,

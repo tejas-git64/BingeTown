@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import MovieTitle from "../MovieTitle/MovieTitle";
 import Loading from "../MovieSection/loading";
 import { getMediaData } from "@/api/requests";
-import { introptions } from "@/api/options";
+import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
 
 // const isSameGenre = (prevProps: GenreType, nextProps: GenreType) => {
@@ -27,11 +27,11 @@ const GenresSection = ({ id, heading }: GenreType) => {
   }, [id]);
 
   useEffect(() => {
-    const titleObserver = new IntersectionObserver((enteries) => {
-      enteries.forEach((entry) => {
+    const titleObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting && genreMovies === null) fetchGenreData();
       });
-    }, introptions);
+    }, observerOptions);
     if (sectionRef.current) {
       titleObserver.observe(sectionRef.current);
     }

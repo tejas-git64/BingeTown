@@ -9,7 +9,7 @@ export type SavedTitleType = {
   poster_path: string;
   vote_average: number;
   release_date: string;
-  docRef: DocumentReference<DocumentData, DocumentData>;
+  docRef: DocumentReference<DocumentData>;
 };
 
 //Watched Types
@@ -17,19 +17,17 @@ export type WatchListTitle = {
   watched: boolean;
 } & SavedTitleType;
 
-export type WatchListType =
-  | {
-      uid: string;
-      watchlist: DocumentData;
-    }
-  | DocumentData;
+export type WatchListType = {
+  uid: string;
+  watchlist: DocumentData;
+  docRef: DocumentReference<DocumentData, DocumentData>;
+};
 
-export type SavedTypes =
-  | {
-      uid: string;
-      savedtitles: DocumentData;
-    }
-  | DocumentData;
+export type SavedTypes = {
+  uid: string;
+  savedtitles: DocumentData;
+  docRef: DocumentReference<DocumentData, DocumentData>;
+};
 
 export type LayoutContextTypes = {
   svg: number;

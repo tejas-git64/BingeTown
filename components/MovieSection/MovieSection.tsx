@@ -6,7 +6,7 @@ import React from "react";
 import MovieTitle from "../MovieTitle/MovieTitle";
 import Loading from "./loading";
 import { getMediaData } from "@/api/requests";
-import { introptions } from "@/api/options";
+import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
 
 // const isSameSection = (prevProps: ContentType, nextProps: ContentType) => {
@@ -26,11 +26,11 @@ const MovieSection = ({ heading, uri }: ContentType) => {
   }, [uri]);
 
   useEffect(() => {
-    const titleObserver = new IntersectionObserver((enteries) => {
-      enteries.forEach((entry) => {
+    const titleObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting && movies === null) fetchMoviesData();
       });
-    }, introptions);
+    }, observerOptions);
     if (sectionRef.current) {
       titleObserver.observe(sectionRef.current);
     }

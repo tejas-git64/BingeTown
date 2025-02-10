@@ -40,8 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, auth]);
+  }, [isLoggedIn, path]);
 
   return (
     <AuthContext.Provider value={{ username, isLoggedIn, setIsLoggedIn }}>

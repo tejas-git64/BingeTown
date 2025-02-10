@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["movieid", "savedtitles", "TMDB", "Watchlist"]
+  "cSpell.words": [
+    "Firestore",
+    "movieid",
+    "savedtitles",
+    "TMDB",
+    "uuidv",
+    "Watchlist"
+  ]
 }

@@ -142,7 +142,7 @@ export default function Nav() {
               border: "none",
               outline: "none",
             }}
-            className="z-10 mr-4 flex-shrink-0 bg-transparent p-0 md:mr-3 lg:hidden"
+            className="z-10 mr-6 flex-shrink-0 bg-transparent p-0 md:mr-3"
           >
             <Image
               src={search}
@@ -157,7 +157,7 @@ export default function Nav() {
           href="/signup"
           className={`${
             !auth.currentUser || !isLoggedIn ? "block" : "hidden"
-          } duration-3 -ml-8 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mx-4`}
+          } duration-3 -ml-2 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mx-4`}
         >
           Sign up
         </Link>

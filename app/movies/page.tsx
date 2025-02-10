@@ -18,7 +18,7 @@ export default function Movies() {
     if (data) setGenres(data.genres);
   }
 
-  const getMovies = useCallback(async () => {
+  const getMoviesData = useCallback(async () => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/discover/movie?language=en-US&with_genres=${selected}&page=1`,
     );
@@ -27,8 +27,8 @@ export default function Movies() {
 
   useEffect(() => {
     getMovieGenres();
-    getMovies();
-  }, [getMovies]);
+    getMoviesData();
+  }, [getMoviesData]);
 
   return (
     <>

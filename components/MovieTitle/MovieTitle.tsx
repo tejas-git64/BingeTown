@@ -96,9 +96,8 @@ export default function MovieTitle({
           } bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}
         >
           <button
-            onClick={(e) => {
+            onClick={() => {
               addToWatchList(
-                e,
                 id,
                 "movie",
                 title,
@@ -115,9 +114,8 @@ export default function MovieTitle({
             <Image src={watchlist} alt="add" className="h-5 w-5 pr-0.5" />
           </button>
           <button
-            onClick={(e) => {
+            onClick={() => {
               addToSavedList(
-                e,
                 id,
                 title,
                 poster_path,

@@ -12,15 +12,14 @@ import {
 import { db } from "./Firebase";
 import { SavedTitleType, WatchListTitle } from "@/types/LayoutTypes";
 
-export const getDocCount = async (uuid: string, docname: string) => {
-  const watchlistRef = collection(db, docname);
+export const getDocCount = async (uuid: string, docName: string) => {
+  const watchlistRef = collection(db, docName);
   const q = query(watchlistRef, where("uid", "==", uuid));
   const snapshot = await getCountFromServer(q);
   return snapshot.data().count;
 };
 
 export async function addToSavedList(
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   titleId: number,
   title: string,
   poster_path: string,
@@ -29,8 +28,6 @@ export async function addToSavedList(
   type: string,
   savedDocRef: DocumentReference<DocumentData, DocumentData>,
 ) {
-  e.stopPropagation();
-  e.preventDefault();
   await updateDoc(savedDocRef, {
     savedtitles: arrayUnion({
       id: titleId,
@@ -44,7 +41,6 @@ export async function addToSavedList(
 }
 
 export async function addToWatchList(
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   titleId: number,
   type: string,
   title: string,
@@ -53,8 +49,6 @@ export async function addToWatchList(
   release_date: string,
   watchDocRef: DocumentReference<DocumentData, DocumentData>,
 ) {
-  e.stopPropagation();
-  e.preventDefault();
   await updateDoc(watchDocRef, {
     watchlist: arrayUnion({
       id: titleId,
@@ -68,21 +62,16 @@ export async function addToWatchList(
   });
 }
 
-export async function removeTitle(
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  {
-    title,
-    id,
-    poster_path,
-    release_date,
-    type,
-    vote_average,
-    watched,
-    docRef,
-  }: WatchListTitle,
-) {
-  e.preventDefault();
-  e.stopPropagation();
+export async function removeTitle({
+  title,
+  id,
+  poster_path,
+  release_date,
+  type,
+  vote_average,
+  watched,
+  docRef,
+}: WatchListTitle) {
   await updateDoc(docRef, {
     watchlist: arrayRemove({
       id: id,
@@ -96,20 +85,15 @@ export async function removeTitle(
   });
 }
 
-export async function unSaveTitle(
-  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  {
-    title,
-    id,
-    poster_path,
-    release_date,
-    type,
-    vote_average,
-    docRef,
-  }: SavedTitleType,
-) {
-  e.preventDefault();
-  e.stopPropagation();
+export async function unSaveTitle({
+  title,
+  id,
+  poster_path,
+  release_date,
+  type,
+  vote_average,
+  docRef,
+}: SavedTitleType) {
   await updateDoc(docRef, {
     savedtitles: arrayRemove({
       id: id,

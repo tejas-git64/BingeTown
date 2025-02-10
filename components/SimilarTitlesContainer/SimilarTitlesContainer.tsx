@@ -4,9 +4,15 @@ import SimilarTitle from "../SimilarTitle/SimilarTitle";
 import { TVDiscover } from "@/types/HomeTypes";
 import { v4 as uuidv4 } from "uuid";
 
-export default async function SimilarTitlesContainer({ id }: { id: string }) {
+export default async function SimilarTitlesContainer({
+  id,
+  type,
+}: {
+  id: string;
+  type: string;
+}) {
   const similarMovies = await getMediaData(
-    `https://api.themoviedb.org/3/movie/${id}/similar`,
+    `https://api.themoviedb.org/3/${type}/${id}/similar`,
   );
 
   return (
