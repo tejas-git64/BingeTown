@@ -8,6 +8,7 @@ import MovieTitle from "../MovieTitle/MovieTitle";
 import Loading from "../MovieSection/loading";
 import { getMediaData } from "@/api/requests";
 import { introptions } from "@/api/options";
+import { v4 as uuidv4 } from "uuid";
 
 // const isSameGenre = (prevProps: GenreType, nextProps: GenreType) => {
 // 	return prevProps.id === nextProps.id;
@@ -22,7 +23,7 @@ const GenresSection = ({ id, heading }: GenreType) => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/discover/movie?include_adult=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`,
     );
-    if (data) setGenreMovies(data);
+    if (data) setGenreMovies(data.results);
   }, [id]);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const GenresSection = ({ id, heading }: GenreType) => {
             className="mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto"
           >
             {genreMovies?.map((movie: Movie) => (
-              <div key={movie.id} className="mr-2 sm:mr-4">
+              <div key={uuidv4()} className="mr-2 sm:mr-4">
                 <MovieTitle {...movie} key={movie.id} />
               </div>
             ))}

@@ -110,7 +110,7 @@ export default function Sidenav() {
             <p className="text-sm text-white">Movies</p>
           </div>
           <div
-            onClick={() => navigateToPage("tvshows")}
+            onClick={() => navigateToPage("shows")}
             className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
           >
             <Image src={tvshow} alt="profile" className="-ml-1 h-7 w-7" />

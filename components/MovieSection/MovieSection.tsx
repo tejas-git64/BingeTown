@@ -7,6 +7,7 @@ import MovieTitle from "../MovieTitle/MovieTitle";
 import Loading from "./loading";
 import { getMediaData } from "@/api/requests";
 import { introptions } from "@/api/options";
+import { v4 as uuidv4 } from "uuid";
 
 // const isSameSection = (prevProps: ContentType, nextProps: ContentType) => {
 //   return prevProps.heading === nextProps.heading;
@@ -21,7 +22,7 @@ const MovieSection = ({ heading, uri }: ContentType) => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/${uri}?language=en-US&page=1`,
     );
-    if (data) setMovies(data);
+    if (data) setMovies(data.results);
   }, [uri]);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const MovieSection = ({ heading, uri }: ContentType) => {
             className="mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto"
           >
             {movies?.map((movie: Movie) => (
-              <div key={movie.id} className="mr-2 sm:mr-4">
+              <div key={uuidv4()} className="mr-2 sm:mr-4">
                 <MovieTitle key={movie.id} {...movie} />
               </div>
             ))}

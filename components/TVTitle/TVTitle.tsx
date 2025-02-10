@@ -34,7 +34,7 @@ export default function TVTitle({
   }
 
   function showTVShow() {
-    if (id) push(`/tvshows/${id}`);
+    if (id) push(`/shows/${id}`);
   }
   return (
     <>

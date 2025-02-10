@@ -13,7 +13,7 @@ export default function Recommendation({
   return (
     <>
       <Link
-        href={isShow ? `/tvshows/${id}` : `/movies/${id}`}
+        href={isShow ? `/shows/${id}` : `/movies/${id}`}
         className="mb-1 flex h-auto w-full items-center justify-start rounded-md bg-neutral-800 hover:bg-neutral-700"
       >
         <Image
@@ -27,7 +27,7 @@ export default function Recommendation({
           <h3 className="line-clamp-1 text-ellipsis whitespace-nowrap text-xs font-semibold text-white">
             {name || title}
           </h3>
-          <h4 className="whitespace-nowrap text-[10px] font-semibold text-neutral-400">
+          <h4 className="whitespace-nowrap text-xs font-semibold text-neutral-400">
             Rating: {vote_average.toFixed(1)}/10
           </h4>
         </div>

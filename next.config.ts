@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
         hostname: "image.tmdb.org",
         protocol: "https",
       },
+      {
+        hostname: "img.youtube.com",
+        protocol: "https",
+      },
     ],
   },
 };

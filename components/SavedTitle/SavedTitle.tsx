@@ -21,7 +21,7 @@ export default function SavedTitle({
   const docRef = doc(db, "saved", uid);
   const year = new Date(release_date).getFullYear();
   function navigateToShow(type: string, id: number) {
-    if (type === "tv") push(`/tvshows/${id}`);
+    if (type === "tv") push(`/shows/${id}`);
     else push(`/movies/${id}`);
   }
 

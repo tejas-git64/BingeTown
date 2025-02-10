@@ -8,6 +8,7 @@ import TVTitle from "@/components/TVTitle/TVTitle";
 import Loading from "@/components/MovieSection/loading";
 import { getMediaData } from "@/api/requests";
 import { introptions } from "@/api/options";
+import { v4 as uuidv4 } from "uuid";
 
 // const isSameTVList = (prevProps: ContentType, nextProps: ContentType) => {
 // 	return prevProps.heading === nextProps.heading;
@@ -21,7 +22,7 @@ const TVSection = ({ heading, uri }: ContentType) => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/${uri}?language=en-US&page=1`,
     );
-    if (data) setShows(data);
+    if (data) setShows(data.results);
   }, [uri]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const TVSection = ({ heading, uri }: ContentType) => {
         className="titles mx-auto my-4 h-auto w-full md:h-auto"
       >
         <h2
-          onClick={() => push("/tvshows")}
+          onClick={() => push("/shows")}
           className="mx-auto w-full cursor-pointer text-left text-lg font-extrabold text-white"
         >
           {heading}
@@ -57,8 +58,8 @@ const TVSection = ({ heading, uri }: ContentType) => {
           >
             {shows &&
               shows?.map((show: TVDiscover) => (
-                <div key={show.id} className="mr-2 sm:mr-4">
-                  <TVTitle key={show.id} {...show} />
+                <div key={uuidv4()} className="mr-2 sm:mr-4">
+                  <TVTitle {...show} />
                 </div>
               ))}
           </div>

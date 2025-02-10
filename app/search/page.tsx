@@ -22,7 +22,7 @@ export default function Search() {
 
   function showDetails(mediaType: string, id: number) {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    mediaType === "tv" ? push(`/tvshows/${id}`) : push(`/movies/${id}`);
+    mediaType === "tv" ? push(`/shows/${id}`) : push(`/movies/${id}`);
     setSearchResults(null);
   }
 

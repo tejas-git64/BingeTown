@@ -13,7 +13,7 @@ export default function SimilarTitle({
   return (
     <>
       <Link
-        href={isShow ? `/tvshows/${id}` : `/movies/${id}`}
+        href={isShow ? `/shows/${id}` : `/movies/${id}`}
         className="h-auto w-[154px] flex-shrink-0"
       >
         <Image
@@ -24,11 +24,11 @@ export default function SimilarTitle({
           className="h-[231px] w-[154px] rounded-xl transition-all ease-in hover:scale-95"
         />
         <div className="mt-1 flex h-12 w-full flex-col items-start justify-start">
-          <p className="w-full overflow-x-hidden whitespace-nowrap text-left text-xs text-white">
+          <p className="w-full overflow-x-hidden whitespace-nowrap text-left text-xs font-semibold text-white">
             {name || title}
           </p>
-          <h4 className="h-6 w-full text-left text-[10px] font-normal text-gray-400">
-            Rating: {vote_average ? `${vote_average.toFixed(1)}/10` : "NA"}
+          <h4 className="h-6 w-full text-left text-xs font-semibold text-gray-400">
+            Rating: {vote_average ? `${vote_average.toFixed(1)}` : "NA"}
           </h4>
         </div>
       </Link>

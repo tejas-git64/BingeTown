@@ -23,7 +23,7 @@ export default function Nav() {
   const { push } = useRouter();
 
   function showTitle(mediaType: string, id: number) {
-    if (mediaType === "tv") push(`/tvshows/${id}`);
+    if (mediaType === "tv") push(`/shows/${id}`);
     else push(`/movies/${id}`);
     setSearchResults(null);
   }
@@ -32,7 +32,7 @@ export default function Nav() {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`,
     );
-    const min: MultiSearch = data.filter(
+    const min: MultiSearch = data.results.filter(
       (res: { media_type: string }) => res.media_type !== "person",
     );
     setSearchResults(min.slice(0, 5));
@@ -128,7 +128,7 @@ export default function Nav() {
               Movies
             </Link>
             <Link
-              href="/tvshows"
+              href="/shows"
               className="text-md mr-12 whitespace-nowrap pt-3 font-bold text-white transition-all ease-out hover:text-teal-400 hover:shadow-[0px_2px_0px_#2dd4bf]"
             >
               TV Shows
