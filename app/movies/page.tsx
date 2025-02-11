@@ -32,7 +32,7 @@ export default function Movies() {
 
   return (
     <>
-      <div className="max-h-auto -mt-2 h-full w-full bg-neutral-900 px-5 pb-2 text-left md:px-6">
+      <div className="max-h-auto -mt-2 h-full max-h-max w-full bg-neutral-900 px-5 pb-2 text-left md:px-6">
         <div className="my-4 flex h-auto w-full items-center justify-between">
           <h3 className="py-2 text-base font-bold text-white md:text-lg">
             Movies

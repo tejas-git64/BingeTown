@@ -32,12 +32,17 @@ export default function WatchTitle({
         <Image
           src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
           alt="image-cover"
-          height={221}
-          width={147}
+          height={231}
+          width={154}
           priority
           loading="eager"
-          className="mx-auto h-[221px] w-[147px] cursor-pointer rounded-lg transition-transform duration-100 ease-in hover:scale-95 md:h-auto md:w-auto"
+          className="mx-auto h-[231px] w-[154px] cursor-pointer rounded-lg transition-transform duration-100 ease-in hover:scale-95 md:h-auto md:w-auto"
         />
+        <p
+          className={`absolute right-1.5 top-1.5 rounded-sm ${type === "movie" ? "bg-yellow-400" : "bg-purple-400"} px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black`}
+        >
+          {type === "tv" ? "TV" : "MOVIE"}
+        </p>
         <h3 className="mt-1 line-clamp-1 text-ellipsis whitespace-nowrap text-left text-[12px] font-semibold text-white">
           {title}
         </h3>
@@ -67,7 +72,7 @@ export default function WatchTitle({
                 watched: false,
                 docRef,
               });
-              window.location.reload();
+              setTimeout(() => window.location.reload(), 500);
             }}
             className="h-auto border-none bg-transparent p-0"
           >

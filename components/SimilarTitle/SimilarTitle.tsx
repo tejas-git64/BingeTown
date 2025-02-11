@@ -23,6 +23,11 @@ export default function SimilarTitle({
           height={231}
           className="h-[231px] w-[154px] rounded-xl transition-all ease-in hover:scale-95"
         />
+        <p
+          className={`absolute right-1.5 top-1.5 rounded-sm ${isShow ? "bg-purple-400" : "bg-yellow-400"} px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black`}
+        >
+          {isShow ? "TV" : "MOVIE"}
+        </p>
         <div className="mt-1 flex h-12 w-full flex-col items-start justify-start">
           <p className="w-full overflow-x-hidden whitespace-nowrap text-left text-xs font-semibold text-white">
             {name || title}

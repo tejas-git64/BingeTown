@@ -14,7 +14,7 @@ const RecommendationContainer = async ({
     `https://api.themoviedb.org/3/${type}/${id}/recommendations`,
   );
   return (
-    <div className="mx-auto hidden h-64 w-full px-4 lg:h-[850px] lg:min-w-[400px] lg:max-w-[28vw] xl:block xl:w-[400px]">
+    <div className="hidden h-64 w-full px-4 md:px-0 lg:block lg:h-[680px] lg:min-w-[400px] lg:max-w-[28vw] lg:pl-4 lg:pr-0 xl:h-[850px] xl:w-[400px] xl:pr-4">
       <p className="my-2 text-left text-sm font-semibold text-white">
         Recommendations
       </p>

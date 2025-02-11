@@ -22,7 +22,7 @@ export default function MovieTitle({
   const [showMenu, setShowMenu] = useState(false);
   const year = new Date(release_date).getFullYear();
 
-  const uid = auth.currentUser ? auth.currentUser?.uid : "";
+  const uid = auth?.currentUser ? auth?.currentUser?.uid : "";
   const savedDocRef: DocumentReference<DocumentData, DocumentData> = doc(
     db,
     "saved",
@@ -55,6 +55,9 @@ export default function MovieTitle({
           height={231}
           className="mx-auto mb-2 h-[231px] w-[154px] cursor-pointer rounded-lg transition-transform ease-in hover:scale-95 md:h-auto md:w-auto"
         />
+        <p className="absolute right-1.5 top-1.5 rounded-sm bg-yellow-400 px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black">
+          MOVIE
+        </p>
         <h3 className="line-clamp-1 text-ellipsis whitespace-pre-line text-left text-[12px] font-semibold text-white">
           {title}
         </h3>

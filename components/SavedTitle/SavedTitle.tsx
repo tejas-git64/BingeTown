@@ -24,17 +24,22 @@ export default function SavedTitle({
 
   return (
     <>
-      <div className="relative mx-auto flex h-[300px] w-[147px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl">
+      <div className="relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl">
         <Image
           src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
           alt="image-cover"
-          width={147}
-          height={221}
+          width={154}
+          height={231}
           priority
           loading="eager"
           onClick={() => navigateToShow(type, id)}
-          className="mx-auto h-[221px] w-[147px] cursor-pointer rounded-lg transition-transform duration-100 ease-in hover:scale-95 md:h-auto md:w-auto"
+          className="mx-auto h-[221px] w-[154px] cursor-pointer rounded-lg object-contain transition-transform duration-100 ease-in hover:scale-95 md:h-auto md:w-auto"
         />
+        <p
+          className={`absolute right-1.5 top-1.5 rounded-sm ${type === "movie" ? "bg-yellow-400" : "bg-purple-400"} px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black`}
+        >
+          {type === "tv" ? "TV" : "MOVIE"}
+        </p>
         <button
           onClick={() => {
             unSaveTitle({
@@ -46,9 +51,9 @@ export default function SavedTitle({
               vote_average,
               docRef,
             });
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 500);
           }}
-          className="absolute right-1 top-1 rounded-xl rounded-bl-xl border-none bg-neutral-800 p-1 outline-none"
+          className="absolute bottom-6 right-0 rounded-full border-none bg-neutral-800 p-0.5 outline-none"
         >
           <Image src={unSaveIcon} alt="unsave" className="h-5 w-5" />
         </button>

@@ -20,7 +20,7 @@ export default function TVTitle({
 }: TVDiscover) {
   const { push } = useRouter();
   const [showMenu, setShowMenu] = useState(false);
-  const uid = auth.currentUser ? auth.currentUser?.uid : "";
+  const uid = auth?.currentUser ? auth?.currentUser?.uid : "";
   const savedDocRef = doc(db, "saved", uid);
   const watchDocRef = doc(db, "watchlist", uid);
   const year = new Date(first_air_date).getFullYear();
@@ -40,7 +40,7 @@ export default function TVTitle({
     <>
       <div
         onClick={showTVShow}
-        className="relative mx-auto flex h-72 w-36 flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:h-[300px] md:w-[154px]"
+        className="relative mx-auto flex h-72 w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:h-[300px] md:w-[154px]"
       >
         <Image
           src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
@@ -49,6 +49,9 @@ export default function TVTitle({
           height={231}
           className="mb-2 h-[231px] w-[154px] cursor-pointer text-ellipsis rounded-lg object-cover transition-transform ease-in hover:scale-95 md:h-[231px] md:w-[154px]"
         />
+        <p className="absolute right-1.5 top-1.5 rounded-sm bg-purple-400 px-1 py-0.5 text-[10.5px] font-extrabold text-black shadow-sm shadow-black">
+          TV
+        </p>
         <h3 className="line-clamp-1 text-ellipsis whitespace-pre-line text-left text-sm font-semibold text-white sm:text-[12px]">
           {name}
         </h3>

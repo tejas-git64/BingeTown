@@ -18,7 +18,7 @@ export default async function SimilarTitlesContainer({
   return (
     <>
       {similarMovies.results.length > 0 ? (
-        <div className="mx-auto h-72 w-full flex-shrink-0 pb-10 md:h-80 md:px-4 lg:px-0 xl:h-[890px] xl:max-w-[360px] xl:px-4 2xl:pl-2">
+        <div className="mx-auto h-72 w-full flex-shrink-0 pb-10 md:h-80 md:px-4 lg:hidden lg:px-0 xl:block xl:h-[890px] xl:max-w-[360px] xl:px-4 2xl:pl-2">
           <p className="text-left text-sm font-semibold text-white md:my-2 xl:pl-2">
             Similar Titles
           </p>

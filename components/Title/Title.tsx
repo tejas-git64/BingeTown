@@ -52,7 +52,7 @@ export default function Title({
   }, [getMovieCast, getTitleReviews, id]);
 
   return (
-    <div className="3xl:w-full mb-2 flex h-auto w-full flex-col md:min-w-[42vw] md:px-4 lg:px-0 xl:max-w-[75vw] xl:pl-0 2xl:w-[60vw] 2xl:max-w-[90vw]">
+    <div className="3xl:w-full mb-2 flex h-auto w-full flex-col md:min-w-[40vw] md:px-4 xl:w-[45vw] xl:px-0 2xl:w-[60vw] 2xl:max-w-[90vw]">
       <p className="my-1 w-full text-left text-sm font-semibold text-white md:text-lg xl:w-full">
         {titleInfo?.title}
       </p>
@@ -65,7 +65,7 @@ export default function Title({
         /> */}
       <video
         src={`https://www.youtube.com/embed/${vidID}` || ""}
-        className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[50vw] lg:w-full xl:h-[30vw] xl:max-h-[60vw] xl:w-[50vw] 2xl:max-h-[1200px] 2xl:w-full"
+        className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[35vw] xl:h-[28vw] xl:max-h-[70vw] xl:w-full 2xl:h-[35vw] 2xl:max-h-[1200px] 2xl:w-full"
         controls
         autoPlay
         autoFocus
@@ -75,7 +75,8 @@ export default function Title({
           id="videos"
           className="flex h-28 w-full items-center justify-start overflow-x-scroll"
         >
-          {titleInfo?.videos?.results ? (
+          {titleInfo?.videos?.results &&
+          titleInfo?.videos?.results.length > 0 ? (
             titleInfo.videos.results.map((video) => (
               <div key={uuidv4()} className="mr-3 h-auto w-auto">
                 <div className="relative h-[90px] w-[120px] flex-shrink-0">
@@ -96,7 +97,11 @@ export default function Title({
               </div>
             ))
           ) : (
-            <p>This title has no videos</p>
+            <div className="grid h-20 w-full place-items-center rounded-sm bg-neutral-800">
+              <p className="text-lg font-semibold text-neutral-400">
+                This title has no videos ^_^
+              </p>
+            </div>
           )}
         </div>
         {titleInfo ? <Genres key={uuidv4()} titleInfo={titleInfo} /> : null}
