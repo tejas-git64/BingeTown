@@ -61,7 +61,9 @@ export default function WatchTitle({
             </h3>
           </div>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               removeTitle({
                 title,
                 id,

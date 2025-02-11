@@ -60,7 +60,7 @@ export default function TVTitle({
             <div className="flex text-[10.5px]">
               <h4 className="mr-1 font-normal text-neutral-400">Rating</h4>
               <h4 className="text-neutral-400">
-                {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}/10`}
+                {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
               </h4>
             </div>
             <h3 className="whitespace-nowrap text-[10.5px] font-semibold text-neutral-300">
@@ -88,7 +88,9 @@ export default function TVTitle({
           } bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}
         >
           <button
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               addToWatchList(
                 Number(id),
                 "tv",
@@ -97,15 +99,17 @@ export default function TVTitle({
                 vote_average,
                 first_air_date,
                 watchDocRef,
-              )
-            }
+              );
+            }}
             className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
           >
             <h4 className="text-xs text-white">Add to watchlist</h4>
             <Image src={watchlist} alt="add" className="h-5 w-5 pr-0.5" />
           </button>
           <button
-            onClick={() =>
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               addToSavedList(
                 Number(id),
                 name,
@@ -114,8 +118,8 @@ export default function TVTitle({
                 first_air_date,
                 "tv",
                 savedDocRef,
-              )
-            }
+              );
+            }}
             className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
           >
             <h4 className="text-xs font-semibold text-white">Save</h4>

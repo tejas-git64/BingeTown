@@ -16,7 +16,7 @@ export default function WatchList() {
       if (user) {
         const uid = user.uid;
         const watchRef = doc(db, "watchlist", uid);
-        (async function getWatchData() {
+        (async () => {
           //Watchlist data
           const watchDoc = await getDoc(watchRef);
           if (watchDoc) {

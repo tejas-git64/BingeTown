@@ -5,6 +5,7 @@ import {
   CastTotal,
   Cast,
   MovieTitleInfo,
+  TVTitleInfo,
 } from "@/app/movies/[id]/TitleTypes";
 import React, { useCallback, useEffect, useState } from "react";
 import CastContainer from "../CastContainer/CastContainer";
@@ -21,7 +22,7 @@ export default function Title({
   initKey,
 }: {
   id: string;
-  titleInfo: MovieTitleInfo;
+  titleInfo: MovieTitleInfo & TVTitleInfo;
   initKey: string | undefined;
 }) {
   const [movieReviews, setMovieReviews] = useState<ReviewsTotal | null>(null);
@@ -40,10 +41,12 @@ export default function Title({
     const data = await getMediaData(
       `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
     );
-    const filtered = data?.cast.filter(
-      (cast: Cast) => cast.known_for_department === "Acting",
-    );
-    if (filtered) setMovieCast(filtered);
+    if (data) {
+      const filtered = data.cast?.filter(
+        (cast: Cast) => cast.known_for_department === "Acting",
+      );
+      if (filtered) setMovieCast(filtered);
+    }
   }, [id]);
 
   useEffect(() => {
@@ -52,23 +55,16 @@ export default function Title({
   }, [getMovieCast, getTitleReviews, id]);
 
   return (
-    <div className="3xl:w-full mb-2 flex h-auto w-full flex-col md:min-w-[40vw] md:px-4 xl:w-[45vw] xl:px-0 2xl:w-[60vw] 2xl:max-w-[90vw]">
-      <p className="my-1 w-full text-left text-sm font-semibold text-white md:text-lg xl:w-full">
-        {titleInfo?.title}
+    <div className="3xl:w-full mb-2 flex h-auto w-full flex-col md:min-w-[40vw] md:px-4 xl:w-[45vw] xl:px-0 2xl:w-[60vw] 2xl:max-w-[90vw] 2xl:pr-4">
+      <p className="text-md my-1 w-full text-left font-semibold text-white md:text-lg xl:w-full">
+        {titleInfo?.title || titleInfo.name}
       </p>
-      {/* <iframe
-          className="mx-auto h-60 w-full rounded-xl sm:h-80 md:h-96 lg:h-[550px] lg:w-full xl:w-[900px] 2xl:w-full"
-          src={`https://www.youtube.com/embed/${vidID}` || ""}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        /> */}
-      <video
+      <iframe
+        className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[35vw] xl:h-[28vw] xl:max-h-[70vw] xl:w-full 2xl:h-[33vw] 2xl:max-h-[1200px] 2xl:w-full"
         src={`https://www.youtube.com/embed/${vidID}` || ""}
-        className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[35vw] xl:h-[28vw] xl:max-h-[70vw] xl:w-full 2xl:h-[35vw] 2xl:max-h-[1200px] 2xl:w-full"
-        controls
-        autoPlay
-        autoFocus
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
       />
       <div className="mx-auto h-auto w-full">
         <div
@@ -97,9 +93,9 @@ export default function Title({
               </div>
             ))
           ) : (
-            <div className="grid h-20 w-full place-items-center rounded-sm bg-neutral-800">
-              <p className="text-lg font-semibold text-neutral-400">
-                This title has no videos ^_^
+            <div className="grid h-20 w-full place-items-center rounded-lg bg-neutral-800">
+              <p className="text-md font-semibold text-neutral-500">
+                This title has no videos :(
               </p>
             </div>
           )}

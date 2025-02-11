@@ -14,12 +14,12 @@ const RecommendationContainer = async ({
     `https://api.themoviedb.org/3/${type}/${id}/recommendations`,
   );
   return (
-    <div className="hidden h-64 w-full px-4 md:px-0 lg:block lg:h-[680px] lg:min-w-[400px] lg:max-w-[28vw] lg:pl-4 lg:pr-0 xl:h-[850px] xl:w-[400px] xl:pr-4">
+    <div className="hidden h-64 w-full overflow-hidden lg:block lg:h-[750px] lg:min-w-[400px] lg:max-w-[28vw] lg:pl-4 xl:h-[800px] xl:w-[400px] xl:pr-4 2xl:h-[49vw]">
       <p className="my-2 text-left text-sm font-semibold text-white">
         Recommendations
       </p>
-      <ul className="h-full w-full overflow-y-scroll pr-3">
-        {data.results.map((r: TVDiscover) => (
+      <ul className="h-full w-full overflow-x-hidden overflow-y-scroll rounded-md pb-10 pr-1">
+        {data.results?.map((r: TVDiscover) => (
           <Recommendation
             key={uuidv4()}
             {...r}

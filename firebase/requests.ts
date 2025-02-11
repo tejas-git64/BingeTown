@@ -12,9 +12,9 @@ import {
 import { db } from "./Firebase";
 import { SavedTitleType, WatchListTitle } from "@/types/LayoutTypes";
 
-export const getDocCount = async (uuid: string, docName: string) => {
+export const getDocCount = async (uid: string, docName: string) => {
   const watchlistRef = collection(db, docName);
-  const q = query(watchlistRef, where("uid", "==", uuid));
+  const q = query(watchlistRef, where("uid", "==", uid));
   const snapshot = await getCountFromServer(q);
   return snapshot.data().count;
 };
@@ -31,11 +31,11 @@ export async function addToSavedList(
   await updateDoc(savedDocRef, {
     savedtitles: arrayUnion({
       id: titleId,
-      type: type,
-      title: title,
       poster_path: poster_path,
-      vote_average: vote_average,
       release_date: release_date,
+      title: title,
+      type: type,
+      vote_average: vote_average,
     }),
   });
 }

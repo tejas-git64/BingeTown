@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -23,6 +22,10 @@ const nextConfig: NextConfig = {
       },
       {
         hostname: "img.youtube.com",
+        protocol: "https",
+      },
+      {
+        hostname: "i.pinimg.com",
         protocol: "https",
       },
     ],

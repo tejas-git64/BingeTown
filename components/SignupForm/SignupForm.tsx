@@ -1,20 +1,23 @@
 "use client";
 
-import React, { useActionState } from "react";
+import React, { useActionState, useContext } from "react";
 import FormButton from "../FormButton/FormButton";
 import Link from "next/link";
 import { auth, db } from "@/firebase/Firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
 import { getErrorStatus } from "@/helpers/helpers";
+import { GlobalStore } from "@/store/GlobalStore";
+import { LayoutContextTypes } from "@/types/LayoutTypes";
 
 export default function SignupForm() {
   const [error, action, pending] = useActionState(signUp, "");
-
+  const { svg } = useContext<LayoutContextTypes>(GlobalStore);
   async function signUp(state: string | undefined, data: FormData) {
     const email = data?.get("email") as string;
     const fullname = data?.get("fullname") as string;
@@ -39,6 +42,12 @@ export default function SignupForm() {
             await setDoc(doc(db, "watchlist", user.uid), {
               uid: user.uid,
               watchlist: [],
+            });
+            updateProfile(user, {
+              displayName: user.displayName || fullname,
+              photoURL:
+                user.photoURL ||
+                `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=32&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`,
             });
             const docRef = doc(db, "users", user.uid);
             const docSnap = await getDoc(docRef);

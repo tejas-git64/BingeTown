@@ -58,7 +58,7 @@ export default function Sidenav() {
   return (
     <>
       <div
-        className={`absolute right-0 top-14 z-20 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-l-3xl bg-neutral-900 pb-10 transition-transform ${
+        className={`absolute right-0 top-14 z-20 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-bl-3xl border-b border-l border-neutral-700 bg-neutral-900 pb-10 transition-transform ${
           sideNav ? "-translate-x-0" : "translate-x-96"
         }`}
       >
@@ -66,16 +66,16 @@ export default function Sidenav() {
           <Image
             src={
               auth.currentUser?.photoURL ||
-              `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=32&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`
+              `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=70&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`
             }
-            width={32}
-            height={32}
+            width={70}
+            height={70}
             alt="user-Image"
             quality={100}
-            className="mb-2 h-[32px] w-[32px] rounded-full border-none bg-gray-200 text-[10px]"
+            className="mb-2 h-[70px] w-[70px] rounded-full border-none bg-gray-200 text-[10px]"
           />
           <h3 className="mb-2 mt-1 font-semibold text-white">
-            {auth.currentUser?.displayName}
+            {auth.currentUser?.displayName || "Binge user"}
           </h3>
           <div className="mx-auto mt-2 flex w-[250px] items-center justify-center px-3">
             <p className="mr-2 text-sm font-medium text-neutral-500">

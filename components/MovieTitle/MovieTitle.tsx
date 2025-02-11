@@ -22,7 +22,7 @@ export default function MovieTitle({
   const [showMenu, setShowMenu] = useState(false);
   const year = new Date(release_date).getFullYear();
 
-  const uid = auth?.currentUser ? auth?.currentUser?.uid : "";
+  const uid = auth?.currentUser?.uid || "";
   const savedDocRef: DocumentReference<DocumentData, DocumentData> = doc(
     db,
     "saved",
@@ -99,7 +99,9 @@ export default function MovieTitle({
           } bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}
         >
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               addToWatchList(
                 id,
                 "movie",
@@ -117,7 +119,9 @@ export default function MovieTitle({
             <Image src={watchlist} alt="add" className="h-5 w-5 pr-0.5" />
           </button>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               addToSavedList(
                 id,
                 title,
