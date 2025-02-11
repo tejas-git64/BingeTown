@@ -1,58 +1,44 @@
 "use client";
 
-import { Ref, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { MovieListGenres, Movie } from "../../types/HomeTypes";
 import MovieShowFallback from "./loading";
 import MovieTitle from "@/components/MovieTitle/MovieTitle";
 import { getMediaData } from "@/api/requests";
+import { useInView } from "react-intersection-observer";
 
 export default function Movies() {
   const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
-  const [selected, setSelected] = useState<number | string>(28);
-  const [page, setPage] = useState(0);
-  const containerRef: Ref<HTMLDivElement> | undefined = useRef(null);
-  const observer = useRef<IntersectionObserver | null>(null);
+  const [selected, setSelected] = useState<number>(28);
+  const page = useRef<number>(1);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+  });
 
-  async function getMovieGenres() {
+  const getMovieGenres = useCallback(async () => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/genre/movie/list?language=en`,
     );
     if (data) setGenres(data.genres);
-  }
+  }, []);
 
-  const getMoviesData = async () => {
-    const data: Movie[] = await getMediaData(
-      `https://api.themoviedb.org/3/discover/movie?language=en-US&with_genres=${selected}&page=${page}`,
+  const getMoviesData = useCallback(async () => {
+    const data = await getMediaData(
+      `https://api.themoviedb.org/3/discover/movie?language=en-US&with_genres=${selected}&page=${page.current}`,
     );
     if (data) {
-      // setSortedMovies((prev) => [...prev, ...data]);
-      console.log(data);
-      setPage((prev) => prev + 1);
+      setSortedMovies((prev) => [...prev, ...data.results]);
     }
-  };
+  }, [page, selected]);
 
   useEffect(() => {
     getMovieGenres();
-    getMoviesData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const mainObserver = observer.current;
-    if (containerRef.current) {
-      mainObserver?.unobserve(containerRef.current);
+    if (inView) {
+      getMoviesData();
+      page.current += 1;
     }
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        getMoviesData();
-      }
-    });
-    if (containerRef.current) {
-      observer.current?.observe(containerRef.current);
-    }
-    return () => mainObserver?.disconnect();
-  }, [getMoviesData]);
+  }, [getMovieGenres, getMoviesData, inView]);
 
   return (
     <>
@@ -64,7 +50,7 @@ export default function Movies() {
           <select
             name="Sort by Genre"
             aria-label="Sort by genre"
-            onChange={(e) => setSelected(e.target.value)}
+            onChange={(e) => setSelected(Number(e.target.value))}
             className="none h-8 w-32 rounded-md border-none bg-neutral-900 text-xs font-semibold text-white outline-none"
           >
             {genres?.map((genre) => (
@@ -85,7 +71,7 @@ export default function Movies() {
               gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
               gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
             }}
-            ref={containerRef}
+            ref={ref}
             className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 md:gap-x-6"
           >
             {sortedMovies?.map((movie: Movie) => (

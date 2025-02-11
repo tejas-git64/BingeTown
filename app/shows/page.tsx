@@ -1,34 +1,42 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense } from "react";
+import { useState, useEffect, useCallback, Suspense, useRef } from "react";
 import { MovieListGenres, TVDiscover, TVList } from "../../types/HomeTypes";
 import MovieShowFallback from "../movies/loading";
 import TVTitle from "@/components/TVTitle/TVTitle";
 import { getMediaData } from "@/api/requests";
+import { useInView } from "react-intersection-observer";
 
 export default function TVShows() {
   const [sortedShows, setSortedShows] = useState<TVList["shows"] | null>(null);
   const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
   const [selected, setSelected] = useState<number | string>("");
+  const page = useRef<number>(1);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+  });
 
-  async function getShowGenres() {
+  const getShowGenres = useCallback(async () => {
     const data = await getMediaData(
       "https://api.themoviedb.org/3/genre/tv/list?language=en",
     );
     if (data) setGenres(data.genres);
-  }
+  }, []);
 
   const getShowsData = useCallback(async () => {
     const data = await getMediaData(
-      `https://api.themoviedb.org/3/discover/tv?language=en-US&with_genres=${selected}&page=1`,
+      `https://api.themoviedb.org/3/discover/tv?language=en-US&with_genres=${selected}&page=${page.current}`,
     );
     setSortedShows(data.results);
   }, [selected]);
 
   useEffect(() => {
-    getShowsData();
     getShowGenres();
-  }, [getShowsData]);
+    if (inView) {
+      getShowsData();
+      page.current += 1;
+    }
+  }, [getShowGenres, getShowsData, inView]);
 
   return (
     <>
@@ -61,6 +69,7 @@ export default function TVShows() {
               gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
               gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
             }}
+            ref={ref}
             className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 md:gap-x-6"
           >
             {sortedShows?.map((show: TVDiscover) => (
