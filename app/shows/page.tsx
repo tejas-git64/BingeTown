@@ -1,20 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense, useRef } from "react";
-import { MovieListGenres, TVDiscover, TVList } from "../../types/HomeTypes";
+import { useState, useEffect, useCallback, Suspense } from "react";
+import { MovieListGenres } from "../../types/HomeTypes";
 import MovieShowFallback from "../movies/loading";
-import TVTitle from "@/components/TVTitle/TVTitle";
 import { getMediaData } from "@/api/requests";
-import { useInView } from "react-intersection-observer";
+import ShowsContainer from "@/components/ShowsContainer/ShowsContainer";
 
 export default function TVShows() {
-  const [sortedShows, setSortedShows] = useState<TVList["shows"] | null>(null);
   const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
-  const [selected, setSelected] = useState<number | string>("");
-  const page = useRef<number>(1);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-  });
+  const [selected, setSelected] = useState<number>(10759);
 
   const getShowGenres = useCallback(async () => {
     const data = await getMediaData(
@@ -23,20 +17,9 @@ export default function TVShows() {
     if (data) setGenres(data.genres);
   }, []);
 
-  const getShowsData = useCallback(async () => {
-    const data = await getMediaData(
-      `https://api.themoviedb.org/3/discover/tv?language=en-US&with_genres=${selected}&page=${page.current}`,
-    );
-    setSortedShows(data.results);
-  }, [selected]);
-
   useEffect(() => {
     getShowGenres();
-    if (inView) {
-      getShowsData();
-      page.current += 1;
-    }
-  }, [getShowGenres, getShowsData, inView]);
+  }, [getShowGenres]);
 
   return (
     <>
@@ -47,7 +30,7 @@ export default function TVShows() {
           </h3>
           <select
             name="Sort by Genre"
-            onChange={(e) => setSelected(e.target.value)}
+            onChange={(e) => setSelected(Number(e.target.value))}
             aria-label="Sort by genre"
             className="mr-1 h-8 w-36 rounded-md border-none bg-neutral-900 text-xs font-semibold text-white outline-none"
           >
@@ -63,21 +46,7 @@ export default function TVShows() {
           </select>
         </div>
         <Suspense fallback={<MovieShowFallback />}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-              gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-            ref={ref}
-            className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 md:gap-x-6"
-          >
-            {sortedShows?.map((show: TVDiscover) => (
-              <div key={show.id} className="mx-auto w-min">
-                <TVTitle {...show} isShow={true} />
-              </div>
-            ))}
-          </div>
+          <ShowsContainer selection={selected} />
         </Suspense>
       </div>
     </>

@@ -1,4 +1,4 @@
 export const observerOptions = {
-  rootMargin: "200px",
-  threshold: 0.8,
+  rootMargin: "500px",
+  threshold: 0,
 };

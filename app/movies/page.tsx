@@ -1,20 +1,14 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { MovieListGenres, Movie } from "../../types/HomeTypes";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { MovieListGenres } from "../../types/HomeTypes";
 import MovieShowFallback from "./loading";
-import MovieTitle from "@/components/MovieTitle/MovieTitle";
 import { getMediaData } from "@/api/requests";
-import { useInView } from "react-intersection-observer";
+import MoviesContainer from "@/components/MoviesContainer/MoviesContainer";
 
 export default function Movies() {
-  const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
   const [selected, setSelected] = useState<number>(28);
-  const page = useRef<number>(1);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-  });
 
   const getMovieGenres = useCallback(async () => {
     const data = await getMediaData(
@@ -23,22 +17,9 @@ export default function Movies() {
     if (data) setGenres(data.genres);
   }, []);
 
-  const getMoviesData = useCallback(async () => {
-    const data = await getMediaData(
-      `https://api.themoviedb.org/3/discover/movie?language=en-US&with_genres=${selected}&page=${page.current}`,
-    );
-    if (data) {
-      setSortedMovies((prev) => [...prev, ...data.results]);
-    }
-  }, [page, selected]);
-
   useEffect(() => {
     getMovieGenres();
-    if (inView) {
-      getMoviesData();
-      page.current += 1;
-    }
-  }, [getMovieGenres, getMoviesData, inView]);
+  }, [getMovieGenres]);
 
   return (
     <>
@@ -65,21 +46,7 @@ export default function Movies() {
           </select>
         </div>
         <Suspense fallback={<MovieShowFallback />}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-              gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-            ref={ref}
-            className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 md:gap-x-6"
-          >
-            {sortedMovies?.map((movie: Movie) => (
-              <div key={movie.id} className="mx-auto w-min">
-                <MovieTitle {...movie} />
-              </div>
-            ))}
-          </div>
+          <MoviesContainer selection={selected} />
         </Suspense>
       </div>
     </>
