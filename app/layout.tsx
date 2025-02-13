@@ -26,9 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksand.variable} grid w-full flex-shrink-0 place-items-center scroll-smooth bg-neutral-900 font-quicksand antialiased`}
+        className={`${quicksand.variable} grid w-full place-items-center scroll-smooth bg-neutral-950 font-quicksand antialiased`}
       >
-        <div className="max-h-auto relative flex min-h-[100dvh] w-full max-w-[2160px] flex-shrink-0 flex-col items-center justify-start overflow-x-hidden">
+        <div className="relative flex h-auto min-h-[100dvh] w-full max-w-[2160px] flex-col items-center justify-start overflow-x-hidden border-2 border-black">
           <GlobalContext>
             <AuthProvider>
               <Nav />

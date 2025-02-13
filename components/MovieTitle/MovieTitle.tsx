@@ -49,14 +49,14 @@ const MovieTitle = memo(
         <div
           onClick={showMovie}
           role="link"
-          className="relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl"
+          className="relative mx-auto flex h-[300px] w-[154px] flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl"
         >
           <Image
             src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
             alt="movie-poster"
             width={154}
             height={231}
-            className="mx-auto mb-2 h-[231px] w-[154px] flex-shrink-0 cursor-pointer rounded-lg transition-transform ease-in hover:scale-95 md:h-auto md:w-auto"
+            className="mx-auto mb-2 h-[231px] w-[154px] flex-shrink-0 cursor-pointer rounded-lg object-cover transition-transform ease-in hover:scale-95"
           />
           <p className="absolute right-1.5 top-1.5 rounded-sm bg-yellow-400 px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black">
             MOVIE
@@ -67,7 +67,7 @@ const MovieTitle = memo(
           <div className="flex w-full items-center justify-between">
             <div className="flex flex-col items-start justify-center">
               <div className="flex text-[10.5px]">
-                <h4 className="mr-1 text-[10.5px] font-semibold text-neutral-500">
+                <h4 className="mr-1 text-[10.5px] font-semibold text-[#778677]">
                   Rating
                 </h4>
                 <h4 className="text-[10.5px] font-semibold text-neutral-200">

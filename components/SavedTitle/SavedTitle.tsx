@@ -24,7 +24,7 @@ export default function SavedTitle({
 
   return (
     <>
-      <div className="relative mx-auto flex h-[300px] w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl">
+      <div className="relative mx-auto flex h-[300px] w-[154px] flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl">
         <Image
           src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
           alt="image-cover"
@@ -33,7 +33,7 @@ export default function SavedTitle({
           priority
           loading="eager"
           onClick={() => navigateToShow(type, id)}
-          className="mx-auto h-[221px] w-[154px] cursor-pointer rounded-lg object-contain transition-transform duration-100 ease-in hover:scale-95 md:h-auto md:w-auto"
+          className="mx-auto h-[221px] w-[154px] cursor-pointer rounded-lg object-cover transition-transform duration-100 ease-in hover:scale-95 md:h-auto md:w-auto"
         />
         <p
           className={`absolute right-1.5 top-1.5 rounded-sm ${type === "movie" ? "bg-yellow-400" : "bg-purple-400"} px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black`}
@@ -61,7 +61,7 @@ export default function SavedTitle({
           <p className="line-clamp-1 text-ellipsis whitespace-nowrap text-left text-xs font-semibold text-white">
             {title}
           </p>
-          <h4 className="mr-1 text-xs font-normal text-neutral-400">
+          <h4 className="mr-1 text-xs font-normal text-[#778677]">
             Rating: {vote_average.toFixed(1)}
           </h4>
           <h4 className="whitespace-nowrap text-xs font-semibold text-neutral-300">

@@ -1,22 +1,23 @@
 "use client";
 import { ContentType, Movie } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import React from "react";
 import MovieTitle from "../MovieTitle/MovieTitle";
-import Loading from "./loading";
 import { getMediaData } from "@/api/requests";
-import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
-
-// const isSameSection = (prevProps: ContentType, nextProps: ContentType) => {
-//   return prevProps.heading === nextProps.heading;
-// };
+import { useInView } from "react-intersection-observer";
+import SectionFallback from "../Fallback/SectionFallback/SectionFallback";
+// import { observerOptions } from "@/api/options";
 
 const MovieSection = ({ heading, uri }: ContentType) => {
   const [movies, setMovies] = useState<Movie[] | null>(null);
   const { push } = useRouter();
-  const sectionRef = useRef(null);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "20px",
+    initialInView: false,
+  });
 
   const fetchMoviesData = useCallback(async () => {
     const data = await getMediaData(
@@ -26,44 +27,32 @@ const MovieSection = ({ heading, uri }: ContentType) => {
   }, [uri]);
 
   useEffect(() => {
-    const titleObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && movies === null) fetchMoviesData();
-      });
-    }, observerOptions);
-    if (sectionRef.current) {
-      titleObserver.observe(sectionRef.current);
-    }
-    return () => {
-      titleObserver.disconnect();
-    };
-  }, [fetchMoviesData, movies]);
-
+    if (inView && !movies) fetchMoviesData();
+  }, [fetchMoviesData, inView, movies]);
   return (
     <>
-      <section
-        id={heading}
-        ref={sectionRef}
-        className="titles mx-auto my-4 h-auto w-full md:h-auto"
-      >
+      <section id={heading} ref={ref} className="mx-auto my-2 h-[340px] w-full">
         <h2
           onClick={() => push("/movies")}
-          className="mx-auto w-full cursor-pointer text-left text-lg font-extrabold text-white"
+          className="mx-auto w-full cursor-pointer text-left text-base font-medium text-white"
         >
           {heading}
         </h2>
-        <Suspense fallback={<Loading key={heading} />}>
-          <div
-            id={"latest"}
-            className="mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto"
-          >
-            {movies?.map((movie: Movie) => (
-              <div key={uuidv4()} className="mr-2 sm:mr-4">
+
+        <div
+          id={"latest"}
+          className="mx-auto flex h-[300px] flex-shrink-0 overflow-y-hidden overflow-x-scroll pt-2 md:h-max"
+        >
+          {movies ? (
+            movies?.map((movie: Movie) => (
+              <div key={uuidv4()} className="mr-2 md:mr-4">
                 <MovieTitle key={movie.id} {...movie} />
               </div>
-            ))}
-          </div>
-        </Suspense>
+            ))
+          ) : (
+            <SectionFallback />
+          )}
+        </div>
       </section>
     </>
   );

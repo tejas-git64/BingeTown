@@ -49,10 +49,10 @@ export default function WatchTitle({
         <div className="flex w-full items-center justify-between">
           <div className="flex flex-col items-start justify-center">
             <div className="flex text-xs">
-              <h4 className="mr-1 text-xs font-normal text-neutral-400">
+              <h4 className="mr-1 text-xs font-normal text-[#778677]">
                 Rating:
               </h4>
-              <h4 className="text-neutral-400">
+              <h4 className="text-[#778677]">
                 {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
               </h4>
             </div>

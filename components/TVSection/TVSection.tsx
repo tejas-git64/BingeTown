@@ -3,21 +3,23 @@
 import { ContentType, TVDiscover } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
-import { Suspense, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import TVTitle from "@/components/TVTitle/TVTitle";
-import Loading from "@/components/MovieSection/loading";
 import { getMediaData } from "@/api/requests";
-import { observerOptions } from "@/api/options";
+// import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
-
-// const isSameTVList = (prevProps: ContentType, nextProps: ContentType) => {
-// 	return prevProps.heading === nextProps.heading;
-// };
+import { useInView } from "react-intersection-observer";
+import SectionFallback from "../Fallback/SectionFallback/SectionFallback";
 
 const TVSection = ({ heading, uri }: ContentType) => {
   const [shows, setShows] = useState<TVDiscover[] | null>(null);
   const { push } = useRouter();
-  const tvSectionRef = useRef(null);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "20px",
+    initialInView: false,
+  });
+
   const fetchTVData = useCallback(async () => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/${uri}?language=en-US&page=1`,
@@ -26,44 +28,32 @@ const TVSection = ({ heading, uri }: ContentType) => {
   }, [uri]);
 
   useEffect(() => {
-    const titleObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && shows === null) fetchTVData();
-      });
-    }, observerOptions);
-    if (tvSectionRef.current) {
-      titleObserver.observe(tvSectionRef.current);
-    }
-    return () => {
-      titleObserver.disconnect();
-    };
-  }, [fetchTVData, shows]);
+    if (inView && !shows) fetchTVData();
+  }, [fetchTVData, inView, shows]);
 
   return (
     <>
-      <section
-        ref={tvSectionRef}
-        className="titles mx-auto my-4 h-auto w-full md:h-auto"
-      >
+      <section ref={ref} className="mx-auto my-2 h-auto w-full md:h-auto">
         <h2
           onClick={() => push("/shows")}
-          className="mx-auto w-full cursor-pointer text-left text-lg font-extrabold text-white"
+          className="mx-auto w-full cursor-pointer text-left text-base font-extrabold text-white"
         >
           {heading}
         </h2>
-        <Suspense fallback={<Loading key={heading} />}>
-          <div
-            id="latest"
-            className="mx-auto flex h-[310px] overflow-y-hidden overflow-x-scroll pt-2 md:h-auto"
-          >
-            {shows &&
-              shows?.map((show: TVDiscover) => (
-                <div key={uuidv4()} className="mr-2 sm:mr-4">
-                  <TVTitle {...show} />
-                </div>
-              ))}
-          </div>
-        </Suspense>
+        <div
+          id="latest"
+          className="mx-auto flex h-[310px] flex-shrink-0 overflow-y-hidden overflow-x-scroll pt-2 md:h-max"
+        >
+          {shows ? (
+            shows?.map((show: TVDiscover) => (
+              <div key={uuidv4()} className="mr-2 md:mr-4">
+                <TVTitle {...show} />
+              </div>
+            ))
+          ) : (
+            <SectionFallback />
+          )}
+        </div>
       </section>
     </>
   );

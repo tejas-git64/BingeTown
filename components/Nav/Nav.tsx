@@ -63,7 +63,7 @@ export default function Nav() {
             <div
               className={`${
                 path !== "/" ? "block" : "hidden"
-              } relative -ml-28 mr-16 mt-1 h-auto w-full`}
+              } relative -ml-20 mr-16 mt-1 h-auto w-full 2xl:ml-0`}
             >
               {!["/search", "/"].includes(path) && (
                 <input
@@ -143,7 +143,7 @@ export default function Nav() {
                 border: "none",
                 outline: "none",
               }}
-              className="z-10 mr-6 flex-shrink-0 bg-transparent p-0 md:mr-3"
+              className="z-10 mr-6 block flex-shrink-0 bg-transparent p-0 md:mr-3 xl:hidden"
             >
               <Image
                 src={search}

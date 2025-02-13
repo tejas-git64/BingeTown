@@ -56,14 +56,14 @@ const TVTitle = memo(
       <>
         <div
           onClick={showTVShow}
-          className="relative mx-auto flex h-72 w-[154px] flex-shrink-0 flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:h-[300px] md:w-[154px]"
+          className="relative mx-auto flex h-72 w-[154px] flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:h-[300px] md:w-[154px]"
         >
           <Image
             src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
             alt="movie-poster"
             width={154}
             height={231}
-            className="mb-2 h-[231px] w-[154px] flex-shrink-0 cursor-pointer text-ellipsis rounded-lg object-cover transition-transform ease-in hover:scale-95 md:h-[231px] md:w-[154px]"
+            className="mb-2 h-[231px] w-[154px] flex-shrink-0 cursor-pointer text-ellipsis rounded-lg object-cover transition-transform ease-in hover:scale-95"
           />
           <p className="absolute right-1.5 top-1.5 rounded-sm bg-purple-400 px-1 py-0.5 text-[10.5px] font-extrabold text-black shadow-sm shadow-black">
             TV
@@ -74,8 +74,8 @@ const TVTitle = memo(
           <div className="flex w-full items-center justify-between">
             <div className="flex flex-col items-start justify-center">
               <div className="flex text-[10.5px]">
-                <h4 className="mr-1 font-normal text-neutral-400">Rating</h4>
-                <h4 className="text-neutral-400">
+                <h4 className="mr-1 font-normal text-[#778677]">Rating</h4>
+                <h4 className="text-[#778677]">
                   {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
                 </h4>
               </div>
