@@ -36,17 +36,9 @@ export default function LoginForm() {
   }, [error]);
 
   return (
-    <form
-      action={action}
-      className="flex h-auto w-full flex-shrink-0 flex-col items-start justify-center bg-neutral-900 transition-all duration-[2] ease-out"
-    >
-      <h2 className="mb-14 w-full whitespace-nowrap text-2xl font-extrabold text-teal-500">
-        Login
-      </h2>
-      <label
-        htmlFor="email"
-        className="mb-0.5 text-left text-[13px] font-semibold text-neutral-400"
-      >
+    <form action={action} className="form-container">
+      <h2 className="form-heading">Login</h2>
+      <label htmlFor="email" className="form-label">
         Email
       </label>
       <input
@@ -54,14 +46,11 @@ export default function LoginForm() {
         name="email"
         id="email"
         placeholder="Enter email address here"
-        className="mb-4 h-10 w-full rounded-md border-2 border-transparent bg-neutral-700 px-2 text-[14px] font-semibold tracking-wide text-neutral-300 outline-none transition-colors placeholder:text-[14px] placeholder:text-neutral-400 focus:border-teal-500"
+        className="form-input"
         autoComplete="email"
         required
       />
-      <label
-        htmlFor="password"
-        className="mb-0.5 text-left text-[13px] font-semibold text-neutral-400"
-      >
+      <label htmlFor="password" className="form-label">
         Password
       </label>
       <input
@@ -69,31 +58,17 @@ export default function LoginForm() {
         name="password"
         id="password"
         placeholder="Enter your password here"
-        className="mb-4 h-10 w-full rounded-md border-2 border-transparent bg-neutral-700 px-2 text-[14px] font-semibold tracking-wide text-neutral-300 outline-none transition-colors placeholder:text-[14px] placeholder:text-neutral-400 focus:border-teal-500"
+        className="form-input"
         autoComplete="current-password"
         required
       />
-      {error && (
-        <h4 className="mx-auto w-full text-center text-sm font-medium text-red-500 transition-all duration-200 ease-in">
-          {error}
-        </h4>
-      )}
-      {/* {error && (
-        <h4 className="mx-auto w-full rounded-md p-2 text-center text-sm font-extrabold text-green-500 transition-all duration-200 ease-in">
-          {error.message}
-        </h4>
-      )} */}
+      {error && <h4 className="form-error">{error}</h4>}
       <FormButton type="Login" pending={pending} />
-      <Link
-        href={"/signup"}
-        className="mx-auto mb-4 mt-1 w-auto text-center text-sm font-semibold text-zinc-400 transition-colors hover:text-teal-400"
-      >
+      <Link href={"/signup"} className="form-link">
         Don&apos;t have an account ?
       </Link>
-      <div className="mx-auto my-2 h-auto w-full border-t-2 border-dashed border-zinc-700">
-        <p className="mx-auto -mt-[13px] h-6 w-10 bg-neutral-900 text-center text-sm text-white">
-          or
-        </p>
+      <div className="form-separator">
+        <p className="separator-text">or</p>
       </div>
     </form>
   );

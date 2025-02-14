@@ -34,19 +34,10 @@ export default function WatchList() {
 
   return (
     <>
-      <div className="max-h-auto -mt-4 h-[100dvh] w-full bg-neutral-900 px-5 pb-2 text-left md:px-6">
-        <p className="my-4 py-2 text-base font-bold text-white md:text-lg">
-          WatchList
-        </p>
+      <div className="protected-container">
+        <p className="protected-container-heading">WatchList</p>
         <Suspense fallback={<MovieShowFallback />}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-              gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-            className="mb-6 mt-4 h-auto gap-x-4 gap-y-4 md:gap-x-6"
-          >
+          <div className="protected-container-parent">
             {data ? (
               data.watchlist.watchlist?.map((title: WatchListTitle) => (
                 <div key={uuidv4()} className="mx-auto w-min">

@@ -32,18 +32,12 @@ const GenresSection = ({ id, heading }: GenreType) => {
 
   return (
     <>
-      <section ref={ref} className="mx-auto my-2 h-auto w-full md:h-auto">
-        <h2
-          onClick={() => push("/movies")}
-          className="mx-auto w-full cursor-pointer text-left text-base font-medium text-white"
-        >
+      <section ref={ref} className="content-section">
+        <h2 onClick={() => push("/movies")} className="section-heading">
           {heading}
         </h2>
 
-        <div
-          id="genre"
-          className="mx-auto flex h-[310px] flex-shrink-0 overflow-y-hidden overflow-x-scroll pt-2 md:h-max"
-        >
+        <div id="genre" className="section-container">
           {genreMovies ? (
             genreMovies?.map((movie: Movie) => (
               <div key={uuidv4()} className="mr-2 md:mr-4">

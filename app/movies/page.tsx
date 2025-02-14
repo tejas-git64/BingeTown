@@ -22,22 +22,20 @@ export default function Movies() {
 
   return (
     <>
-      <div className="max-h-auto mt-14 h-full max-h-max w-full bg-neutral-900 px-5 pb-2 text-left md:px-6">
-        <div className="my-4 flex h-auto w-full items-center justify-between">
-          <h3 className="py-2 text-base font-bold text-white md:text-lg">
-            Movies
-          </h3>
+      <div className="content-root">
+        <div className="content-parent">
+          <h3 className="content-heading">Movies</h3>
           <select
             name="Sort by Genre"
             aria-label="Sort by genre"
             onChange={(e) => setSelected(Number(e.target.value))}
-            className="none h-8 w-32 rounded-md border-none bg-neutral-900 text-xs font-semibold text-white outline-none"
+            className="content-dropdown"
           >
             {genres?.map((genre) => (
               <option
                 key={genre.id}
                 value={genre.id}
-                className="text-white hover:bg-black hover:text-teal-400"
+                className="content-dropdown-option"
               >
                 {genre.name}
               </option>

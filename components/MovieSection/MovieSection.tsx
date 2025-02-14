@@ -31,18 +31,12 @@ const MovieSection = ({ heading, uri }: ContentType) => {
   }, [fetchMoviesData, inView, movies]);
   return (
     <>
-      <section id={heading} ref={ref} className="mx-auto my-2 h-[340px] w-full">
-        <h2
-          onClick={() => push("/movies")}
-          className="mx-auto w-full cursor-pointer text-left text-base font-medium text-white"
-        >
+      <section id={heading} ref={ref} className="content-section">
+        <h2 onClick={() => push("/movies")} className="section-heading">
           {heading}
         </h2>
 
-        <div
-          id={"latest"}
-          className="mx-auto flex h-[300px] flex-shrink-0 overflow-y-hidden overflow-x-scroll pt-2 md:h-max"
-        >
+        <div id={"latest"} className="section-container">
           {movies ? (
             movies?.map((movie: Movie) => (
               <div key={uuidv4()} className="mr-2 md:mr-4">

@@ -21,20 +21,21 @@ export default function SimilarTitle({
           alt="poster"
           width={154}
           height={231}
-          className="h-[231px] w-[154px] rounded-xl transition-all ease-in hover:scale-95"
+          className="title-image"
         />
         <p
-          className={`absolute right-1.5 top-1.5 rounded-sm ${isShow ? "bg-purple-400" : "bg-yellow-400"} px-1.5 py-0.5 text-[10.5px] font-bold text-black shadow-sm shadow-black`}
+          className={`title-tag ${isShow ? "bg-purple-400" : "bg-yellow-400"}`}
         >
           {isShow ? "TV" : "MOVIE"}
         </p>
         <div className="mt-1 flex h-12 w-full flex-col items-start justify-start">
-          <p className="w-full overflow-x-hidden whitespace-nowrap text-left text-xs font-semibold text-white">
-            {name || title}
-          </p>
-          <h4 className="h-6 w-full text-left text-xs font-semibold text-gray-400">
-            Rating: {vote_average ? `${vote_average.toFixed(1)}` : "NA"}
-          </h4>
+          <p className="title-name">{name || title}</p>
+          <div className="flex">
+            <h4 className="title-rating">Rating</h4>
+            <h4 className="rating-value">
+              {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
+            </h4>
+          </div>
         </div>
       </Link>
     </>

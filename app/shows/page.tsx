@@ -22,22 +22,20 @@ export default function TVShows() {
 
   return (
     <>
-      <div className="mt-14 h-full max-h-max w-full flex-shrink-0 bg-neutral-900 px-5 pb-2 text-left md:px-6">
-        <div className="my-4 flex h-auto w-full items-center justify-between">
-          <h3 className="py-2 text-base font-bold text-white md:text-lg">
-            TV Shows
-          </h3>
+      <div className="content-root">
+        <div className="content-parent">
+          <h3 className="content-heading">TV Shows</h3>
           <select
             name="Sort by Genre"
             onChange={(e) => setSelected(Number(e.target.value))}
             aria-label="Sort by genre"
-            className="mr-1 h-8 w-36 rounded-md border-none bg-neutral-900 text-xs font-semibold text-white outline-none"
+            className="content-dropdown"
           >
             {genres?.map((genre) => (
               <option
                 key={genre.id}
                 value={genre.id}
-                className="text-white hover:bg-black hover:text-teal-400"
+                className="content-dropdown-option"
               >
                 {genre.name}
               </option>

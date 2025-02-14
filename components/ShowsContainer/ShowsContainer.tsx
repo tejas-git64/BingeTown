@@ -54,19 +54,12 @@ const ShowsContainer = memo(({ selection }: { selection: number }) => {
   return (
     <>
       <Suspense fallback={<MovieShowFallback />}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-            gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-          }}
-          className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 scroll-smooth md:gap-x-6"
-        >
+        <div className="content-container">
           {sortedShows.map((show: TVDiscover) => (
             <TVTitle key={uuidv4()} {...show} isShow={true} />
           ))}
         </div>
-        <div ref={ref} className="h-10 w-full bg-transparent xl:h-14">
+        <div ref={ref} className="content-loader">
           {page === 500 && (
             <p className="text-white">You have reached the end</p>
           )}

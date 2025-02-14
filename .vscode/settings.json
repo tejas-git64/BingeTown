@@ -6,5 +6,6 @@
     "TMDB",
     "uuidv",
     "Watchlist"
-  ]
+  ],
+  "css.validate": false
 }

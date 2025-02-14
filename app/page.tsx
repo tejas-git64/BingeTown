@@ -74,12 +74,10 @@ export default function Landing() {
             </Link>
           </div>
         </div>
-        <div className="flex h-auto w-full flex-col-reverse items-center justify-center bg-gradient-to-t from-black via-neutral-900 to-neutral-700 py-0 pt-10 md:h-80 md:flex-row md:justify-around md:bg-gradient-to-r md:pt-0">
-          <div className="flex h-44 w-96 flex-col justify-evenly p-4 md:h-auto md:w-[calc(100%-60%)]">
-            <h2 className="mb-6 text-center text-xl font-extrabold text-white md:text-left xl:text-2xl">
-              Watch Anywhere, Anytime
-            </h2>
-            <p className="px-4 text-center text-[12px] text-white md:px-0 md:text-left md:text-[14px] lg:text-[16px]">
+        <div className="landing-section h-auto flex-col-reverse bg-gradient-to-t from-black via-neutral-900 to-neutral-700 py-0 md:bg-gradient-to-r">
+          <div className="landing-section-container-1">
+            <h2 className="landing-section-heading">Watch Anywhere, Anytime</h2>
+            <p className="landing-section-summary">
               Our website is optimized for viewing on all your devices. Whether
               you&apos;re on your desktop, laptop, tablet, or smartphone, you
               can enjoy the latest movies and trailers on-the-go
@@ -96,7 +94,7 @@ export default function Landing() {
             />
           </div>
         </div>
-        <div className="flex h-auto w-full flex-col items-center justify-center bg-gradient-to-b from-black via-neutral-900 to-neutral-700 pt-10 md:h-80 md:flex-row md:justify-around md:bg-gradient-to-l md:pt-0">
+        <div className="landing-section h-auto flex-col bg-gradient-to-b from-black via-neutral-900 to-neutral-700 md:bg-gradient-to-l">
           <div className="ml-0 h-24 w-72 md:ml-6 md:h-auto md:w-auto">
             <Image
               width={256}
@@ -107,22 +105,18 @@ export default function Landing() {
               className="mx-auto -mt-10 h-[200px] w-[200px] transition-transform duration-500 before:-translate-x-5 after:translate-x-0 md:-mt-0 md:mr-20 md:h-auto md:w-[250px] xl:w-[300px]"
             />
           </div>
-          <div className="flex h-44 w-96 flex-col justify-evenly p-4 md:h-auto md:w-[calc(100%-60%)] xl:ml-20">
-            <h2 className="text-center text-xl font-extrabold text-white md:mb-6 md:text-left xl:text-2xl">
-              Critic Insights
-            </h2>
-            <p className="md:text-md px-4 text-center text-[12px] text-white md:px-0 md:text-left lg:text-[16px]">
+          <div className="landing-section-container-1 xl:ml-20">
+            <h2 className="landing-section-heading">Critic Insights</h2>
+            <p className="landing-section-summary">
               Read what critics and moviegoers are saying about the latest
               releases along with
             </p>
           </div>
         </div>
-        <div className="-mt-1 flex h-[calc(100dvh-50dvh)] w-full flex-col-reverse items-center justify-center bg-gradient-to-t from-black via-neutral-900 to-neutral-700 md:h-80 md:flex-row md:justify-around md:bg-gradient-to-r">
-          <div className="flex h-44 w-96 flex-col justify-evenly p-4 pb-10 md:h-auto md:w-[calc(100%-60%)]">
-            <h2 className="mb-4 text-center text-xl font-extrabold text-white md:mb-6 md:text-left xl:text-2xl">
-              Latest Releases
-            </h2>
-            <p className="md:text-md px-4 text-center text-[12px] text-white md:px-0 md:text-left lg:text-[16px]">
+        <div className="landing-section -mt-1 h-[calc(100dvh-50dvh)] flex-col-reverse bg-gradient-to-t from-black via-neutral-900 to-neutral-700 md:bg-gradient-to-r">
+          <div className="landing-section-container-1 pb-10 md:w-[calc(100%-60%)]">
+            <h2 className="landing-section-heading">Latest Releases</h2>
+            <p className="landing-section-summary">
               Stay up-to-date with the latest news and gossip from Hollywood and
               beyond.
             </p>
@@ -135,7 +129,7 @@ export default function Landing() {
               src="https://upload.wikimedia.org/wikipedia/en/1/1c/Transformers-_Rise_of_the_Beasts.jpg"
               alt="movie"
               draggable={false}
-              className="md:w-34 mx-auto -ml-10 h-[194.48px] w-[130px] rotate-[15deg] shadow-2xl shadow-black brightness-75 transition ease-in hover:brightness-100 md:-mt-0 md:h-auto xl:w-40"
+              className="landing-section-img h-[194.48px]"
             />
             <Image
               width={256}
@@ -144,7 +138,7 @@ export default function Landing() {
               src="https://upload.wikimedia.org/wikipedia/en/b/b4/Spider-Man-_Across_the_Spider-Verse_poster.jpg"
               alt="movie"
               draggable={false}
-              className="md:w-34 mx-auto -ml-10 h-[193.44px] w-[130px] rotate-[15deg] shadow-2xl shadow-black brightness-75 transition ease-in hover:brightness-100 md:-mt-0 md:h-auto xl:w-40"
+              className="landing-section-img h-[193.44px]"
             />
             <Image
               width={220}
@@ -153,7 +147,7 @@ export default function Landing() {
               src="https://upload.wikimedia.org/wikipedia/en/f/f2/Fast_X_poster.jpg"
               alt="movie"
               draggable={false}
-              className="md:w-34 mx-auto -ml-10 h-[205.53px] w-[130px] rotate-[15deg] shadow-2xl shadow-black brightness-75 transition ease-in hover:brightness-100 md:-mt-0 md:h-auto xl:w-40"
+              className="landing-section-img h-[205.53px]"
             />
           </div>
         </div>

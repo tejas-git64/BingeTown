@@ -54,34 +54,25 @@ const TVTitle = memo(
 
     return (
       <>
-        <div
-          onClick={showTVShow}
-          className="relative mx-auto flex h-72 w-[154px] flex-col items-start justify-start overflow-hidden hover:drop-shadow-2xl md:h-[300px] md:w-[154px]"
-        >
+        <div onClick={showTVShow} role="link" className="title-container">
           <Image
             src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
             alt="movie-poster"
             width={154}
             height={231}
-            className="mb-2 h-[231px] w-[154px] flex-shrink-0 cursor-pointer text-ellipsis rounded-lg object-cover transition-transform ease-in hover:scale-95"
+            className="title-image"
           />
-          <p className="absolute right-1.5 top-1.5 rounded-sm bg-purple-400 px-1 py-0.5 text-[10.5px] font-extrabold text-black shadow-sm shadow-black">
-            TV
-          </p>
-          <h3 className="line-clamp-1 text-ellipsis whitespace-pre-line text-left text-sm font-semibold text-white sm:text-[12px]">
-            {name}
-          </h3>
-          <div className="flex w-full items-center justify-between">
-            <div className="flex flex-col items-start justify-center">
-              <div className="flex text-[10.5px]">
-                <h4 className="mr-1 font-normal text-[#778677]">Rating</h4>
-                <h4 className="text-[#778677]">
+          <p className="title-tag tag-tv">TV</p>
+          <h3 className="title-name">{name}</h3>
+          <div className="title-parent">
+            <div className="title-child-1">
+              <div className="flex">
+                <h4 className="title-rating">Rating</h4>
+                <h4 className="rating-value">
                   {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
                 </h4>
               </div>
-              <h3 className="whitespace-nowrap text-[10.5px] font-semibold text-neutral-300">
-                {year}
-              </h3>
+              <h3 className="title-year">{year}</h3>
             </div>
             <button
               onClick={revealMenu}
@@ -99,9 +90,7 @@ const TVTitle = memo(
               e.preventDefault();
               setShowMenu(false);
             }}
-            className={`${
-              showMenu ? "absolute" : "hidden"
-            } bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0`}
+            className={`${showMenu ? "absolute" : "hidden"} title-btn-menu`}
           >
             <button
               onClick={(e) => {
@@ -120,10 +109,14 @@ const TVTitle = memo(
                   >,
                 );
               }}
-              className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
+              className="title-btn"
             >
-              <h4 className="text-xs text-white">Add to watchlist</h4>
-              <Image src={watchlist} alt="add" className="h-5 w-5 pr-0.5" />
+              <h4 className="title-btn-text">Add to watchlist</h4>
+              <Image
+                src={watchlist}
+                alt="add"
+                className="title-watchlist-img"
+              />
             </button>
             <button
               onClick={(e) => {
@@ -142,10 +135,10 @@ const TVTitle = memo(
                   >,
                 );
               }}
-              className="mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700"
+              className="title-btn"
             >
-              <h4 className="text-xs font-semibold text-white">Save</h4>
-              <Image src={save} alt="save" className="mr-1 h-4 w-4" />
+              <h4 className="title-btn-text">Save</h4>
+              <Image src={save} alt="save" className="title-save-img" />
             </button>
           </div>
         </div>
