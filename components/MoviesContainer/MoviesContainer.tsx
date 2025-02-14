@@ -3,10 +3,18 @@
 import { observerOptions } from "@/api/options";
 import { getMediaData } from "@/api/requests";
 import { Movie } from "@/types/HomeTypes";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useInView } from "react-intersection-observer";
 import MovieTitle from "../MovieTitle/MovieTitle";
 import { v4 as uuidv4 } from "uuid";
+import MovieShowFallback from "@/app/movies/loading";
 
 const MoviesContainer = memo(({ selection }: { selection: number }) => {
   const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
@@ -45,21 +53,25 @@ const MoviesContainer = memo(({ selection }: { selection: number }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-          gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-        }}
-        className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 scroll-smooth md:gap-x-6"
-      >
-        {sortedMovies?.map((movie: Movie) => (
-          <MovieTitle key={uuidv4()} {...movie} />
-        ))}
-      </div>
-      <div ref={ref} className="h-10 w-full bg-transparent">
-        {page === 500 && <p className="text-white">You have reached the end</p>}
-      </div>
+      <Suspense fallback={<MovieShowFallback />}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+            gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
+          }}
+          className="mb-6 mt-4 h-auto min-h-[70dvh] gap-x-4 gap-y-4 scroll-smooth md:gap-x-6"
+        >
+          {sortedMovies?.map((movie: Movie) => (
+            <MovieTitle key={uuidv4()} {...movie} />
+          ))}
+        </div>
+        <div ref={ref} className="h-10 w-full bg-transparent">
+          {page === 500 && (
+            <p className="text-white">You have reached the end</p>
+          )}
+        </div>
+      </Suspense>
     </>
   );
 });

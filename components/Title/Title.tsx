@@ -55,12 +55,12 @@ export default function Title({
   }, [getMovieCast, getTitleReviews, id]);
 
   return (
-    <div className="3xl:w-full mb-2 flex h-auto w-full flex-col md:min-w-[40vw] md:px-4 xl:w-[45vw] xl:px-0 2xl:w-[60vw] 2xl:max-w-[90vw] 2xl:pr-4">
-      <p className="text-md my-1 w-full text-left font-semibold text-white md:text-lg xl:w-full">
+    <div className="3xl:w-full mb-2 flex h-auto w-full flex-col md:min-w-[30vw] md:px-2 xl:w-[50vw] xl:px-0 2xl:max-h-min 2xl:w-[60vw]">
+      <p className="my-1 w-full pl-2 text-left text-base font-semibold text-white md:text-lg lg:pl-0 xl:w-full">
         {titleInfo?.title || titleInfo.name}
       </p>
       <iframe
-        className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[35vw] xl:h-[28vw] xl:max-h-[70vw] xl:w-full 2xl:h-[33vw] 2xl:max-h-[1200px] 2xl:w-full"
+        className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[35vw] xl:h-[27.5vw] xl:max-h-[70vw] xl:w-full 2xl:h-[35vw] 2xl:max-h-[1200px] 2xl:w-full"
         src={`https://www.youtube.com/embed/${vidID}` || ""}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

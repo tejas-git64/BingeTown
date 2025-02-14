@@ -9,7 +9,7 @@ import { getMediaData } from "@/api/requests";
 // import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
 import { useInView } from "react-intersection-observer";
-import SectionFallback from "../Fallback/SectionFallback/SectionFallback";
+import SectionFallback from "../Fallback/Section/SectionFallback";
 
 const TVSection = ({ heading, uri }: ContentType) => {
   const [shows, setShows] = useState<TVDiscover[] | null>(null);

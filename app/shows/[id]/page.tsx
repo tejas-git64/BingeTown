@@ -18,7 +18,7 @@ export default async function TVShowTitleDetails({
 
   return (
     <>
-      <div className="h-full w-full bg-neutral-900">
+      <div className="mt-14 h-full max-h-max w-full bg-neutral-900">
         <Suspense fallback={<DetailsPageFallback />}>
           <div className="mb-10 flex h-auto min-h-[60dvh] flex-col overflow-hidden px-4 pb-10 pt-3 md:mb-0 md:h-auto md:justify-around md:px-0 md:pb-8 lg:flex-row lg:justify-around lg:px-0 xl:w-full xl:justify-evenly xl:px-2">
             <RecommendationContainer id={id} type="tv" />

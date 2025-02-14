@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MovieListGenres } from "../../types/HomeTypes";
-import MovieShowFallback from "../movies/loading";
 import { getMediaData } from "@/api/requests";
 import ShowsContainer from "@/components/ShowsContainer/ShowsContainer";
 
@@ -23,7 +22,7 @@ export default function TVShows() {
 
   return (
     <>
-      <div className="-mt-4 h-full max-h-max w-full flex-shrink-0 bg-neutral-900 px-5 pb-2 text-left md:px-6">
+      <div className="mt-14 h-full max-h-max w-full flex-shrink-0 bg-neutral-900 px-5 pb-2 text-left md:px-6">
         <div className="my-4 flex h-auto w-full items-center justify-between">
           <h3 className="py-2 text-base font-bold text-white md:text-lg">
             TV Shows
@@ -45,9 +44,7 @@ export default function TVShows() {
             ))}
           </select>
         </div>
-        <Suspense fallback={<MovieShowFallback />}>
-          <ShowsContainer selection={selected} />
-        </Suspense>
+        <ShowsContainer selection={selected} />
       </div>
     </>
   );

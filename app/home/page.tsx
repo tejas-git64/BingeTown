@@ -5,7 +5,7 @@ import SlideShow from "@/components/Slideshow/Slideshow";
 import { Movie } from "@/types/HomeTypes";
 import { videoType } from "@/utils/utils";
 import { getMediaData } from "@/api/requests";
-import BannerFallback from "@/components/Fallback/BannerFallback/BannerFallback";
+import BannerFallback from "@/components/Fallback/Banner/BannerFallback";
 
 export default async function Home() {
   const data = await getMediaData(
@@ -17,7 +17,7 @@ export default async function Home() {
       <div className="max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900 px-2 md:px-3 xl:px-6">
         <div
           id="slideshow"
-          className="relative mx-auto flex h-[60vw] w-full snap-x snap-mandatory overflow-y-hidden overflow-x-scroll rounded-2xl sm:h-[360px] md:h-[450px] xl:h-[650px] xl:px-[45px] 2xl:pl-72"
+          className="relative mx-auto mt-14 flex h-[60vw] w-full snap-x snap-mandatory overflow-y-hidden overflow-x-scroll rounded-2xl sm:h-[360px] md:h-[450px] xl:h-[650px] xl:px-[45px] 2xl:pl-72"
         >
           {data ? (
             data?.results.map((movie: Movie) => (

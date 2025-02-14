@@ -1,8 +1,7 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MovieListGenres } from "../../types/HomeTypes";
-import MovieShowFallback from "./loading";
 import { getMediaData } from "@/api/requests";
 import MoviesContainer from "@/components/MoviesContainer/MoviesContainer";
 
@@ -23,7 +22,7 @@ export default function Movies() {
 
   return (
     <>
-      <div className="max-h-auto -mt-2 h-full max-h-max w-full bg-neutral-900 px-5 pb-2 text-left md:px-6">
+      <div className="max-h-auto mt-14 h-full max-h-max w-full bg-neutral-900 px-5 pb-2 text-left md:px-6">
         <div className="my-4 flex h-auto w-full items-center justify-between">
           <h3 className="py-2 text-base font-bold text-white md:text-lg">
             Movies
@@ -45,9 +44,7 @@ export default function Movies() {
             ))}
           </select>
         </div>
-        <Suspense fallback={<MovieShowFallback />}>
-          <MoviesContainer selection={selected} />
-        </Suspense>
+        <MoviesContainer selection={selected} />
       </div>
     </>
   );

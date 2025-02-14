@@ -18,13 +18,13 @@ export default async function SimilarTitlesContainer({
   return (
     <>
       {similarMovies.results?.length > 0 ? (
-        <div className="mx-auto h-72 w-full flex-shrink-0 pb-10 md:h-80 md:px-4 lg:hidden lg:px-0 xl:block xl:h-[800px] xl:max-w-[360px] xl:px-4 2xl:pl-2">
-          <p className="my-2 text-left text-sm font-semibold text-white">
+        <div className="4xl:max-w-[18%] mx-auto h-72 w-full flex-shrink-0 pb-9 md:h-80 md:px-2 lg:px-4 lg:pl-2 xl:ml-2 xl:mt-1.5 xl:block xl:h-[800px] xl:max-w-[340px] xl:px-2 2xl:h-[50vw] 2xl:max-h-[1150px]">
+          <p className="text-left text-sm font-semibold text-white">
             Similar Titles
           </p>
           <div
             id="similar"
-            className="xl flex h-[285px] place-items-start overflow-y-hidden overflow-x-scroll rounded-md lg:overflow-x-hidden lg:overflow-y-scroll xl:grid xl:h-full 2xl:h-[47vw]"
+            className="mt-2 flex h-auto place-items-end overflow-x-scroll xl:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll xl:pt-6"
             style={{
               gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
               gridTemplateRows: "repeat(auto-fill, minmax(260px, 1fr))",

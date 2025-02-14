@@ -9,7 +9,7 @@ export default function MovieShowFallback() {
           gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
           gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
         }}
-        className="mb-6 mt-4 h-auto animate-pulse gap-x-4 gap-y-4 md:gap-x-6"
+        className="mb-6 mt-14 h-[1000px] animate-pulse gap-x-4 gap-y-4 bg-neutral-900 md:gap-x-6"
       >
         {items.map((_, i) => (
           <div

@@ -7,7 +7,7 @@ import MovieTitle from "../MovieTitle/MovieTitle";
 import { getMediaData } from "@/api/requests";
 import { v4 as uuidv4 } from "uuid";
 import { useInView } from "react-intersection-observer";
-import SectionFallback from "../Fallback/SectionFallback/SectionFallback";
+import SectionFallback from "../Fallback/Section/SectionFallback";
 // import { observerOptions } from "@/api/options";
 
 const MovieSection = ({ heading, uri }: ContentType) => {

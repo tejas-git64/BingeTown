@@ -7,10 +7,10 @@ export default function Genres({ titleInfo }: { titleInfo: MovieTitleInfo }) {
       id="genres"
       className="text mx-auto my-2 flex w-full items-center xl:w-full"
     >
-      <p className="mr-2 pb-[3px] pl-0 text-xs font-semibold text-neutral-400 antialiased md:text-sm">
+      <p className="-mt-1 mr-2 pb-[3px] pl-0 text-xs font-semibold text-neutral-400 antialiased md:text-sm">
         Genres:{" "}
       </p>
-      <ul id="genres" className="flex overflow-x-scroll">
+      <ul id="genres" className="-mt-0.5 flex overflow-x-scroll">
         {titleInfo?.genres?.map((genre) => (
           <div
             key={genre.id}
