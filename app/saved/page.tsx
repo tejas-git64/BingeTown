@@ -37,24 +37,35 @@ export default function Saved() {
       <div className="protected-container">
         <p className="protected-container-heading">Saved</p>
         <Suspense fallback={<MovieShowFallback />}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-              gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-            className="protected-container-parent"
-          >
-            {saved ? (
-              saved.savedtitles.savedtitles?.map((title: SavedTitleType) => (
-                <div key={uuidv4()} className="mx-auto w-min">
-                  <SavedTitle {...title} docRef={saved.docRef} />
-                </div>
-              ))
-            ) : (
-              <div>You have no saved titles</div>
-            )}
-          </div>
+          {saved?.savedtitles.length > 0 ? (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+                gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
+              }}
+              className="protected-container-parent"
+            >
+              {saved ? (
+                saved.savedtitles.savedtitles?.map((title: SavedTitleType) => (
+                  <div key={uuidv4()} className="mx-auto w-min">
+                    <SavedTitle {...title} docRef={saved.docRef} />
+                  </div>
+                ))
+              ) : (
+                <div>You have no saved titles</div>
+              )}
+            </div>
+          ) : (
+            <div className="-mt-14 flex h-full w-full flex-col items-center justify-center">
+              <p className="mb-10 whitespace-nowrap text-center text-5xl text-neutral-200">
+                щ(゜ロ゜щ)
+              </p>
+              <p className="whitespace-nowrap text-center text-xl text-neutral-200">
+                No titles saved yet
+              </p>
+            </div>
+          )}
         </Suspense>
       </div>
     </>

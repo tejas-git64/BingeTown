@@ -9,7 +9,7 @@ export default function MovieShowFallback() {
           gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
           gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
         }}
-        className="content-container"
+        className="content-container mt-24"
       >
         {items.map((_, i) => (
           <div key={i} className="title-container">

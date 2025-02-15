@@ -11,7 +11,7 @@ export default function DetailsPageFallback() {
               ?.map((_, i) => (
                 <div
                   key={i}
-                  className="mb-1 flex h-auto w-full items-center justify-start rounded-md bg-neutral-800 hover:bg-neutral-700"
+                  className="mb-1 flex h-auto w-full items-center justify-start rounded-md bg-neutral-800"
                 >
                   <div className="mr-4 h-[52px] w-[92px] animate-pulse rounded-md bg-neutral-500"></div>
                   <div className="flex h-12 w-56 flex-col items-start justify-center bg-neutral-800">

@@ -37,24 +37,31 @@ export default function WatchList() {
       <div className="protected-container">
         <p className="protected-container-heading">WatchList</p>
         <Suspense fallback={<MovieShowFallback />}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-              gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-            className="protected-container-parent"
-          >
-            {data ? (
-              data.watchlist.watchlist?.map((title: WatchListTitle) => (
+          {data?.watchlist.length > 0 ? (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+                gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
+              }}
+              className="protected-container-parent"
+            >
+              {data?.watchlist.watchlist?.map((title: WatchListTitle) => (
                 <div key={uuidv4()} className="mx-auto w-min">
                   <WatchTitle {...title} docRef={data.docRef} />
                 </div>
-              ))
-            ) : (
-              <div>No titles added to Watchlist</div>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="-mt-14 flex h-full w-full flex-col items-center justify-center">
+              <p className="mb-10 whitespace-nowrap text-center text-5xl text-neutral-200">
+                (´。＿。｀)
+              </p>
+              <p className="whitespace-nowrap text-center text-xl text-neutral-200">
+                No titles added to your watchlist
+              </p>
+            </div>
+          )}
         </Suspense>
       </div>
     </>
