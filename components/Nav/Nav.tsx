@@ -25,17 +25,21 @@ export default function Nav() {
   function showTitle(mediaType: string, id: number) {
     if (mediaType === "tv") push(`/shows/${id}`);
     else push(`/movies/${id}`);
-    setSearchResults(null);
+    setQuery("");
   }
 
   const getSearchResults = useCallback(async () => {
-    const data = await getMediaData(
-      `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`,
-    );
-    const min: MultiSearch = data.results.filter(
-      (res: { media_type: string }) => res.media_type !== "person",
-    );
-    setSearchResults(min.slice(0, 5));
+    if (query.trim() === "") {
+      setSearchResults(null);
+    } else {
+      const data = await getMediaData(
+        `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`,
+      );
+      const min: MultiSearch = data.results.filter(
+        (res: { media_type: string }) => res.media_type !== "person",
+      );
+      setSearchResults(min.slice(0, 5));
+    }
   }, [query]);
 
   useEffect(() => {
@@ -70,50 +74,55 @@ export default function Nav() {
                   type="search"
                   name="movie-search"
                   value={query}
+                  autoFocus
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search for your favorite movies, tv shows and more"
                   className="hidden h-9 w-full rounded-full border-none bg-neutral-800 px-4 text-sm font-bold text-white outline-none placeholder:font-medium placeholder:text-neutral-500 lg:-ml-0 xl:block"
                 />
               )}
-              <ul className="absolute flex h-auto w-full flex-col items-end justify-start">
-                {searchResults?.map((result) => (
-                  <div
-                    key={result.id}
-                    onClick={() => showTitle(result.media_type, result.id)}
-                    className="mb-0.5 flex h-14 w-full items-center justify-between rounded-md bg-neutral-800 p-2 pr-6 hover:cursor-pointer hover:bg-gray-800"
-                  >
-                    <div className="flex w-auto items-center justify-start overflow-x-hidden whitespace-nowrap">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/original/${result.backdrop_path}`}
-                        alt="search-Image"
-                        className="mr-4 hidden h-10 w-20 rounded-lg text-xs 2xl:block"
-                      />
-                      <div className="flex h-auto w-auto flex-col items-start justify-center">
-                        <h3 className="text-left text-sm font-bold text-white">
-                          {result.title}
-                        </h3>
-                        <div className="flex w-auto items-center justify-start">
-                          <h4 className="mr-4 text-xs font-semibold text-gray-400">
-                            Rating: {result.vote_average} ⭐
-                          </h4>
-                          <h4 className="text-xs font-semibold text-gray-400">
-                            {result.release_date}
-                          </h4>
+              {query.trim() !== "" && (
+                <ul className="absolute mt-2 flex h-auto w-full flex-col items-end justify-start rounded-xl border border-neutral-700 bg-neutral-900 p-2">
+                  {searchResults?.map((result) => (
+                    <div
+                      key={result.id}
+                      onClick={() => showTitle(result.media_type, result.id)}
+                      className="mb-1.5 flex h-14 w-full items-center justify-between rounded-md bg-neutral-800 pr-3 hover:cursor-pointer hover:bg-gray-800"
+                    >
+                      <div className="flex w-auto items-center justify-start overflow-x-hidden whitespace-nowrap">
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w300/${result.backdrop_path}`}
+                          width={300}
+                          height={169}
+                          alt="title-img"
+                          className="mr-4 hidden h-[54px] w-24 flex-shrink-0 rounded-lg text-xs xl:block"
+                        />
+                        <div className="flex h-auto w-auto flex-col items-start justify-center">
+                          <h3 className="text-left text-sm font-bold text-white">
+                            {result.title || "Unknown"}
+                          </h3>
+                          <div className="flex w-auto items-center justify-start">
+                            <h4 className="mr-4 text-xs font-semibold text-gray-400">
+                              Rating: {result.vote_average} ⭐
+                            </h4>
+                            <h4 className="text-xs font-semibold text-gray-400">
+                              {result.release_date}
+                            </h4>
+                          </div>
                         </div>
                       </div>
+                      <p
+                        className={`${
+                          result.media_type === "tv"
+                            ? "text-fuchsia-500"
+                            : "text-yellow-400"
+                        } py-2 pl-4 text-base font-semibold uppercase`}
+                      >
+                        {result.media_type}
+                      </p>
                     </div>
-                    <p
-                      className={`${
-                        result.media_type === "tv"
-                          ? "text-fuchsia-500"
-                          : "text-yellow-400"
-                      } py-2 pl-4 text-base uppercase`}
-                    >
-                      {result.media_type}
-                    </p>
-                  </div>
-                ))}
-              </ul>
+                  ))}
+                </ul>
+              )}
             </div>
             <div>
               <Link
