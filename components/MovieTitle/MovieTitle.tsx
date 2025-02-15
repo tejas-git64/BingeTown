@@ -85,7 +85,7 @@ const MovieTitle = memo(
               e.preventDefault();
               setShowMenu(false);
             }}
-            className={`${showMenu ? "absolute" : "hidden"} title-btn-menu`}
+            className={`${showMenu ? "flex" : "hidden"} title-btn-menu`}
           >
             <button
               onClick={(e) => {

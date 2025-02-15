@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -25,15 +23,6 @@ body {
   }
   ::-webkit-scrollbar-thumb {
     background-color: #2c2c2c;
-  }
-}
-
-@layer utilities {
-  .grid-cols-[repeat(auto-fill, minmax(154px, 1fr))] {
-    grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
-  }
-  .grid-rows-[repeat(auto-fill, minmax(300px, 1fr))] {
-    grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
   }
 }
 
@@ -62,7 +51,7 @@ body {
   @apply my-4 flex h-auto w-full items-center justify-between;
 }
 .content-container {
-  @apply grid-cols-[repeat(auto-fill, minmax(154px, 1fr))] grid-rows-[repeat(auto-fill, minmax(300px, 1fr))] mb-6 mt-4 grid h-auto min-h-[70dvh] gap-4 scroll-smooth md:gap-x-6;
+  @apply mb-6 mt-4 h-auto min-h-[70dvh] gap-4 scroll-smooth md:gap-x-6;
 }
 .content-loader {
   @apply h-10 w-full bg-transparent xl:h-14;
@@ -79,13 +68,13 @@ body {
 
 /* Protected pages */
 .protected-container {
-  @apply max-h-auto -mt-4 h-[100dvh] w-full bg-neutral-900 px-5 pb-2 text-left md:px-6;
+  @apply -mt-4 h-[100dvh] max-h-max w-full bg-neutral-900 px-5 pb-2 text-left md:px-6;
 }
 .protected-container-heading {
   @apply my-4 py-2 text-base font-bold text-white md:text-lg;
 }
 .protected-container-parent {
-  @apply grid-rows-[repeat(auto-fill, minmax(300px, 1fr))] grid-cols-[repeat(auto-fill, minmax(154px, 1fr))] mb-6 mt-4 grid h-auto gap-4 md:gap-x-6;
+  @apply mb-6 h-full gap-4 pt-10 md:gap-x-6;
 }
 
 /* Content section */
@@ -134,7 +123,7 @@ body {
   @apply whitespace-nowrap text-[10.5px] font-semibold text-neutral-300;
 }
 .title-btn-menu {
-  @apply bottom-0 flex w-full flex-col rounded-md border border-neutral-700 bg-black py-0;
+  @apply absolute bottom-2 w-full flex-col rounded-md border border-neutral-700 bg-black py-0;
 }
 .title-btn {
   @apply mx-auto flex w-full items-center justify-between rounded-none border-none bg-transparent p-1 px-1.5 outline-none hover:bg-neutral-700;

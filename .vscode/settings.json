@@ -7,5 +7,5 @@
     "uuidv",
     "Watchlist"
   ],
-  "css.validate": false
+  "css.autoValidation": "Always"
 }

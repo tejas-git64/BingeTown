@@ -11,7 +11,7 @@ export default function Movies() {
 
   const getMovieGenres = useCallback(async () => {
     const data = await getMediaData(
-      `https://api.themoviedb.org/3/genre/movie/list?language=en`,
+      `https://api.themoviedb.org/3/genre/movie/list?include_adult=false&language=en`,
     );
     if (data) setGenres(data.genres);
   }, []);

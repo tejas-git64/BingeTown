@@ -11,7 +11,7 @@ export default function TVShows() {
 
   const getShowGenres = useCallback(async () => {
     const data = await getMediaData(
-      "https://api.themoviedb.org/3/genre/tv/list?language=en",
+      "https://api.themoviedb.org/3/genre/tv/list?include_adult=false&language=en",
     );
     if (data) setGenres(data.genres);
   }, []);

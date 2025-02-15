@@ -54,7 +54,14 @@ const MoviesContainer = memo(({ selection }: { selection: number }) => {
   return (
     <>
       <Suspense fallback={<MovieShowFallback />}>
-        <div className="content-container">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+            gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
+          }}
+          className="content-container"
+        >
           {sortedMovies?.map((movie: Movie) => (
             <MovieTitle key={uuidv4()} {...movie} />
           ))}

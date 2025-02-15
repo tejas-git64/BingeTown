@@ -37,7 +37,14 @@ export default function Saved() {
       <div className="protected-container">
         <p className="protected-container-heading">Saved</p>
         <Suspense fallback={<MovieShowFallback />}>
-          <div className="protected-container-parent">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+              gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+            className="protected-container-parent"
+          >
             {saved ? (
               saved.savedtitles.savedtitles?.map((title: SavedTitleType) => (
                 <div key={uuidv4()} className="mx-auto w-min">
