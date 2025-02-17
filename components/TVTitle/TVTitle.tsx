@@ -19,6 +19,9 @@ const TVTitle = memo(
   ({ name, first_air_date, vote_average, poster_path, id }: TVDiscover) => {
     const { push } = useRouter();
     const [showMenu, setShowMenu] = useState(false);
+    const [imgSrc, setImgSrc] = useState(
+      `https://image.tmdb.org/t/p/w154/${poster_path}`,
+    );
     const savedDocRef = useRef<DocumentReference<
       DocumentData,
       DocumentData
@@ -50,16 +53,28 @@ const TVTitle = memo(
         savedDocRef.current = doc(db, "saved", uid);
         watchDocRef.current = doc(db, "watchlist", uid);
       }
+      setImgSrc("");
     }, []);
 
     return (
       <>
         <div onClick={showTVShow} role="link" className="title-container">
           <Image
-            src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
+            src={
+              imgSrc
+                ? imgSrc
+                : "/public/images/luca-nicoletti-O8CHmj0zgAg-unsplash.jpg"
+            }
             alt="movie-poster"
             width={154}
             height={231}
+            priority
+            fetchPriority="high"
+            onError={() =>
+              setImgSrc(
+                "/public/images/luca-nicoletti-O8CHmj0zgAg-unsplash.jpg",
+              )
+            }
             className="title-image"
           />
           <p className="title-tag tag-tv">TV</p>

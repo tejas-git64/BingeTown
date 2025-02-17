@@ -5,7 +5,8 @@
     "savedtitles",
     "TMDB",
     "uuidv",
-    "Watchlist"
+    "Watchlist",
+    "Watchlists"
   ],
   "css.autoValidation": "Always"
 }

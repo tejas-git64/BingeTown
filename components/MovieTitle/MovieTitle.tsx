@@ -20,6 +20,9 @@ const MovieTitle = memo(
     const { push } = useRouter();
     const [showMenu, setShowMenu] = useState(false);
     const year = new Date(release_date).getFullYear();
+    const [imgSrc, setImgSrc] = useState(
+      `https://image.tmdb.org/t/p/w154/${poster_path}`,
+    );
     const savedDocRef = useRef<DocumentReference<
       DocumentData,
       DocumentData
@@ -44,14 +47,51 @@ const MovieTitle = memo(
       }
     }, []);
 
+    function pushToSaved(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+      e.stopPropagation();
+      setShowMenu(false);
+      if (savedDocRef.current) {
+        addToSavedList(
+          id,
+          title,
+          poster_path,
+          vote_average,
+          release_date.toString(),
+          "movie",
+          savedDocRef.current as DocumentReference<DocumentData, DocumentData>,
+        );
+      }
+    }
+
+    function pushToWatchlist(
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) {
+      e.stopPropagation();
+      setShowMenu(false);
+      if (watchDocRef.current) {
+        addToWatchList(
+          id,
+          "movie",
+          title,
+          poster_path,
+          vote_average,
+          release_date.toString(),
+          watchDocRef.current as DocumentReference<DocumentData, DocumentData>,
+        );
+      }
+    }
+
     return (
       <>
         <div onClick={showMovie} role="link" className="title-container">
           <Image
-            src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
+            src={imgSrc ? imgSrc : "/public/images/image-fallback.webp"}
             alt="movie-poster"
             width={154}
             height={231}
+            priority
+            fetchPriority="high"
+            onError={() => setImgSrc("/public/images/image-fallback.webp")}
             className="title-image"
           />
           <p className="title-tag tag-movie">MOVIE</p>
@@ -69,7 +109,6 @@ const MovieTitle = memo(
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                e.preventDefault();
                 setShowMenu(true);
               }}
               style={{
@@ -81,33 +120,10 @@ const MovieTitle = memo(
             </button>
           </div>
           <div
-            onMouseLeave={(e) => {
-              e.preventDefault();
-              setShowMenu(false);
-            }}
+            onMouseLeave={() => setShowMenu(false)}
             className={`${showMenu ? "flex" : "hidden"} title-btn-menu`}
           >
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (watchDocRef.current)
-                  addToWatchList(
-                    id,
-                    "movie",
-                    title,
-                    poster_path,
-                    vote_average,
-                    release_date.toString(),
-                    watchDocRef.current as DocumentReference<
-                      DocumentData,
-                      DocumentData
-                    >,
-                  );
-                setShowMenu(false);
-              }}
-              className="title-btn"
-            >
+            <button onClick={pushToWatchlist} className="title-btn">
               <h4 className="title-btn-text">Add to watchlist</h4>
               <Image
                 src={watchlist}
@@ -115,27 +131,7 @@ const MovieTitle = memo(
                 className="title-watchlist-img"
               />
             </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (savedDocRef.current)
-                  addToSavedList(
-                    id,
-                    title,
-                    poster_path,
-                    vote_average,
-                    release_date.toString(),
-                    "movie",
-                    savedDocRef.current as DocumentReference<
-                      DocumentData,
-                      DocumentData
-                    >,
-                  );
-                setShowMenu(false);
-              }}
-              className="title-btn"
-            >
+            <button onClick={pushToSaved} className="title-btn">
               <h4 className="title-btn-text">Save</h4>
               <Image src={save} alt="save" className="title-save-img" />
             </button>

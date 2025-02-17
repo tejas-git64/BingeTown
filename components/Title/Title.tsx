@@ -29,7 +29,7 @@ export default function Title({
   const [showComments, setShowComments] = useState(false);
   const [movieCast, setMovieCast] = useState<CastTotal | null>(null);
   const [vidID, setVidID] = useState<string | undefined>(initKey);
-
+  const { results } = titleInfo.videos;
   const getTitleReviews = useCallback(async () => {
     const data = await getMediaData(
       `https://api.themoviedb.org/3/movie/${id}/reviews`,
@@ -71,9 +71,8 @@ export default function Title({
           id="videos"
           className="flex h-28 w-full items-center justify-start overflow-x-scroll"
         >
-          {titleInfo?.videos?.results &&
-          titleInfo?.videos?.results.length > 0 ? (
-            titleInfo.videos.results.map((video) => (
+          {results && results.length > 0 ? (
+            results.map((video) => (
               <div key={uuidv4()} className="mr-3 h-auto w-auto">
                 <div className="relative h-[90px] w-[120px] flex-shrink-0">
                   <Image

@@ -25,6 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          src="https://unpkg.com/react-scan/dist/auto.global.js"
+          async
+        ></script>
+      </head>
       <body
         className={`${quicksand.variable} grid w-full place-items-center scroll-smooth bg-neutral-950 font-quicksand antialiased`}
       >

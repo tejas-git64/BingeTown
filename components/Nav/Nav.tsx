@@ -53,7 +53,7 @@ export default function Nav() {
           path === "/login" || path === "/signup" || path === "/not-found"
             ? "hidden"
             : ""
-        } absolute left-0 top-0 z-30 flex h-14 w-full items-center justify-between bg-gradient-to-t from-neutral-900 to-black px-3 pr-4 transition-all duration-[3] ease-out`}
+        } absolute left-0 top-0 z-30 flex h-14 w-full flex-shrink-0 items-center justify-between bg-gradient-to-t from-neutral-900 to-black px-3 pr-4 transition-all duration-[3] ease-out`}
       >
         <Link
           href="/"

@@ -5,6 +5,7 @@ import { SavedTitleType } from "@/types/LayoutTypes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { removeTitle } from "@/firebase/requests";
+import { useState } from "react";
 
 export default function WatchTitle({
   title,
@@ -14,29 +15,49 @@ export default function WatchTitle({
   type,
   vote_average,
   docRef,
-}: SavedTitleType) {
+  refetch,
+}: SavedTitleType & { refetch: () => void }) {
   const { push } = useRouter();
   const year = new Date(release_date).getFullYear();
-
+  const [imgSrc, setImgSrc] = useState(
+    `https://image.tmdb.org/t/p/w154/${poster_path}`,
+  );
   function navigateToShow(type: string, id: number) {
     if (type === "tv") push(`/shows/${id}`);
     else push(`/movies/${id}`);
+  }
+
+  function deleteTitle(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    e.stopPropagation();
+    removeTitle({
+      title,
+      id,
+      poster_path,
+      release_date,
+      type,
+      vote_average,
+      watched: false,
+      docRef,
+    });
+    setTimeout(refetch, 100);
   }
 
   return (
     <>
       <div onClick={() => navigateToShow(type, id)} className="title-container">
         <Image
-          src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
+          src={imgSrc ? imgSrc : "/public/images/image-fallback.webp"}
           alt="image-cover"
           height={231}
           width={154}
           priority
-          loading="eager"
+          fetchPriority="high"
+          onError={() => setImgSrc("/public/images/image-fallback.webp")}
           className="title-image"
         />
         <p
-          className={`title-tag ${type === "movie" ? "bg-yellow-400" : "bg-purple-400"}`}
+          className={`title-tag ${type === "tv" ? "bg-purple-400" : "bg-yellow-400"}`}
         >
           {type === "tv" ? "TV" : "MOVIE"}
         </p>
@@ -52,21 +73,7 @@ export default function WatchTitle({
             <h3 className="title-year">{year}</h3>
           </div>
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              removeTitle({
-                title,
-                id,
-                poster_path,
-                release_date,
-                type,
-                vote_average,
-                watched: false,
-                docRef,
-              });
-              setTimeout(() => window.location.reload(), 500);
-            }}
+            onClick={deleteTitle}
             className="h-auto border-none bg-transparent p-0"
           >
             <Image src={trash} alt="title-menu" className="h-5 w-5" />

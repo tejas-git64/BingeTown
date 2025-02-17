@@ -17,12 +17,6 @@ export type WatchListTitle = {
   watched: boolean;
 } & SavedTitleType;
 
-export type WatchListType = {
-  uid: string;
-  watchlist: DocumentData;
-  docRef: DocumentReference<DocumentData, DocumentData>;
-};
-
 export type SavedTypes = {
   uid: string;
   savedtitles: DocumentData;

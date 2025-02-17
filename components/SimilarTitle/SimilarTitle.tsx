@@ -1,6 +1,9 @@
+"use client";
+
 import { TVDiscover } from "@/types/HomeTypes";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function SimilarTitle({
   name,
@@ -10,6 +13,9 @@ export default function SimilarTitle({
   isShow,
   vote_average,
 }: TVDiscover) {
+  const [imgSrc, setImgSrc] = useState(
+    `https://image.tmdb.org/t/p/w154/${poster_path}`,
+  );
   return (
     <>
       <Link
@@ -17,10 +23,13 @@ export default function SimilarTitle({
         className="h-auto w-[154px] flex-shrink-0"
       >
         <Image
-          src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
+          src={imgSrc ? imgSrc : "/public/images/image-fallback.webp"}
           alt="poster"
           width={154}
           height={231}
+          priority
+          fetchPriority="high"
+          onError={() => setImgSrc("/public/images/image-fallback.webp")}
           className="title-image"
         />
         <p

@@ -24,11 +24,11 @@ export default async function SimilarTitlesContainer({
           </p>
           <div
             id="similar"
-            className="mt-2 flex h-auto place-items-end overflow-x-scroll xl:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll xl:pt-6"
+            className="flex h-auto place-items-end overflow-x-scroll xl:grid xl:h-full xl:overflow-hidden xl:overflow-y-scroll xl:pt-9"
             style={{
               gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
               gridTemplateRows: "repeat(auto-fill, minmax(260px, 1fr))",
-              rowGap: "20px",
+              rowGap: "30px",
               columnGap: "10px",
             }}
           >

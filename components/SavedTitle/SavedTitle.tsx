@@ -5,6 +5,7 @@ import { SavedTitleType } from "@/types/LayoutTypes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { unSaveTitle } from "@/firebase/requests";
+import { useState } from "react";
 
 export default function SavedTitle({
   title,
@@ -14,25 +15,46 @@ export default function SavedTitle({
   type,
   vote_average,
   docRef,
-}: SavedTitleType) {
+  refetch,
+}: SavedTitleType & { refetch: () => void }) {
   const { push } = useRouter();
   const year = new Date(release_date).getFullYear();
+  const [imgSrc, setImgSrc] = useState(
+    `https://image.tmdb.org/t/p/w154/${poster_path}`,
+  );
+
   function navigateToShow(type: string, id: number) {
     if (type === "tv") push(`/shows/${id}`);
     else push(`/movies/${id}`);
+  }
+
+  function deleteTitle(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    e.stopPropagation();
+    unSaveTitle({
+      title,
+      id,
+      poster_path,
+      release_date,
+      type,
+      vote_average,
+      docRef,
+    });
+    setTimeout(refetch, 100);
   }
 
   return (
     <>
       <div className="title-container">
         <Image
-          src={`https://image.tmdb.org/t/p/w154/${poster_path}`}
+          src={imgSrc ? imgSrc : "/public/images/image-fallback.webp"}
           alt="image-cover"
           width={154}
           height={231}
           priority
-          loading="eager"
+          fetchPriority="high"
           onClick={() => navigateToShow(type, id)}
+          onError={() => setImgSrc("/public/images/image-fallback.webp")}
           className="title-image"
         />
         <p
@@ -41,18 +63,7 @@ export default function SavedTitle({
           {type === "tv" ? "TV" : "MOVIE"}
         </p>
         <button
-          onClick={() => {
-            unSaveTitle({
-              title,
-              id,
-              poster_path,
-              release_date,
-              type,
-              vote_average,
-              docRef,
-            });
-            setTimeout(() => window.location.reload(), 500);
-          }}
+          onClick={deleteTitle}
           className="absolute bottom-6 right-0 rounded-full border-none bg-neutral-800 p-0.5 outline-none"
         >
           <Image src={unSaveIcon} alt="unsave" className="h-5 w-5" />
