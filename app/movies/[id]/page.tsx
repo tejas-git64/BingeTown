@@ -8,9 +8,9 @@ import DetailsPageFallback from "./loading";
 export default async function MovieTitleDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
   const data = await getMediaData(
     `https://api.themoviedb.org/3/movie/${id}?append_to_response=videos`,
   );

@@ -8,9 +8,9 @@ import SimilarTitlesContainer from "@/components/SimilarTitlesContainer/SimilarT
 export default async function TVShowTitleDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
 
   const data = await getMediaData(
     `https://api.themoviedb.org/3/tv/${id}?append_to_response=videos`,
