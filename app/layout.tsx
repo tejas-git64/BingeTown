@@ -6,6 +6,8 @@ import Sidenav from "@/components/Sidenav/Sidenav";
 import { GlobalContext } from "@/store/GlobalStore";
 import { Metadata } from "next";
 import { AuthProvider } from "@/auth/AuthContext";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -25,12 +27,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <script
-          src="https://unpkg.com/react-scan/dist/auto.global.js"
-          async
-        ></script>
-      </head>
       <body
         className={`${quicksand.variable} grid w-full place-items-center scroll-smooth bg-neutral-950 font-quicksand antialiased`}
       >
@@ -39,7 +35,11 @@ export default function RootLayout({
             <AuthProvider>
               <Nav />
               <Sidenav />
-              <div className="h-full w-full overflow-hidden">{children}</div>
+              <div className="h-full w-full overflow-hidden">
+                {children}
+                <Analytics />
+                <SpeedInsights />
+              </div>
             </AuthProvider>
           </GlobalContext>
           <Footer />
