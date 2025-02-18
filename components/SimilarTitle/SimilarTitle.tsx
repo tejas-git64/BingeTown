@@ -3,7 +3,7 @@
 import { TVDiscover } from "@/types/HomeTypes";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SimilarTitle({
   name,
@@ -13,9 +13,12 @@ export default function SimilarTitle({
   isShow,
   vote_average,
 }: TVDiscover) {
-  const [imgSrc, setImgSrc] = useState(
-    `https://image.tmdb.org/t/p/w154/${poster_path}`,
-  );
+  const [imgSrc, setImgSrc] = useState("");
+
+  useEffect(() => {
+    setImgSrc(`https://image.tmdb.org/t/p/w154/${poster_path}`);
+  }, [poster_path]);
+
   return (
     <>
       <Link

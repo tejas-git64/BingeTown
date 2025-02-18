@@ -19,9 +19,7 @@ const TVTitle = memo(
   ({ name, first_air_date, vote_average, poster_path, id }: TVDiscover) => {
     const { push } = useRouter();
     const [showMenu, setShowMenu] = useState(false);
-    const [imgSrc, setImgSrc] = useState(
-      `https://image.tmdb.org/t/p/w154/${poster_path}`,
-    );
+    const [imgSrc, setImgSrc] = useState("");
     const savedDocRef = useRef<DocumentReference<
       DocumentData,
       DocumentData
@@ -53,8 +51,8 @@ const TVTitle = memo(
         savedDocRef.current = doc(db, "saved", uid);
         watchDocRef.current = doc(db, "watchlist", uid);
       }
-      setImgSrc("");
-    }, []);
+      setImgSrc(`https://image.tmdb.org/t/p/w154/${poster_path}`);
+    }, [poster_path]);
 
     return (
       <>

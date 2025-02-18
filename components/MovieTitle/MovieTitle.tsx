@@ -20,9 +20,7 @@ const MovieTitle = memo(
     const { push } = useRouter();
     const [showMenu, setShowMenu] = useState(false);
     const year = new Date(release_date).getFullYear();
-    const [imgSrc, setImgSrc] = useState(
-      `https://image.tmdb.org/t/p/w154/${poster_path}`,
-    );
+    const [imgSrc, setImgSrc] = useState("");
     const savedDocRef = useRef<DocumentReference<
       DocumentData,
       DocumentData
@@ -80,6 +78,10 @@ const MovieTitle = memo(
         );
       }
     }
+
+    useEffect(() => {
+      setImgSrc(`https://image.tmdb.org/t/p/w154/${poster_path}`);
+    }, [poster_path]);
 
     return (
       <>

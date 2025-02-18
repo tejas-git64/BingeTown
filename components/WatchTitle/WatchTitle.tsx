@@ -5,7 +5,7 @@ import { SavedTitleType } from "@/types/LayoutTypes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { removeTitle } from "@/firebase/requests";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function WatchTitle({
   title,
@@ -19,9 +19,7 @@ export default function WatchTitle({
 }: SavedTitleType & { refetch: () => void }) {
   const { push } = useRouter();
   const year = new Date(release_date).getFullYear();
-  const [imgSrc, setImgSrc] = useState(
-    `https://image.tmdb.org/t/p/w154/${poster_path}`,
-  );
+  const [imgSrc, setImgSrc] = useState("");
   function navigateToShow(type: string, id: number) {
     if (type === "tv") push(`/shows/${id}`);
     else push(`/movies/${id}`);
@@ -42,6 +40,10 @@ export default function WatchTitle({
     });
     setTimeout(refetch, 100);
   }
+
+  useEffect(() => {
+    setImgSrc(`https://image.tmdb.org/t/p/w154/${poster_path}`);
+  }, [poster_path]);
 
   return (
     <>

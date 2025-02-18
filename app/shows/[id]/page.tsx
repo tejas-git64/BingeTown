@@ -10,7 +10,7 @@ export default async function TVShowTitleDetails({
 }: {
   params: { id: string };
 }) {
-  const { id } = await params;
+  const { id } = params;
 
   const data = await getMediaData(
     `https://api.themoviedb.org/3/tv/${id}?append_to_response=videos`,
