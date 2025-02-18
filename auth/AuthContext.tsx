@@ -34,10 +34,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         username.current = user.displayName;
         setIsLoggedIn(true);
       } else {
-        // if (path !== "/login" && path !== "/signup" && path !== "/") {
-        //   setIsLoggedIn(false);
-        //   redirect("/");
-        // }
+        if (path !== "/login" && path !== "/signup" && path !== "/") {
+          setIsLoggedIn(false);
+          redirect("/");
+        }
       }
     });
   }, [isLoggedIn, path]);

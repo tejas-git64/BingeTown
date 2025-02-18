@@ -1,5 +1,5 @@
 import { Quicksand } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
 import Sidenav from "@/components/Sidenav/Sidenav";
