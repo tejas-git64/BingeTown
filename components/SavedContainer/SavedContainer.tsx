@@ -65,11 +65,11 @@ export default function SavedContainer() {
               ))}
             </div>
           ) : (
-            <div className="-mt-14 flex h-full w-full flex-col items-center justify-center">
-              <p className="mb-10 whitespace-nowrap text-center text-5xl text-neutral-200">
+            <div className="flex h-[80dvh] max-h-full w-full flex-col items-center justify-center border md:-mt-14">
+              <p className="mb-10 whitespace-nowrap text-center text-3xl text-neutral-200 md:text-5xl">
                 щ(゜ロ゜щ)
               </p>
-              <p className="whitespace-nowrap text-center text-xl text-neutral-200">
+              <p className="whitespace-nowrap text-center text-base text-neutral-200 md:text-xl">
                 No titles saved yet
               </p>
             </div>

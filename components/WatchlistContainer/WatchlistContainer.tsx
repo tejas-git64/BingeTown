@@ -45,7 +45,7 @@ export default function WatchlistContainer() {
         <MovieShowFallback />
       ) : (
         <>
-          {data && data.watchlist.watchlist.length > 0 ? (
+          {data && data?.watchlist.watchlist.length > 0 ? (
             <div
               style={{
                 display: "grid",
@@ -65,11 +65,11 @@ export default function WatchlistContainer() {
               ))}
             </div>
           ) : (
-            <div className="-mt-14 flex h-full w-full flex-col items-center justify-center">
-              <p className="mb-10 whitespace-nowrap text-center text-5xl text-neutral-200">
+            <div className="flex h-[80dvh] max-h-full w-full flex-col items-center justify-center md:-mt-14">
+              <p className="mb-10 whitespace-nowrap text-center text-3xl text-neutral-200 md:text-5xl">
                 (´。＿。｀)
               </p>
-              <p className="whitespace-nowrap text-center text-xl text-neutral-200">
+              <p className="whitespace-nowrap text-center text-base text-neutral-200 md:text-xl">
                 No titles added to your watchlist
               </p>
             </div>
