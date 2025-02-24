@@ -1,5 +1,5 @@
 import { Quicksand } from "next/font/google";
-import "@/styles/globals.css";
+import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
 import Sidenav from "@/components/Sidenav/Sidenav";
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksand.variable} grid w-full place-items-center scroll-smooth bg-neutral-950 font-quicksand antialiased`}
+        className={`${quicksand.variable} font-quicksand grid w-full place-items-center scroll-smooth bg-neutral-950 antialiased`}
       >
         <div className="relative flex h-auto min-h-[100dvh] w-full max-w-[2160px] flex-col items-center justify-start overflow-x-hidden border-2 border-black">
           <GlobalContext>
