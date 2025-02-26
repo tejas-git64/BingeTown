@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     appIsrStatus: false,
   },
   images: {
+    unoptimized: true,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
