@@ -6,44 +6,52 @@ import { redirect, usePathname } from "next/navigation";
 import {
   createContext,
   Dispatch,
-  RefObject,
   SetStateAction,
   useEffect,
-  useRef,
   useState,
+  ReactNode,
+  useMemo,
+  startTransition,
 } from "react";
-import { ReactNode } from "react";
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType,
 );
 
 export type AuthContextType = {
-  username: RefObject<string | null>;
+  username: string | null;
   isLoggedIn: boolean;
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const username = useRef<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const path = usePathname();
+  const memoizedContext = useMemo(
+    () => ({
+      username: userName,
+      isLoggedIn: isLoggedIn,
+      setIsLoggedIn: setIsLoggedIn,
+    }),
+    [userName, isLoggedIn, setIsLoggedIn],
+  );
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        username.current = user.displayName;
-        setIsLoggedIn(true);
-      } else {
-        if (path !== "/login" && path !== "/signup" && path !== "/") {
-          setIsLoggedIn(false);
-          redirect("/");
-        }
+        startTransition(() => {
+          setUserName(user.displayName);
+          setIsLoggedIn(true);
+        });
+      } else if (path !== "/login" && path !== "/signup" && path !== "/") {
+        setIsLoggedIn(false);
+        redirect("/");
       }
     });
   }, [isLoggedIn, path]);
 
   return (
-    <AuthContext.Provider value={{ username, isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={memoizedContext}>
       {children}
     </AuthContext.Provider>
   );
