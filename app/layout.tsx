@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksand.variable} font-quicksand grid w-full place-items-center scroll-smooth bg-neutral-950 antialiased`}
+        className={`${quicksand.variable} grid w-full place-items-center scroll-smooth bg-neutral-950 font-quicksand antialiased`}
       >
         <div className="relative flex h-auto min-h-[100dvh] w-full max-w-[2160px] flex-col items-center justify-start overflow-x-hidden border-2 border-black">
           <GlobalContext>

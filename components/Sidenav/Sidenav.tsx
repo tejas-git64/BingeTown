@@ -56,88 +56,94 @@ export default function Sidenav() {
   }, []);
 
   return (
-    <>
-      <div
-        className={`absolute right-0 top-14 z-20 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-bl-3xl border-b border-l border-neutral-700 bg-neutral-900 pb-10 transition-transform ${
-          sideNav ? "-translate-x-0" : "translate-x-96"
-        }`}
-      >
-        <div className="flex h-auto w-full flex-col items-center justify-evenly p-5 pt-8">
-          <Image
-            src={
-              auth.currentUser?.photoURL ||
-              `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=70&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`
-            }
-            width={70}
-            height={70}
-            alt="user-Image"
-            quality={100}
-            className="mb-2 h-[70px] w-[70px] rounded-full border-none bg-gray-200 text-[10px]"
-          />
-          <h3 className="mb-2 mt-1 font-semibold text-white">
-            {auth.currentUser?.displayName || "Binge user"}
-          </h3>
-          <div className="mx-auto mt-2 flex w-[250px] items-center justify-center px-3">
-            <p className="mr-2 text-sm font-medium text-neutral-500">
-              Saved titles:
-            </p>
-            <p className="text-sm font-semibold text-white">
-              {titleCount.saved}
-            </p>
-          </div>
-          <div className="mx-auto my-1 flex w-[250px] items-center justify-center px-3">
-            <p className="mr-2 text-sm font-medium text-neutral-500">
-              Watched titles:
-            </p>
-            <p className="text-sm font-semibold text-white">
-              {titleCount.watchlist}
-            </p>
-          </div>
+    <div
+      className={`absolute right-0 top-14 z-20 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-bl-3xl border-b border-l border-neutral-700 bg-neutral-900 pb-10 transition-transform ${
+        sideNav ? "-translate-x-0" : "translate-x-96"
+      }`}
+    >
+      <div className="flex h-auto w-full flex-col items-center justify-evenly p-5 pt-8">
+        <Image
+          src={
+            auth.currentUser?.photoURL ||
+            `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=70&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`
+          }
+          width={70}
+          height={70}
+          alt="user-Image"
+          quality={100}
+          className="mb-2 h-[70px] w-[70px] rounded-full border-none bg-gray-200 text-[10px]"
+        />
+        <h3 className="mb-2 mt-1 font-semibold text-white">
+          {auth.currentUser?.displayName || "Binge user"}
+        </h3>
+        <div className="mx-auto mt-2 flex w-[250px] items-center justify-center px-3">
+          <p className="mr-2 text-sm font-medium text-neutral-500">
+            Saved titles:
+          </p>
+          <p className="text-sm font-semibold text-white">{titleCount.saved}</p>
         </div>
-        <div className="mx-auto flex h-auto w-[250px] flex-col items-center justify-center overflow-hidden rounded-3xl bg-black py-0">
-          <div
-            onClick={() => navigateToPage("home")}
-            className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
-          >
-            <Image src={home} alt="profile" className="-ml-0.5 mr-1 h-6 w-6" />
-            <p className="text-sm text-white">Home</p>
-          </div>
-          <div
-            onClick={() => navigateToPage("movies")}
-            className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
-          >
-            <Image src={movie} alt="profile" className="-ml-0.5 mr-1 h-6 w-6" />
-            <p className="text-sm text-white">Movies</p>
-          </div>
-          <div
-            onClick={() => navigateToPage("shows")}
-            className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
-          >
-            <Image src={tvshow} alt="profile" className="-ml-1 h-7 w-7" />
-            <p className="text-sm text-white">TV Shows</p>
-          </div>
-          <div
-            onClick={() => navigateToPage("saved")}
-            className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
-          >
-            <Image src={bookmarked} alt="saved" className="mr-1 h-5 w-5" />
-            <p className="text-sm text-white">Saved</p>
-          </div>
-          <div
-            onClick={() => navigateToPage("watchlist")}
-            className="flex w-full cursor-pointer items-center justify-between rounded-b-3xl px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
-          >
-            <Image src={watchlist} alt="watchlist" className="mr-1.5 h-5 w-5" />
-            <p className="text-sm text-white">Watchlist</p>
-          </div>
+        <div className="mx-auto my-1 flex w-[250px] items-center justify-center px-3">
+          <p className="mr-2 text-sm font-medium text-neutral-500">
+            Watched titles:
+          </p>
+          <p className="text-sm font-semibold text-white">
+            {titleCount.watchlist}
+          </p>
         </div>
-        <button
-          onClick={SignOut}
-          className="mt-10 rounded-full border-none bg-teal-500 px-6 py-2 text-[12px] font-extrabold text-black outline-none transition-colors hover:bg-teal-600"
-        >
-          Sign out
-        </button>
       </div>
-    </>
+      <div className="mx-auto flex h-auto w-[250px] flex-col items-center justify-center overflow-hidden rounded-3xl bg-black py-0">
+        <div
+          onClick={() => navigateToPage("home")}
+          role="link"
+          tabIndex={0}
+          className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
+        >
+          <Image src={home} alt="profile" className="-ml-0.5 mr-1 h-6 w-6" />
+          <p className="text-sm text-white">Home</p>
+        </div>
+        <div
+          onClick={() => navigateToPage("movies")}
+          role="link"
+          tabIndex={0}
+          className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
+        >
+          <Image src={movie} alt="profile" className="-ml-0.5 mr-1 h-6 w-6" />
+          <p className="text-sm text-white">Movies</p>
+        </div>
+        <div
+          onClick={() => navigateToPage("shows")}
+          role="link"
+          tabIndex={0}
+          className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
+        >
+          <Image src={tvshow} alt="profile" className="-ml-1 h-7 w-7" />
+          <p className="text-sm text-white">TV Shows</p>
+        </div>
+        <div
+          onClick={() => navigateToPage("saved")}
+          role="link"
+          tabIndex={0}
+          className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-neutral-700 px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
+        >
+          <Image src={bookmarked} alt="saved" className="mr-1 h-5 w-5" />
+          <p className="text-sm text-white">Saved</p>
+        </div>
+        <div
+          onClick={() => navigateToPage("watchlist")}
+          role="link"
+          tabIndex={0}
+          className="flex w-full cursor-pointer items-center justify-between rounded-b-3xl px-6 py-3 transition-colors duration-75 hover:bg-neutral-700"
+        >
+          <Image src={watchlist} alt="watchlist" className="mr-1.5 h-5 w-5" />
+          <p className="text-sm text-white">Watchlist</p>
+        </div>
+      </div>
+      <button
+        onClick={SignOut}
+        className="mt-10 rounded-full border-none bg-teal-500 px-6 py-2 text-[12px] font-extrabold text-black outline-none transition-colors hover:bg-teal-600"
+      >
+        Sign out
+      </button>
+    </div>
   );
 }

@@ -12,20 +12,20 @@ export default function LoginForm() {
   const logIn = async (state: string | undefined, data: FormData) => {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
+    let newState = state;
     try {
       await signInWithEmailAndPassword(auth, email, password);
       onAuthStateChanged(auth, (user) => {
         if (user) {
           setTimeout(() => {
             redirect("/home");
-          }, 500);
+          }, 100);
         }
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const authError = getErrorStatus(err.code);
-      state = `AuthError: ${authError}`;
-      return state;
+      newState = `AuthError: ${authError}`;
+      return newState;
     }
   };
 

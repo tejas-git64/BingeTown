@@ -1,7 +1,7 @@
 import { MovieTitleInfo } from "@/app/movies/[id]/TitleTypes";
 import React from "react";
 
-export default function Genres({ titleInfo }: { titleInfo: MovieTitleInfo }) {
+export default function Genres({ titleInfo }: Readonly<{ titleInfo: MovieTitleInfo }>) {
   return (
     <div
       id="genres"

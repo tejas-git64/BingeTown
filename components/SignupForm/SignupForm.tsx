@@ -22,6 +22,7 @@ export default function SignupForm() {
     const email = data?.get("email") as string;
     const fullname = data?.get("fullname") as string;
     const pass = data?.get("password") as string;
+    let newState = state;
     try {
       await createUserWithEmailAndPassword(auth, email, pass);
       onAuthStateChanged(auth, (user) => {
@@ -62,8 +63,8 @@ export default function SignupForm() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const authError = getErrorStatus(err.code);
-      state = `AuthError: ${authError}`;
-      return state;
+      newState = `AuthError: ${authError}`;
+      return newState;
     }
   }
 
@@ -112,9 +113,7 @@ export default function SignupForm() {
         Have an account ? Login from here
       </Link>
       <div className="form-separator">
-        <p className="separator-text">
-          or
-        </p>
+        <p className="separator-text">or</p>
       </div>
     </form>
   );

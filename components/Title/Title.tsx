@@ -20,11 +20,11 @@ export default function Title({
   id,
   titleInfo,
   initKey,
-}: {
+}: Readonly<{
   id: string;
   titleInfo: MovieTitleInfo & TVTitleInfo;
   initKey: string | undefined;
-}) {
+}>) {
   const [movieReviews, setMovieReviews] = useState<ReviewsTotal | null>(null);
   const [showComments, setShowComments] = useState(false);
   const [movieCast, setMovieCast] = useState<CastTotal | null>(null);
@@ -61,7 +61,7 @@ export default function Title({
       </p>
       <iframe
         className="mx-auto aspect-video h-[55vw] w-full rounded-xl md:h-[60vw] lg:h-[35vw] xl:h-[27.5vw] xl:max-h-[70vw] xl:w-full 2xl:h-[35vw] 2xl:max-h-[1200px] 2xl:w-full"
-        src={`https://www.youtube.com/embed/${vidID}` || ""}
+        src={vidID ? `https://www.youtube.com/embed/${vidID}` : ""}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen

@@ -9,16 +9,14 @@ export default function TVShows() {
   const [selected, setSelected] = useState<number>(10759);
 
   return (
-    <>
-      <div className="content-root">
-        <div className="content-parent">
-          <h3 className="content-heading">TV Shows</h3>
-          <Dropdown setSelected={setSelected} type={"tv"} />
-        </div>
-        <Suspense fallback={<MovieShowFallback />}>
-          <ShowsContainer selection={selected} />
-        </Suspense>
+    <div className="content-root">
+      <div className="content-parent">
+        <h3 className="content-heading">TV Shows</h3>
+        <Dropdown setSelected={setSelected} type={"tv"} />
       </div>
-    </>
+      <Suspense fallback={<MovieShowFallback />}>
+        <ShowsContainer selection={selected} />
+      </Suspense>
+    </div>
   );
 }

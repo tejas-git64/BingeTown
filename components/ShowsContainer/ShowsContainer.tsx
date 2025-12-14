@@ -20,7 +20,7 @@ const ShowsContainer = memo(({ selection }: { selection: number }) => {
   const currentGenre = useRef<number>(10759);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({
-    triggerOnce: page === 499 ? true : false,
+    triggerOnce: page === 499,
     ...observerOptions,
   });
   const keyVal = useMemo(() => uuidv4(), []);

@@ -12,10 +12,10 @@ import {
 export default function Dropdown({
   setSelected,
   type,
-}: {
+}: Readonly<{
   setSelected: Dispatch<SetStateAction<number>>;
   type: string;
-}) {
+}>) {
   const [genres, setGenres] = useState<MovieListGenres["genres"] | null>(null);
   const memoizedGenres = useRef(null);
 

@@ -2,11 +2,9 @@
 
 import { ContentType, TVDiscover } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useState } from "react";
-import { useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import TVTitle from "@/components/TVTitle/TVTitle";
 import { getMediaData } from "@/api/requests";
-// import { observerOptions } from "@/api/options";
 import { v4 as uuidv4 } from "uuid";
 import { useInView } from "react-intersection-observer";
 import SectionFallback from "../Fallback/Section/SectionFallback";
@@ -32,24 +30,22 @@ const TVSection = ({ heading, uri }: ContentType) => {
   }, [fetchTVData, inView, shows]);
 
   return (
-    <>
-      <section ref={ref} className="content-section">
-        <h2 onClick={() => push("/shows")} className="section-heading">
-          {heading}
-        </h2>
-        <div id="latest" className="section-container">
-          {shows ? (
-            shows?.map((show: TVDiscover) => (
-              <div key={uuidv4()} className="mr-2 md:mr-4">
-                <TVTitle {...show} />
-              </div>
-            ))
-          ) : (
-            <SectionFallback />
-          )}
-        </div>
-      </section>
-    </>
+    <section ref={ref} className="content-section">
+      <h2 onClick={() => push("/shows")} className="section-heading">
+        {heading}
+      </h2>
+      <div id="latest" className="section-container">
+        {shows ? (
+          shows?.map((show: TVDiscover) => (
+            <div key={uuidv4()} className="mr-2 md:mr-4">
+              <TVTitle {...show} />
+            </div>
+          ))
+        ) : (
+          <SectionFallback />
+        )}
+      </div>
+    </section>
   );
 };
 

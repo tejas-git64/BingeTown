@@ -3,9 +3,9 @@ import React from "react";
 
 export default function TitleInfo({
   titleInfo,
-}: {
+}: Readonly<{
   titleInfo: MovieTitleInfo & TVTitleInfo;
-}) {
+}>) {
   return (
     <div className="mx-auto mb-2 w-full text-left text-white xl:w-full">
       <div className="-mt-2 mb-2 flex w-full items-center justify-center">

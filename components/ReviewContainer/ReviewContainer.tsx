@@ -5,10 +5,10 @@ import Review from "../Review/Review";
 export default function ReviewContainer({
   reviews,
   showComments,
-}: {
+}: Readonly<{
   reviews: ReviewsTotal;
   showComments: boolean;
-}) {
+}>) {
   return (
     <ul
       className={`${

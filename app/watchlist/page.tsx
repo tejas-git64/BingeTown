@@ -2,12 +2,9 @@ import WatchlistContainer from "@/components/WatchlistContainer/WatchlistContain
 
 export default function WatchList() {
   return (
-    <>
-      <div className="protected-container">
-        <p className="protected-container-heading">WatchList</p>
-
-        <WatchlistContainer />
-      </div>
-    </>
+    <div className="protected-container">
+      <p className="protected-container-heading">WatchList</p>
+      <WatchlistContainer />
+    </div>
   );
 }
