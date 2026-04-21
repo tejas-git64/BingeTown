@@ -1,9 +1,12 @@
 "use client";
 
-import { memo, useCallback, useContext, useEffect, useState } from "react";
+import {
+  memo,
+  useContext,
+  useState,
+} from "react";
 import search from "@/public/svgs/search-alt-2-svgrepo-com.svg";
 import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
-import { MultiSearch } from "../../types/Search";
 import logo from "@/public/images/icons8-video-48.png";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -12,12 +15,12 @@ import Image from "next/image";
 import { auth } from "@/firebase/Firebase";
 import { GlobalStore } from "@/store/GlobalStore";
 import { AuthContext } from "@/auth/AuthContext";
-import { getMediaData } from "@/api/requests";
+import useSearchResults from "@/hooks/useSearchResults";
 
 export default function Nav() {
   const path = usePathname();
-  const [searchResults, setSearchResults] = useState<MultiSearch | null>(null);
   const [query, setQuery] = useState("");
+  const searchResults = useSearchResults(query);
   const { setSideNav } = useContext<LayoutContextTypes>(GlobalStore);
   const { isLoggedIn } = useContext(AuthContext);
   const { push } = useRouter();
@@ -27,24 +30,6 @@ export default function Nav() {
     else push(`/movies/${id}`);
     setQuery("");
   }
-
-  const getSearchResults = useCallback(async () => {
-    if (query.trim() === "") {
-      setSearchResults(null);
-    } else {
-      const data = await getMediaData(
-        `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`,
-      );
-      const min: MultiSearch = data.results.filter(
-        (res: { media_type: string }) => res.media_type !== "person",
-      );
-      setSearchResults(min.slice(0, 5));
-    }
-  }, [query]);
-
-  useEffect(() => {
-    if (query !== "") getSearchResults();
-  }, [getSearchResults, query]);
 
   const MemoizedNav = memo(({ value }: { value: boolean }) => {
     return (
@@ -80,9 +65,9 @@ export default function Nav() {
                   className="hidden h-9 w-full rounded-full border-none bg-neutral-800 px-4 text-sm font-bold text-white outline-none placeholder:font-medium placeholder:text-neutral-500 lg:-ml-0 xl:block"
                 />
               )}
-              {query.trim() !== "" && (
+              {query.trim() !== "" && searchResults && (
                 <ul className="absolute mt-2 flex h-auto w-full flex-col items-end justify-start rounded-xl border border-neutral-700 bg-neutral-900 p-2">
-                  {searchResults?.map((result) => (
+                  {searchResults.map((result) => (
                     <div
                       key={result.id}
                       onClick={() => showTitle(result.media_type, result.id)}

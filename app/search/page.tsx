@@ -1,16 +1,14 @@
 "use client";
 
-import { useCallback, useDeferredValue, useEffect, useState } from "react";
-import { MultiSearch } from "../../types/Search";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { getMediaData } from "@/api/requests";
+import useSearchResults from "@/hooks/useSearchResults";
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");
-  const searchVal = useDeferredValue(searchQuery);
   const { push } = useRouter();
-  const [searchResults, setSearchResults] = useState<MultiSearch | null>(null);
+  const searchResults = useSearchResults(searchQuery);
 
   function showDetails(mediaType: string, id: number) {
     if (mediaType === "tv") push(`/shows/${id}`);
@@ -18,32 +16,12 @@ export default function Search() {
     setSearchQuery("");
   }
 
-  const getSearchResults = useCallback(async () => {
-    if (searchVal.trim() === "") {
-      setSearchResults(null);
-    } else {
-      const data = await getMediaData(
-        `https://api.themoviedb.org/3/search/multi?query=${searchVal}&include_adult=false&language=en-US&page=1`,
-      );
-      const min: MultiSearch = data.results.filter(
-        (res: { media_type: string }) => res.media_type !== "person",
-      );
-      setSearchResults(min.slice(0, 6));
-    }
-  }, [searchVal]);
-
-  useEffect(() => {
-    if (searchVal) {
-      getSearchResults();
-    }
-  }, [getSearchResults, searchVal]);
-
   return (
     <div className="flex h-[100dvh] max-h-[1000px] w-full flex-col items-center justify-start bg-neutral-900 pt-20">
       <input
         type="search"
         name="search-bar"
-        value={searchVal}
+        value={searchQuery}
         autoFocus
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Search for Movies or TV shows"
