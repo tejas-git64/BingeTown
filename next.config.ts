@@ -5,12 +5,13 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   reactCompiler: true,
   images: {
+    qualities: [100, 75],
     unoptimized: true,
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         hostname: "api.dicebear.com",
-        protocol: "https",
+        protocol: "https", 
       },
       {
         hostname: "upload.wikimedia.org",
