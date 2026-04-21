@@ -3,10 +3,10 @@
 export default function FormButton({
   type,
   pending,
-}: {
+}: Readonly<{
   type: string;
   pending: boolean;
-}) {
+}>) {
   return (
     <button
       type="submit"

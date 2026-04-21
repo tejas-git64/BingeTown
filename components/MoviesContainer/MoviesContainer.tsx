@@ -22,7 +22,7 @@ const MoviesContainer = memo(({ selection }: { selection: number }) => {
   const currentGenre = useRef(28);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({
-    triggerOnce: page === 499 ? true : false,
+    triggerOnce: page === 499,
     ...observerOptions,
   });
   const keyVal = useMemo(() => uuidv4(), []);
@@ -53,27 +53,23 @@ const MoviesContainer = memo(({ selection }: { selection: number }) => {
   }, [getMoviesData]);
 
   return (
-    <>
-      <Suspense fallback={<MovieShowFallback />}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
-            gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
-          }}
-          className="content-container"
-        >
-          {sortedMovies?.map((movie: Movie) => (
-            <MovieTitle key={keyVal} {...movie} />
-          ))}
-        </div>
-        <div ref={ref} className="content-loader">
-          {page === 500 && (
-            <p className="text-white">You have reached the end</p>
-          )}
-        </div>
-      </Suspense>
-    </>
+    <Suspense fallback={<MovieShowFallback />}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(154px, 1fr))",
+          gridTemplateRows: "repeat(auto-fill, minmax(300px, 1fr))",
+        }}
+        className="content-container"
+      >
+        {sortedMovies?.map((movie: Movie) => (
+          <MovieTitle key={keyVal} {...movie} />
+        ))}
+      </div>
+      <div ref={ref} className="content-loader">
+        {page === 500 && <p className="text-white">You have reached the end</p>}
+      </div>
+    </Suspense>
   );
 });
 

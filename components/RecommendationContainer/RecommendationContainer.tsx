@@ -20,11 +20,7 @@ const RecommendationContainer = async ({
       </p>
       <ul className="h-full w-full overflow-x-hidden overflow-y-scroll rounded-lg pb-10 pr-1">
         {data.results?.map((r: TVDiscover) => (
-          <Recommendation
-            key={uuidv4()}
-            {...r}
-            isShow={type === "movie" ? false : true}
-          />
+          <Recommendation key={uuidv4()} {...r} isShow={type !== "movie"} />
         ))}
       </ul>
     </div>

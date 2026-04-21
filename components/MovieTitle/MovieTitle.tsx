@@ -84,62 +84,62 @@ const MovieTitle = memo(
     }, [poster_path]);
 
     return (
-      <>
-        <div onClick={showMovie} role="link" className="title-container">
-          <Image
-            src={imgSrc ? imgSrc : "/public/images/image-fallback.webp"}
-            alt="movie-poster"
-            width={154}
-            height={231}
-            priority
-            fetchPriority="high"
-            onError={() => setImgSrc("/public/images/image-fallback.webp")}
-            className="title-image"
-          />
-          <p className="title-tag tag-movie">MOVIE</p>
-          <h3 className="title-name">{title}</h3>
-          <div className="title-parent">
-            <div className="title-child-1">
-              <div className="flex">
-                <h4 className="title-rating">Rating</h4>
-                <h4 className="rating-value">
-                  {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
-                </h4>
-              </div>
-              <h3 className="title-year">{year}</h3>
+      <div
+        onClick={showMovie}
+        role="link"
+        className="title-container"
+        tabIndex={0}
+      >
+        <Image
+          src={imgSrc || "/public/images/image-fallback.webp"}
+          alt="movie-poster"
+          width={154}
+          height={231}
+          priority
+          fetchPriority="high"
+          onError={() => setImgSrc("/public/images/image-fallback.webp")}
+          className="title-image"
+        />
+        <p className="title-tag tag-movie">MOVIE</p>
+        <h3 className="title-name">{title}</h3>
+        <div className="title-parent">
+          <div className="title-child-1">
+            <div className="flex">
+              <h4 className="title-rating">Rating</h4>
+              <h4 className="rating-value">
+                {vote_average === 0 ? "NA" : `${vote_average.toFixed(1)}`}
+              </h4>
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowMenu(true);
-              }}
-              style={{
-                outline: "none",
-              }}
-              className="-mr-2 -mt-3 h-auto border-none bg-transparent p-0"
-            >
-              <Image src={menu} alt="title-menu" className="h-6 w-6" />
-            </button>
+            <h3 className="title-year">{year}</h3>
           </div>
-          <div
-            onMouseLeave={() => setShowMenu(false)}
-            className={`${showMenu ? "flex" : "hidden"} title-btn-menu`}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMenu(true);
+            }}
+            style={{
+              outline: "none",
+            }}
+            className="-mr-2 -mt-3 h-auto border-none bg-transparent p-0"
           >
-            <button onClick={pushToWatchlist} className="title-btn">
-              <h4 className="title-btn-text">Add to watchlist</h4>
-              <Image
-                src={watchlist}
-                alt="add"
-                className="title-watchlist-img"
-              />
-            </button>
-            <button onClick={pushToSaved} className="title-btn">
-              <h4 className="title-btn-text">Save</h4>
-              <Image src={save} alt="save" className="title-save-img" />
-            </button>
-          </div>
+            <Image src={menu} alt="title-menu" className="h-6 w-6" />
+          </button>
         </div>
-      </>
+        <div
+          role="group"
+          onMouseLeave={() => setShowMenu(false)}
+          className={`${showMenu ? "flex" : "hidden"} title-btn-menu`}
+        >
+          <button onClick={pushToWatchlist} className="title-btn">
+            <h4 className="title-btn-text">Add to watchlist</h4>
+            <Image src={watchlist} alt="add" className="title-watchlist-img" />
+          </button>
+          <button onClick={pushToSaved} className="title-btn">
+            <h4 className="title-btn-text">Save</h4>
+            <Image src={save} alt="save" className="title-save-img" />
+          </button>
+        </div>
+      </div>
     );
   },
   isSame,

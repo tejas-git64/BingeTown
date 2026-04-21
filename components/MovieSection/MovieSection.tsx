@@ -2,13 +2,11 @@
 import { ContentType, Movie } from "@/types/HomeTypes";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import React from "react";
 import MovieTitle from "../MovieTitle/MovieTitle";
 import { getMediaData } from "@/api/requests";
 import { v4 as uuidv4 } from "uuid";
 import { useInView } from "react-intersection-observer";
 import SectionFallback from "../Fallback/Section/SectionFallback";
-// import { observerOptions } from "@/api/options";
 
 const MovieSection = ({ heading, uri }: ContentType) => {
   const [movies, setMovies] = useState<Movie[] | null>(null);
@@ -30,25 +28,23 @@ const MovieSection = ({ heading, uri }: ContentType) => {
     if (inView && !movies) fetchMoviesData();
   }, [fetchMoviesData, inView, movies]);
   return (
-    <>
-      <section id={heading} ref={ref} className="content-section">
-        <h2 onClick={() => push("/movies")} className="section-heading">
-          {heading}
-        </h2>
+    <section id={heading} ref={ref} className="content-section">
+      <h2 onClick={() => push("/movies")} className="section-heading">
+        {heading}
+      </h2>
 
-        <div id={"latest"} className="section-container">
-          {movies ? (
-            movies?.map((movie: Movie) => (
-              <div key={uuidv4()} className="mr-2 md:mr-4">
-                <MovieTitle key={movie.id} {...movie} />
-              </div>
-            ))
-          ) : (
-            <SectionFallback />
-          )}
-        </div>
-      </section>
-    </>
+      <div id={"latest"} className="section-container">
+        {movies ? (
+          movies?.map((movie: Movie) => (
+            <div key={uuidv4()} className="mr-2 md:mr-4">
+              <MovieTitle key={movie.id} {...movie} />
+            </div>
+          ))
+        ) : (
+          <SectionFallback />
+        )}
+      </div>
+    </section>
   );
 };
 

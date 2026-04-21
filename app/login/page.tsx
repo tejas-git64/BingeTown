@@ -3,13 +3,11 @@ import GoogleSignInButton from "@/components/GoogleSignInButton/GoogleSignInButt
 
 export default function Login() {
   return (
-    <>
-      <div className="auth-container">
-        <div className="form-parent">
-          <LoginForm />
-          <GoogleSignInButton />
-        </div>
+    <div className="auth-container">
+      <div className="form-parent">
+        <LoginForm />
+        <GoogleSignInButton />
       </div>
-    </>
+    </div>
   );
 }

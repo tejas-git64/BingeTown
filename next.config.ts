@@ -2,10 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   compress: true,
-  devIndicators: {
-    buildActivity: false,
-    appIsrStatus: false,
-  },
+  devIndicators: false,
+  reactCompiler: true,
   images: {
     unoptimized: true,
     dangerouslyAllowSVG: true,

@@ -7,10 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 export default async function SimilarTitlesContainer({
   id,
   type,
-}: {
+}: Readonly<{
   id: string;
   type: string;
-}) {
+}>) {
   const similarMovies = await getMediaData(
     `https://api.themoviedb.org/3/${type}/${id}/similar`,
   );
