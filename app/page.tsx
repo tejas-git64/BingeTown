@@ -1,21 +1,21 @@
-import { auth } from "@/firebase/Firebase";
-import { onAuthStateChanged } from "firebase/auth";
+'use client';
 import Image from "next/image";
 import movie from "@/public/images/stranger things.jpg";
 import review from "@/public//svgs/ratings.svg";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-function allowAccess() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      redirect("/home");
-    }
-  });
-}
+import { auth } from "@/firebase/Firebase";
 
 export default function Landing() {
-  allowAccess();
+
+  function redirectRoute() {
+    if(auth.currentUser === null) {
+      redirect("/");
+      return;
+    } else {
+      redirect("/home");
+    }
+  }
 
   return (
     <div className="h-full w-full flex-shrink-0 overflow-hidden scroll-smooth">
@@ -66,12 +66,12 @@ export default function Landing() {
           <p className="my-6 text-xs font-bold text-teal-300 sm:text-sm md:text-lg">
             Watch Anywhere. Anytime. On any device
           </p>
-          <Link
-            href={"/home"}
+          <button
+            onClick={redirectRoute}
             className="md:text-md an rounded-full border-none bg-teal-400 px-4 py-2 text-xs font-bold text-gray-900 antialiased transition ease-in hover:scale-110 hover:shadow-2xl hover:shadow-teal-500 md:px-6 md:py-2.5 md:text-sm"
           >
             Watch Now
-          </Link>
+          </button>
         </div>
       </div>
       <div className="landing-section h-auto flex-col-reverse bg-gradient-to-t from-black via-neutral-900 to-neutral-700 py-0 md:bg-gradient-to-r">
