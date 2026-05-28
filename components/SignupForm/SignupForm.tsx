@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useContext } from "react";
+import React, { useActionState } from "react";
 import FormButton from "../FormButton/FormButton";
 import Link from "next/link";
 import { auth, db } from "@/firebase/Firebase";
@@ -11,62 +11,58 @@ import {
 } from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
-import { getErrorStatus } from "@/helpers/helpers";
-import { GlobalStore } from "@/store/GlobalStore";
-import { LayoutContextTypes } from "@/types/LayoutTypes";
+import { getDefaultAvatarUrl } from "@/utils/avatar";
+
+async function signUp(_state: string | undefined, data: FormData) {
+  const email = data?.get("email") as string;
+  const fullname = data?.get("fullname") as string;
+  const pass = data?.get("password") as string;
+  try {
+    await createUserWithEmailAndPassword(auth, email, pass);
+    onAuthStateChanged(auth, (user) => {
+      (async () => {
+        if (user) {
+          const photoURL = user.photoURL || getDefaultAvatarUrl(user.uid, 70);
+
+          await updateProfile(user, {
+            displayName: user.displayName || fullname,
+            photoURL,
+          });
+
+          //Initializing Users document
+          await setDoc(doc(db, "users", user.uid), {
+            email: email,
+            fullname: fullname,
+            photoURL,
+            uid: user.uid,
+          });
+          //Initializing Saved document
+          await setDoc(doc(db, "saved", user.uid), {
+            savedtitles: [],
+            uid: user.uid,
+          });
+          //Initializing Watchlist document
+          await setDoc(doc(db, "watchlist", user.uid), {
+            uid: user.uid,
+            watchlist: [],
+          });
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setTimeout(() => {
+              redirect("/home");
+            }, 500);
+          }
+        }
+      })();
+    });
+  } catch {
+    return undefined;
+  }
+}
 
 export default function SignupForm() {
-  const [error, action, pending] = useActionState(signUp, "");
-  const { svg } = useContext<LayoutContextTypes>(GlobalStore);
-  async function signUp(state: string | undefined, data: FormData) {
-    const email = data?.get("email") as string;
-    const fullname = data?.get("fullname") as string;
-    const pass = data?.get("password") as string;
-    let newState = state;
-    try {
-      await createUserWithEmailAndPassword(auth, email, pass);
-      onAuthStateChanged(auth, (user) => {
-        (async () => {
-          if (user) {
-            //Initializing Users document
-            await setDoc(doc(db, "users", user.uid), {
-              email: email,
-              fullname: fullname,
-              uid: user.uid,
-            });
-            //Initializing Saved document
-            await setDoc(doc(db, "saved", user.uid), {
-              savedtitles: [],
-              uid: user.uid,
-            });
-            //Initializing Watchlist document
-            await setDoc(doc(db, "watchlist", user.uid), {
-              uid: user.uid,
-              watchlist: [],
-            });
-            updateProfile(user, {
-              displayName: user.displayName || fullname,
-              photoURL:
-                user.photoURL ||
-                `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=32&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`,
-            });
-            const docRef = doc(db, "users", user.uid);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-              setTimeout(() => {
-                redirect("/home");
-              }, 500);
-            }
-          }
-        })();
-      });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      const authError = getErrorStatus(err.code);
-      newState = `AuthError: ${authError}`;
-      return newState;
-    }
-  }
+  const [, action, pending] = useActionState(signUp, "");
 
   return (
     <form action={action} className="form-container">
@@ -107,7 +103,6 @@ export default function SignupForm() {
         autoComplete="current-password"
         required
       />
-      {error && <h4 className="form-error">{error}</h4>}
       <FormButton type="Sign up" pending={pending} />
       <Link href={"/login"} className="form-link">
         Have an account ? Login from here
