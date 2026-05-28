@@ -2,7 +2,6 @@
 import Image from "next/image";
 import movie from "@/public/images/stranger things.jpg";
 import review from "@/public//svgs/ratings.svg";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/firebase/Firebase";
 
