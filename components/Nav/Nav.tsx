@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  memo,
-  useContext,
-  useState,
-} from "react";
+import { memo, useContext, useState } from "react";
 import search from "@/public/svgs/search-alt-2-svgrepo-com.svg";
 import menu from "@/public/svgs/menu-alt-05-svgrepo-com.svg";
 import logo from "@/public/images/icons8-video-48.png";
@@ -12,7 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { LayoutContextTypes } from "@/types/LayoutTypes";
 import Image from "next/image";
-import { auth } from "@/firebase/Firebase";
 import { GlobalStore } from "@/store/GlobalStore";
 import { AuthContext } from "@/auth/AuthContext";
 import useSearchResults from "@/hooks/useSearchResults";
@@ -48,7 +43,13 @@ export default function Nav() {
           <p className="text-lg text-teal-400 sm:text-xl">BingeTown</p>
         </Link>
         <div className="flex w-full items-center justify-end">
-          <div className="hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:max-w-[1330px]">
+          <div
+            className={`${
+              value
+                ? "hidden w-[calc(100%-20%)] items-center md:justify-end lg:-ml-0 lg:flex 2xl:max-w-[1330px]"
+                : "hidden"
+            }`}
+          >
             <div
               className={`${
                 path !== "/" ? "block" : "hidden"
@@ -130,7 +131,7 @@ export default function Nav() {
               </Link>
             </div>
           </div>
-          {path !== "/search" && (
+          {value && path !== "/search" && (
             <button
               onClick={() => push("/search")}
               style={{
@@ -151,7 +152,7 @@ export default function Nav() {
           <Link
             href="/signup"
             className={`${
-              !auth.currentUser || !value ? "block" : "hidden"
+              value ? "hidden" : "block"
             } duration-3 -ml-2 whitespace-nowrap rounded-full bg-teal-500 px-5 py-1 text-[14px] font-bold text-black transition-all ease-out hover:bg-teal-400 hover:text-black md:mx-4`}
           >
             Sign up
@@ -159,7 +160,7 @@ export default function Nav() {
           <Link
             href="/login"
             className={`${
-              !auth.currentUser || !value ? "hidden md:block" : "hidden"
+              value ? "hidden" : "hidden md:block"
             } duration-3 whitespace-nowrap rounded-full border-[1px] border-teal-500 px-5 py-1 text-[14px] font-bold text-teal-400 transition-colors ease-out hover:bg-teal-500 hover:text-black`}
           >
             Login
@@ -171,7 +172,7 @@ export default function Nav() {
               outline: "none",
             }}
             className={`${
-              auth.currentUser && value ? "block" : "hidden"
+              value ? "block" : "hidden"
             } h-7 w-7 flex-shrink-0 bg-transparent p-0 sm:h-8 sm:w-8 md:ml-3`}
           >
             <Image
