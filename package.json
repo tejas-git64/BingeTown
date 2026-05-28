@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -26,7 +26,7 @@
     "@types/uuid": "^11.0.0",
     "autoprefixer": "^10.5.0",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^10.4.0",
+    "eslint": "^9.39.1",
     "eslint-config-next": "^16.2.6",
     "postcss": "^8.5.14",
     "prettier": "^3.8.3",
