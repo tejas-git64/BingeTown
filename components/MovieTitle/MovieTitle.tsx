@@ -101,7 +101,7 @@ const MovieTitle = memo(
           className="title-image"
         />
         <p className="title-tag tag-movie">MOVIE</p>
-        <h3 className="title-name">{title}</h3>
+        <h3 className="title-name">{title || "Unknown Title"}</h3>
         <div className="title-parent">
           <div className="title-child-1">
             <div className="flex">
