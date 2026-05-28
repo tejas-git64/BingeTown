@@ -2,6 +2,7 @@ import MovieSection from "@/components/MovieSection/MovieSection";
 import TVSection from "@/components/TVSection/TVSection";
 import GenresSection from "@/components/GenresSection/GenresSection";
 import SlideShow from "@/components/Slideshow/Slideshow";
+import SlideshowCarousel from "@/components/Slideshow/SlideshowCarousel";
 import { Movie } from "@/types/HomeTypes";
 import { videoType } from "@/utils/utils";
 import { getMediaData } from "@/api/requests";
@@ -15,10 +16,7 @@ export default async function Home() {
   return (
     <div className="h-full w-full">
       <div className="max-h-max min-h-[1000px] w-full scroll-smooth bg-neutral-900 px-2 md:px-3 xl:px-6">
-        <div
-          id="slideshow"
-          className="relative mx-auto mt-14 flex h-[60vw] w-full snap-x snap-mandatory overflow-y-hidden overflow-x-scroll rounded-2xl sm:h-[360px] md:h-[450px] xl:h-[650px] xl:px-[45px] 2xl:pl-72"
-        >
+        <SlideshowCarousel>
           {data ? (
             data?.results.map((movie: Movie) => (
               <SlideShow key={movie.id} {...movie} />
@@ -26,7 +24,7 @@ export default async function Home() {
           ) : (
             <BannerFallback />
           )}
-        </div>
+        </SlideshowCarousel>
         {videoType.movies.map((movie) => (
           <MovieSection key={movie.heading} {...movie} />
         ))}
