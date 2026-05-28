@@ -1,18 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import FormButton from "../FormButton/FormButton";
 import { auth } from "@/firebase/Firebase";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { redirect } from "next/navigation";
-import { getErrorStatus } from "@/helpers/helpers";
 
 export default function LoginForm() {
-  const logIn = async (state: string | undefined, data: FormData) => {
+  const logIn = async (_state: string | undefined, data: FormData) => {
     const email = data.get("email") as string;
     const password = data.get("password") as string;
-    let newState = state;
     try {
       await signInWithEmailAndPassword(auth, email, password);
       onAuthStateChanged(auth, (user) => {
@@ -22,18 +20,12 @@ export default function LoginForm() {
           }, 100);
         }
       });
-    } catch (err: any) {
-      const authError = getErrorStatus(err.code);
-      newState = `AuthError: ${authError}`;
-      return newState;
+    } catch {
+      return undefined;
     }
   };
 
-  const [error, action, pending] = useActionState(logIn, "");
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+  const [, action, pending] = useActionState(logIn, "");
 
   return (
     <form action={action} className="form-container">
@@ -62,7 +54,6 @@ export default function LoginForm() {
         autoComplete="current-password"
         required
       />
-      {error && <h4 className="form-error">{error}</h4>}
       <FormButton type="Login" pending={pending} />
       <Link href={"/signup"} className="form-link">
         Don&apos;t have an account ?

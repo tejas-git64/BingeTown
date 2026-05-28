@@ -8,10 +8,6 @@ import { GlobalContext } from "@/store/GlobalStore";
 import { AuthProvider } from "@/auth/AuthContext";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { useEffect } from "react";
-import { auth } from "@/firebase/Firebase";
-import { redirect } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -24,14 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        redirect("/home");
-      }
-    });
-  }, [auth]);
-
   return (
     <html lang="en">
       <body
@@ -42,7 +30,7 @@ export default function RootLayout({
             <AuthProvider>
               <Nav />
               <Sidenav />
-              <div className="h-full w-full overflow-hidden">
+              <div className="min-h-full w-full overflow-hidden">
                 {children}
                 <Analytics />
                 <SpeedInsights />

@@ -1,71 +1,68 @@
 "use client";
 
 import Image from "next/image";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import googleIcon from "@/public/svgs/google-svgrepo-com.svg";
 import { auth, googleProvider, db } from "@/firebase/Firebase";
-import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
+import { signInWithPopup, updateProfile } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
 import { getErrorStatus } from "@/helpers/helpers";
 import { AuthContext } from "@/auth/AuthContext";
+import { getDefaultAvatarUrl } from "@/utils/avatar";
 
 export default function GoogleSignInButton() {
   const { setIsLoggedIn } = useContext(AuthContext);
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      onAuthStateChanged(auth, (user) => {
-        (async () => {
-          //Creating documents from google login
-          if (user) {
-            const userRef = doc(db, "users", user.uid);
-            const userSnap = await getDoc(userRef);
-            const savedRef = doc(db, "saved", user.uid);
-            const savedSnap = await getDoc(savedRef);
-            const watchRef = doc(db, "watchlist", user.uid);
-            const watchSnap = await getDoc(watchRef);
-            if (userSnap.exists() && savedSnap.exists() && watchSnap.exists()) {
-              setTimeout(() => {
-                setIsLoggedIn(true);
-                redirect("/home");
-              }, 500);
-            } else {
-              try {
-                //Initialising Users document
-                await setDoc(doc(db, "users", user.uid), {
-                  email: user.email,
-                  fullname: user.displayName,
-                  uid: user.uid,
-                });
-                //Initialising Saved document
-                await setDoc(doc(db, "saved", user.uid), {
-                  savedtitles: [],
-                  uid: user.uid,
-                });
-                //Initialising Watchlist document
-                await setDoc(doc(db, "watchlist", user.uid), {
-                  uid: user.uid,
-                  watchlist: [],
-                });
-                setTimeout(() => {
-                  redirect(".");
-                }, 100);
-              } catch (err) {
-                console.error(err);
-              }
-            }
-          }
-        })();
-      });
+      const { user } = await signInWithPopup(auth, googleProvider);
+      const photoURL = user.photoURL || getDefaultAvatarUrl(user.uid, 70);
+
+      if (!user.photoURL) {
+        await updateProfile(user, { photoURL });
+      }
+
+      const userRef = doc(db, "users", user.uid);
+      const savedRef = doc(db, "saved", user.uid);
+      const savedSnap = await getDoc(savedRef);
+      const watchRef = doc(db, "watchlist", user.uid);
+      const watchSnap = await getDoc(watchRef);
+
+      await setDoc(
+        userRef,
+        {
+          email: user.email,
+          fullname: user.displayName,
+          photoURL,
+          uid: user.uid,
+        },
+        { merge: true },
+      );
+
+      if (!savedSnap.exists()) {
+        await setDoc(savedRef, {
+          savedtitles: [],
+          uid: user.uid,
+        });
+      }
+
+      if (!watchSnap.exists()) {
+        await setDoc(watchRef, {
+          uid: user.uid,
+          watchlist: [],
+        });
+      }
+
+      setTimeout(() => {
+        setIsLoggedIn(true);
+        redirect("/home");
+      }, 200);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const authError = getErrorStatus(err);
       alert(authError);
     }
   };
-
-  useEffect(() => {});
 
   return (
     <button
