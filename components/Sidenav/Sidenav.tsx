@@ -8,12 +8,19 @@ import movie from "@/public/svgs/movie-svgrepo-com.svg";
 import home from "@/public/svgs/home-1-svgrepo-com.svg";
 import { auth } from "../../firebase/Firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { doc, onSnapshot } from "firebase/firestore";
 import { redirect, useRouter } from "next/navigation";
 import { LayoutContextTypes } from "@/types/LayoutTypes";
 import Image from "next/image";
 import { GlobalStore } from "@/store/GlobalStore";
 import { AuthContext } from "@/auth/AuthContext";
-import { getDocCount } from "@/firebase/requests";
+import { db } from "@/firebase/Firebase";
+import { getDefaultAvatarUrl } from "@/utils/avatar";
+
+type UserProfile = {
+  fullname?: string;
+  photoURL?: string;
+};
 
 export default function Sidenav() {
   const { svg, sideNav, setSideNav } =
@@ -24,6 +31,7 @@ export default function Sidenav() {
     saved: 0,
     watchlist: 0,
   });
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   function navigateToPage(page: string) {
     push(`/${page}`);
     setSideNav(false);
@@ -41,41 +49,92 @@ export default function Sidenav() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    let unsubscribeSaved: (() => void) | undefined;
+    let unsubscribeWatchlist: (() => void) | undefined;
+    let unsubscribeProfile: (() => void) | undefined;
+
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      unsubscribeSaved?.();
+      unsubscribeWatchlist?.();
+      unsubscribeProfile?.();
+
+      if (!user) {
+        setTitleCount({
+          saved: 0,
+          watchlist: 0,
+        });
+        setProfile(null);
+        return;
+      }
+
       if (user) {
-        const watchlistCount = await getDocCount(user.uid, "watchlist");
-        const savedCount = await getDocCount(user.uid, "saved");
-        if (watchlistCount && savedCount) {
-          setTitleCount(() => ({
-            saved: savedCount,
-            watchlist: watchlistCount,
-          }));
-        }
+        unsubscribeProfile = onSnapshot(
+          doc(db, "users", user.uid),
+          (snapshot) => {
+            setProfile((snapshot.data() as UserProfile | undefined) || null);
+          },
+        );
+
+        unsubscribeSaved = onSnapshot(
+          doc(db, "saved", user.uid),
+          (snapshot) => {
+            const savedTitles = snapshot.data()?.savedtitles;
+
+            setTitleCount((current) => ({
+              ...current,
+              saved: Array.isArray(savedTitles) ? savedTitles.length : 0,
+            }));
+          },
+        );
+
+        unsubscribeWatchlist = onSnapshot(
+          doc(db, "watchlist", user.uid),
+          (snapshot) => {
+            const watchlistTitles = snapshot.data()?.watchlist;
+
+            setTitleCount((current) => ({
+              ...current,
+              watchlist: Array.isArray(watchlistTitles)
+                ? watchlistTitles.length
+                : 0,
+            }));
+          },
+        );
       }
     });
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeSaved?.();
+      unsubscribeWatchlist?.();
+      unsubscribeProfile?.();
+    };
   }, []);
+
+  const currentUser = auth.currentUser;
+  const userImage =
+    profile?.photoURL ||
+    currentUser?.photoURL ||
+    getDefaultAvatarUrl(currentUser?.uid || svg, 70);
+  const userName =
+    profile?.fullname || currentUser?.displayName || "Binge user";
 
   return (
     <div
-      className={`absolute right-0 top-14 z-20 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-bl-3xl border-b border-l border-neutral-700 bg-neutral-900 pb-10 transition-transform ${
+      className={`absolute right-0 top-14 z-40 flex h-auto w-80 animate-none flex-col items-center justify-start rounded-bl-3xl border-b border-l border-neutral-700 bg-neutral-900 pb-10 transition-transform ${
         sideNav ? "-translate-x-0" : "translate-x-96"
       }`}
     >
       <div className="flex h-auto w-full flex-col items-center justify-evenly p-5 pt-8">
         <Image
-          src={
-            auth.currentUser?.photoURL ||
-            `https://api.dicebear.com/7.x/notionists/svg?seed=${svg}&size=70&backgroundColor=b6e3f4,c0aede&backgroundType=gradientLinear,solid&glassesProbability=50`
-          }
+          src={userImage}
           width={70}
           height={70}
           alt="user-Image"
           quality={100}
           className="mb-2 h-[70px] w-[70px] rounded-full border-none bg-gray-200 text-[10px]"
         />
-        <h3 className="mb-2 mt-1 font-semibold text-white">
-          {auth.currentUser?.displayName || "Binge user"}
-        </h3>
+        <h3 className="mb-2 mt-1 font-semibold text-white">{userName}</h3>
         <div className="mx-auto mt-2 flex w-[250px] items-center justify-center px-3">
           <p className="mr-2 text-sm font-medium text-neutral-500">
             Saved titles:
